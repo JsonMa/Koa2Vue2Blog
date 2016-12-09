@@ -11,12 +11,13 @@ const bodyparser = require('koa-bodyparser')();
 const logger = require('koa-logger');
 const mongoose = require('mongoose'); // mongoose
 
-var MONGO_HOST = 'localhost';
+var MONGO_HOST = process.env.BLOG_MONGO_HOST || 'localhost';
 const DBModule = new (require('./modules/modules.js'))(mongoose);
 mongoose.connect(`mongodb://${MONGO_HOST}/blog`); // 数据库链接
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
+	console.log(process);
 	console.log("db opened")
 });
 
@@ -41,7 +42,7 @@ app.use(async (ctx, next) => {
 // router
 let myRouters = fs.readdirSync('./routes');
 myRouters.forEach(name => {
-	name!= 'tools' && (new (require(`./routes/${name}`))(router,DBModule,app)).init();
+	name!= 'tools' && (new (require(`./routes/${name}`))(router, DBModule, app)).init();
 });
 
 app.use(router.routes(), router.allowedMethods());

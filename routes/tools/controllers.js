@@ -14,15 +14,19 @@ export default class {
 		this._ = _;
 	}
 
-	init(){
+	// 初始化
+	init() {
 		this.renders();
 		this.actions();
 	}
 
-	renders(){
+	// 渲染
+	renders() {
+
 	}
 
-	actions(){
+	//行为
+	actions() {
 
 	}
 }

@@ -8,6 +8,7 @@ export default class extends controller {
 			ctx.state= {
 				title: '成功了'
 			};
+			await this.Articles.findArticles();
 			await ctx.render('index')
 		})
 	}

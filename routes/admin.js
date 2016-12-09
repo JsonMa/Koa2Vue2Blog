@@ -6,7 +6,7 @@ export default class extends controller {
 	renders() {
 		this.router.get('/', async(ctx, next) => {
 			ctx.state= {
-				title: '成功了'
+
 			};
 			await ctx.render('index')
 		})

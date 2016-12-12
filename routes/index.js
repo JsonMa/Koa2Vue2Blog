@@ -9,12 +9,12 @@ export default class extends controller {
 				userName: 'mahao',
 				userPass: 'asdfsaf',
 				userDes: 'asdfa',
-				userAvatar: '这是我乱写的',
+				userAvatar: '这是我乱写的'
 			};
-			ctx.state= {
+			ctx.state = {
 				title: '成功了'
 			};
-			await this.Users.saveUser(user);
+			await this.DBModule.Users.saveUser(user);
 			await ctx.render('index')
 		})
 	}

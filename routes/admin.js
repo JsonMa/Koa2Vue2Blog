@@ -4,7 +4,7 @@
 import controller from './tools/controllers'
 export default class extends controller {
 	renders() {
-		this.router.get('/', async(ctx, next) => {
+		this.router.get('/admin', async(ctx, next) => {
 			ctx.state= {
 
 			};

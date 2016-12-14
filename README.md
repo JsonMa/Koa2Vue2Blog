@@ -12,6 +12,7 @@ This is my blog project written with Koa2 and Vue2.
     数据库用的是Mongodb
     数据库操作用的是Mongoose
     登录用的是jwt
+	后端环境变量的设置使用的是[dotenv](https://github.com/motdotla/dotenv "dotenv github地址")
 ### 说明
     后端所有语法均采用的是ES6语法，采用babel进行转译
     

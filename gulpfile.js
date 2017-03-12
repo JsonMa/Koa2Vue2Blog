@@ -8,6 +8,11 @@ var gulp = require('gulp'),
     less = require('gulp-less'),
     watch = require('gulp-watch'),
     notify = require('gulp-notify'), // 该插件用于告知信息
+    LessAutoprefix = require('less-plugin-autoprefix'),
+    autoprefix = new LessAutoprefix({
+        browsers: ["last 2 versions", "iOS >= 4", "ie > 8", "firefox >= 15"],
+        cascade: true
+    }),
     debug = require('gulp-debug'); // 改插件用于打印被编译的文件;
 const sourceMapPath = './maps';
 
@@ -17,7 +22,9 @@ gulp.task('compile-less', function () {
         .pipe(sourcemaps.init())
         .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
         .pipe(changedInPlace()) // 用于编译改动的文件
-        .pipe(less())
+        .pipe(less({
+            plugins: [autoprefix]
+        }))
         .pipe(sourcemaps.write(sourceMapPath))
         .pipe(debug({title: '编译了文件:'}))
         .pipe(gulp.dest('./public/css'));

@@ -1,5 +1,12 @@
 ﻿# 忽略.idea文件夹下面的所有文件
 *.idea
+node_modules
 
 # 忽略.env配置文件
 *.env
+.gitignore
+npm-debug.log
+views/back_end_jade/
+
+# 忽略编译后的CSS文件
+public/css/

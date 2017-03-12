@@ -29,6 +29,21 @@
     "underscore": "1.8.3"
   },
   "devDependencies": {
-    "nodemon": "^1.8.1"
+    "nodemon": "^1.8.1",
+    "gulp": "^3.9.1",
+    "gulp-changed-in-place": "^2.0.3",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-debug": "^3.0.0",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-less": "^3.1.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.3",
+    "gulp-watch": "^4.3.11",
+    "gulp-zip": "^3.2.0"
   }
 }

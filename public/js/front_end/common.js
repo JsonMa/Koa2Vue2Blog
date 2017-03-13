@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2017/3/13.
  */
-($(function () {
+$(function () {
 
     /**
      * 定义headerNavigater对象
@@ -28,4 +28,4 @@
         }
     };
     headerNavigater.init();
-}))();
+});

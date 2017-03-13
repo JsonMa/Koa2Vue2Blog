@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2017/3/13.
  */
-($(function () {
+$(function () {
 
     // 定义indexPage对象
     var indexPage = {
@@ -25,4 +25,4 @@
 
     // 对象初始化
     indexPage.init()
-}))();
+});

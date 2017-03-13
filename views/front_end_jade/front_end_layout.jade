@@ -11,6 +11,8 @@ html
         link(rel='stylesheet', href='/css/front_end/front_end_footer.css')
         // 引入字体样式
         link(rel='stylesheet', href='/plugins/font/font-awesome.css')
+        // 引入swiper
+        link(rel='stylesheet', href='/plugins/swiper/swiper.min.css')
 
         // 定义私有的css block
         block css
@@ -22,6 +24,11 @@ html
 
         // 引入共有的header
         include ./front_end_footer.jade
+
+        // 引入公有的JS文件
+        script(src='/plugins/jquery/jquery.1.12.5.min.js')
+        script(src='/plugins/swiper/swiper.min.js')
+        script(src='/js/front_end/common.js')
 
         // 定义私有的js block
         block js

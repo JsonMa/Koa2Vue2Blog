@@ -2,12 +2,26 @@
 extends ./front_end_layout
 block title
     title 重庆伊尔流体设备制造有限公司
+
 // 引入私有的css
 block css
+    link(rel='stylesheet', href='/css/front_end/front_end_index.css')
 
 block content
-    h1= title
-    p hahaha to #{title}
+    .swiper-container
+        .swiper-wrapper
+            .swiper-slide
+                img(src="/images/front_end/slider_01.jpg")
+            .swiper-slide
+                img(src="/images/front_end/slider_02.png")
+        // 如果需要分页器
+        .swiper-pagination
+        // 如果需要导航按钮
+        .swiper-button-prev
+        .swiper-button-next
+        // 如果需要滚动条
+        .swiper-scrollbar
 
 // 引入私有的js
 block js
+    script(src='/js/front_end/index.js')

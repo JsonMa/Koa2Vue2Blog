@@ -55,6 +55,133 @@
   }
 }
 
+// 视频
+.video-container {
+  height: 533px;
+  width: 100%;
+  background: url('../../images/front_end/video.jpg') no-repeat;
+}
+
+// 应用领域
+.application-container {
+  height: 600px;
+  width: 100%;
+  background: #eaeff1;
+  .application-content {
+    width: 1170px;
+    height: 100%;
+    margin: 0 auto;
+    .application-title {
+      h1 {
+        padding: 60px 0 20px 0;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 1;
+        text-align: center;
+        color: #333
+      }
+      .application-subtitle {
+        text-align: center;
+        font-size: 14px;
+        width: 500px;
+        margin: 0 auto;
+        letter-spacing: .04em;
+        opacity: 0.8;
+        //color: #555;
+      }
+    }
+    .application-detail {
+      width: 100%;
+      margin-top: 40px;
+      .application-left {
+        display: inline-block;
+        width: 170px;
+        height: 400px;
+        vertical-align: top;
+        text-align: right;
+        margin-right: 30px;
+        position: relative;
+        ul {
+          list-style: none;
+          li {
+            display: inline-block;
+            padding: 8px 16px;
+            cursor: pointer;
+            -webkit-transition: all .1s ease-in;
+            -moz-transition: all .1s ease-in;
+            transition: all .1s ease-in;
+            margin-bottom: 10px;
+            border: 0;
+            vertical-align: baseline;
+          }
+          .active {
+            box-shadow: 0 0 20px rgba(0,191,241,.3);
+            border-radius: 6px;
+            -moz-border-radius: 6px;
+            color: #19bbff;
+          }
+        }
+      }
+      .application-right {
+        display: inline-block;
+        height: 400px;
+        border-left: 1px solid #eef1f6;
+        padding-left: 30px;
+        .application-img-container {
+          width: 274px;
+          height: 286px;
+          background: url('../../images/front_end/application_01.jpg') no-repeat;
+          float: left;
+          border-radius: 3px;
+        }
+        .application-des-container {
+          float: left;
+          width: 500px;
+          padding-left: 20px;
+          color: #333;
+          font-size: 14px;
+          h3 {
+            font-weight: 400;
+            font-size: 20px;
+          }
+          .application-des-subtitle {
+            padding-top: 10px;
+          }
+          .application-des-content {
+            padding: 23px 0 45px;
+            text-align: left;
+            line-height: 25px;
+            font-size: 14px;
+            color: #5d5f64;
+          }
+        }
+      }
+      //li {
+      //  list-style: none;
+      //  width: 100%;
+      //  .application-des-container,
+      //  .application-img-container{
+      //    width: 50%;
+      //    float: left;
+      //  }
+      //  .application-des-container {
+      //    color: #333;
+      //    font-size: 14px;
+      //    h3 {
+      //      font-size: 18px;
+      //      padding: 10px 0;
+      //    }
+      //    .application-des-subtitle {
+      //    }
+      //    .application-des-content {
+      //      padding: 10px 0;
+      //    }
+      //  }
+      //}
+    }
+  }
+}
+
 // 公司新闻
 .news-container {
   height: 640px;
@@ -208,4 +335,29 @@
       }
     }
   }
+}
+
+// 按钮样式
+.btn {
+  display: inline-block;
+  width: 102px;
+  height: 38px;
+  background: #ff7f00;
+  line-height: 38px;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0.6;
+  border-radius: 5px;
+  &:hover {
+    opacity: 1;
+  }
+}
+.btn-large {
+  width: 268px;
+  height: 16px;
+  line-height: 16px;
+  font-size: 16px;
+  padding: 16px 25px
 }

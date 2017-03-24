@@ -30,9 +30,22 @@ gulp.task('compile-less', function () {
         .pipe(gulp.dest('./public/css'));
 });
 
+// 编译所有less
+gulp.task('compile-less-all', function () {
+    gulp.src('./public/less/**/*.less')
+        .pipe(sourcemaps.init())
+        .pipe(plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
+        .pipe(less({
+            plugins: [autoprefix]
+        }))
+        .pipe(sourcemaps.write(sourceMapPath))
+        .pipe(debug({title: '编译了文件:'}))
+        .pipe(gulp.dest('./public/css'));
+});
+
 // gulp 默认执行代码
 gulp.task('default', function() {
-    gulp.start('compile-less'); // 调用compile-less任务，编译less文件
+    gulp.start('compile-less-all'); // 调用compile-less任务，编译less文件
     return watch('./public/less/**/*.less', function (event) {
         console.log(event);
         gulp.start('compile-less');

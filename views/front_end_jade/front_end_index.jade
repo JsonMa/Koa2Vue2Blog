@@ -12,8 +12,8 @@ block content
         .swiper-wrapper
             .swiper-slide
                 img(src="/images/front_end/slider_01.jpg")
-            .swiper-slide
-                img(src="/images/front_end/slider_02.png")
+            //.swiper-slide
+            //    img(src="/images/front_end/slider_02.png")
         // 如果需要分页器
         .swiper-pagination
         // 如果需要导航按钮
@@ -90,30 +90,30 @@ block content
     //.video-container
     //    .video-content
     //        h3 一流的设计 专业的制造
-    .application-container
-        .application-content
+    //.application-container
+    //    .application-content
             //.application-title
             //    h1.application-title 核心产品
             //    hr.title-hr
             //    //P.application-subtitle APPLICATION SCOPE FOR FLUID EQUIPMENT
             //    P.application-subtitle 伊尔产品是石油、化工、盐化、制药、造纸、食品、矿山、发电、污水、苯加氢、加氢注水、航空航天等领域必不可少的输送设备
-            .application-detail
-                .application-left
-                    ul
-                        li.active
-                            a.tab-button 化工泵系列
-                        li
-                            a.tab-button 核电泵系列
-                        li
-                            a.tab-button 机械密封系列
-                .application-right
-                    .application-img-container
-                        //img(src = "/images/front_end/application_01.jpg")
-                    .application-des-container
-                        h3.application-des-title 石油、石化领域
-                        p.application-des-subtitle 石油、石化领域石油、石化领域
-                        p.application-des-content 伊尔流体设备所生产的皮托管泵（又名旋转喷射泵、旋壳泵）、磁力泵成功应用于中油恒泰新能源技改项目。确保了该项目一次性开车成功。
-                        a.btn.btn-large(href="") 了解更多
+            //.application-detail
+            //    .application-left
+            //        ul
+            //            li.active
+            //                a.tab-button 化工泵系列
+            //            li
+            //                a.tab-button 核电泵系列
+            //            li
+            //                a.tab-button 机械密封系列
+            //    .application-right
+            //        .application-img-container
+            //            //img(src = "/images/front_end/application_01.jpg")
+            //        .application-des-container
+            //            h3.application-des-title 石油、石化领域
+            //            p.application-des-subtitle 石油、石化领域石油、石化领域
+            //            p.application-des-content 伊尔流体设备所生产的皮托管泵（又名旋转喷射泵、旋壳泵）、磁力泵成功应用于中油恒泰新能源技改项目。确保了该项目一次性开车成功。
+            //            a.btn.btn-large(href="") 了解更多
 
     //.news-container
     //    .news-content
@@ -170,6 +170,86 @@ block content
     //    p.contact-first 重庆伊尔流体设备，值得您的信奈!
     //    p.contact-last
     //        a 联系我们
+    .about-news-container
+        .about-news-content
+            .about-news-left
+                h1.title 关于我们
+                p.content 重庆伊尔流体设备制造有限公司坐落于西部唯一的年轻直辖市--重庆，是一家集生产、研发、销售为一体，并通过ISO9001认证的立卧式石油化工泵制造厂家。我们不是什么都做的企业，我们只专业研发制造：各种立卧式化工流程泵、小流量高扬程皮托管泵（又名旋转喷射泵、旋壳泵）、无泄漏磁力泵以及机械密封。 公司历时5年研发了最新一代石油化工流程泵（严格执行API610“第十一版”标准），最新一代小流量高扬程皮托管泵，最新一代磁力泵以及机械密封。
+                a.about-more 查看更多>>
+            .about-news-right
+                .about-news-right-title
+                    h1.title 新闻资讯
+                    a.news-more 更多新闻>
+                .about-news-right-content
+                    ul
+                        li
+                            .news-item.clearfix
+                                .date-left
+                                    .date-month 26
+                                    .date-day Dec
+                                .content-right
+                                    a(href="http://www.baidu.com").news-title 伊尔人坚持“创新、严谨、卓越”为核心
+                                    .news-abstract 伊尔人坚持“创新、严谨、卓越”为核心； 秉承民族优秀传统，全力打造安全、环保、科技、节能型产品
+                        li
+                            .news-item.clearfix
+                                .date-left
+                                    .date-month 26
+                                    .date-day Dec
+                                .content-right
+                                    a(href="http://www.baidu.com").news-title 伊尔人坚持“创新、严谨、卓越”为核心
+                                    .news-abstract 伊尔人坚持“创新、严谨、卓越”为核心； 秉承民族优秀传统，全力打造安全、环保、科技、节能型产品
+    .product-container
+        .product-content
+            .product-content-title
+                h1.title 产品中心
+                a.product-more 更多产品>
+            .product-content-tab
+                a.active 磁力泵系列
+                a 化工泵系列
+                a 皮托管泵系列
+                a 机械密封系列
+            .product-content-container
+                .swiper-wrapper
+                    .swiper-slide(style="background:red")
+                        p page1
+                    .swiper-slide(style="background:black")
+                        p page2
+                    .swiper-slide(style="background:green")
+                        p page3
+                    .swiper-slide(style="background:red")
+                        p page4
+                    .swiper-slide(style="background:black")
+                        p page5
+                    .swiper-slide(style="background:green")
+                        p page6
+                // 如果需要分页器
+                //.productSwiper-pagination
+                // 如果需要导航按钮
+                //.productSwiper-button-pre
+                //.productSwiper-button-next
+                // 如果需要导航按钮
+                .productSwiper-button-pre
+                .productSwiper-button-next
+                // 如果需要滚动条
+                //.productSwiper-scrollbar
+    .customer-container
+        .customer-content
+            .customer-content-title
+                h1.title 相关客户
+                a.customer-more 更多客户>
+            .customer-content-container
+                .customer-content-container-top
+                    .customer-content-item
+                    .customer-content-item
+                    .customer-content-item
+                    .customer-content-item
+                    .customer-content-item
+                .customer-content-container-bottom
+                    .customer-content-item
+                    .customer-content-item
+                    .customer-content-item
+                    .customer-content-item
+                    .customer-content-item
 
 // 引入私有的js
 block js

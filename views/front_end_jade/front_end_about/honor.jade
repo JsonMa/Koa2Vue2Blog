@@ -1,0 +1,77 @@
+// 集成模板
+extends ../front_end_layout
+block title
+    title 企业概况
+
+// 引入私有的css
+block css
+    link(rel='stylesheet', href='/css/front_end/front_end_about/about.css')
+
+block content
+    .banner-container
+    .content-container
+        .content-title
+            h3.title 荣誉资质   HONOR
+            p.subtitle 首页>>企业概况>>荣誉资质
+        .content-detail
+            .content-detail-left
+                .detail-title
+                    h4 荣誉资质
+                    hr
+                .detail-content-honor
+                    .detail-middle
+                        ul
+                            li
+                                img(src="../images/front_end/about/certifaction01.png")
+                                p 生产许可证
+                            li
+                                img(src="../images/front_end/about/certifaction02.png")
+                                p 生产许可证
+                            li
+                                img(src="../images/front_end/about/certifaction03.png")
+                                p 生产许可证
+                            li
+                                img(src="../images/front_end/about/certifaction04.png")
+                                p 生产许可证
+                            li
+                                img(src="../images/front_end/about/certifaction05.png")
+                                p 生产许可证
+                            li
+                                img(src="../images/front_end/about/certifaction06.png")
+                                p 生产许可证
+
+
+            .content-detail-right
+                .about-nav
+                    h4  栏目列表
+                    ul
+                        li
+                            a(href="../about") 公司简介
+                        li
+                            a(href="../about/develop") 发展历程
+                        li
+                            a(href="../about/honor") 荣誉资质
+                        li
+                            a(href="../about/speech") 董事长致辞
+                .hot-recommend
+                    h4 热点内容
+                    ul
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结,第二代旋壳泵研发成功了，大家都很高兴
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+// 引入私有的js
+block js
+    script(src='/js/front_end/front_end_about/about.js')

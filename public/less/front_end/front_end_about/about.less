@@ -1,0 +1,304 @@
+.banner-container {
+  width: 100%;
+  height: 216px;
+  background: url('../../../images/front_end/banner_common_01.jpg') no-repeat;
+}
+.content-container {
+  background: #ececec;
+  .content-title {
+    width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    top: -130px;
+    color: #fff;
+    h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 12px;
+      padding-bottom: 20px;
+    }
+  }
+  .content-detail {
+    width: 1000px;
+    margin: 0 auto;
+    margin-top: -130px;
+    min-height: 800px;
+    background: #fff;
+    .content-detail-left {
+      width: 750px;
+      float: left;
+      min-height: 400px;
+      .detail-title {
+        padding: 0 20px;
+        h4 {
+          font-size: 14px;
+          padding: 20px 0 10px 0;
+          border-bottom: 1px solid #eee;
+        }
+        hr {
+          height: 2px;
+          width: 55px;
+          background: #1879c6;
+          margin-top: -3px;
+          border: none;
+        }
+      }
+      .detail-content {
+        padding: 0 40px 0 0;
+        .detail-top {
+          span {
+            font-size: 38px;
+            color: #1879c6;
+            padding: 35px;
+            position: relative;
+            top: -80px;
+          }
+          .detail-top-value {
+            display: inline-block;
+            width: 525px;
+            margin-top: 10px;
+            h4 {
+              font-size: 16px;
+              padding: 20px 0 10px 0
+            }
+            p {
+              vertical-align: top;
+              line-height: 24px;
+              font-size: 13px;
+            }
+          }
+        }
+        .detail-middle {
+          padding-left: 35px;
+          line-height: 24px;
+          text-indent: 2em;
+          font-size: 13px;
+          .detail-middle-img {
+            text-align: center;
+            margin-top: 15px;
+            img {
+              padding: 8px;
+              border: 1px solid #eee;
+            }
+          }
+        }
+        .detail-bottom {
+          margin-top: 20px;
+          p {
+            padding: 0 35px;
+            color: rgba(0, 0, 0, 0.8);
+            line-height: 22px;
+            span {
+              color: #1879c6;
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+    a {
+      color: #000;
+      cursor: pointer;
+      &:hover {
+        color: #1879c6;
+      }
+    }
+    .content-detail-right {
+      width: 250px;
+      float: left;
+      font-size: 12px;
+      h4 {
+        font-size: 14px;
+        padding: 20px 0 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .about-nav {
+        ul {
+          li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            &:before {
+              content: '';
+              display: inline-block;
+              height: 5px;
+              width: 5px;
+              position: relative;
+              right: 0;
+              margin-right: 6px;
+              top: -2px;
+              background: url(../../../images/front_end/circle.png) no-repeat;
+            }
+          }
+        }
+      }
+      .hot-recommend {
+        h4 {
+          padding-top: 30px;
+        }
+        ul {
+          padding-right: 15px;
+          li {
+            padding: 5px 0 10px 0;
+            border-bottom: 1px solid #eee;
+            a {
+              display: block;
+              padding: 5px 0;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// develop样式
+.detail-content-develop {
+  padding: 0 40px 0 0;
+  .detail-top {
+    margin-top: 20px;
+    span {
+      font-size: 38px;
+      color: #1879c6;
+      padding: 35px;
+      position: relative;
+      top: -45px;
+    }
+    .detail-top-value {
+      display: inline-block;
+      width: 488px;
+      margin-top: 10px;
+      h4 {
+        font-size: 16px;
+        padding: 20px 0 10px 0
+      }
+      p {
+        vertical-align: top;
+        line-height: 24px;
+        font-size: 13px;
+      }
+    }
+  }
+  .detail-middle {
+    padding-left: 35px;
+    margin-top: 20px;
+    ul {
+      li {
+        span {
+          line-height: 35px;
+          font-size: 13px;
+        }
+        &:before {
+          content: '';
+          display: inline-block;
+          height: 5px;
+          width: 5px;
+          position: relative;
+          right: 0;
+          margin-right: 6px;
+          top: -2px;
+          background: url(../../../images/front_end/circle.png) no-repeat;
+        }
+      }
+    }
+  }
+  .detail-bottom {
+    margin-top: 20px;
+    p {
+      padding: 0 35px;
+      color: rgba(0, 0, 0, 0.8);
+      line-height: 22px;
+      span {
+        color: #1879c6;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+// honor样式
+.detail-content-honor {
+  padding: 0 40px 0 0;
+  .detail-middle {
+    padding-left: 35px;
+    margin-top: 40px;
+    ul {
+      li {
+        float: left;
+        margin-bottom: 10px;
+        img {
+          width: 190px;
+          height: 260px;
+          border: 1px solid #eee;
+          padding: 10px 5px;
+          margin: 0 11px;
+        }
+        p {
+          line-height: 14px;
+          font-size: 13px;
+          text-align: center;
+        }
+      }
+    }
+  }
+  .detail-bottom {
+    margin-top: 20px;
+    p {
+      padding: 0 35px;
+      color: rgba(0, 0, 0, 0.8);
+      line-height: 22px;
+      span {
+        color: #1879c6;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+// speech样式
+.detail-content-speech {
+  padding: 0 40px 0 0;
+  .detail-top {
+    margin-top: 20px;
+    span {
+      font-size: 38px;
+      color: #1879c6;
+      padding: 35px;
+      position: relative;
+      top: -45px;
+    }
+    .detail-top-value {
+      display: inline-block;
+      width: 488px;
+      margin-top: 10px;
+      h4 {
+        font-size: 16px;
+        padding: 20px 0 10px 0
+      }
+      p {
+        vertical-align: top;
+        line-height: 24px;
+        font-size: 13px;
+      }
+    }
+  }
+  .detail-middle {
+    padding-left: 35px;
+    margin-top: 20px;
+    p {
+      text-indent: 2em;
+      font-size: 13px;
+      line-height: 24px;
+    }
+  }
+  .detail-bottom {
+    margin-top: 20px;
+    text-align: right;
+    line-height: 24px;
+  }
+}

@@ -1,0 +1,67 @@
+// 集成模板
+extends ../front_end_layout
+block title
+    title 企业概况
+
+// 引入私有的css
+block css
+    link(rel='stylesheet', href='/css/front_end/front_end_about/about.css')
+
+block content
+    .banner-container
+    .content-container
+        .content-title
+            h3.title 董事长致辞   SPEECH
+            p.subtitle 首页>>企业概况>>董事长致辞
+        .content-detail
+            .content-detail-left
+                .detail-title
+                    h4 董事长致辞
+                    hr
+                .detail-content-speech
+                    .detail-top
+                        span Speech
+                        .detail-top-value
+                            p 江苏海狮泵业制造有限公司创办于1977年4月，1998年由上海水泵厂石油化工泵分厂、江苏新亚化工机械总厂联合组建江苏海狮泵业制造有限公司，2010年在靖江市城南经济开发区投资新建高新产品制造区专门从事立、卧式、单、双吸离心泵、BB2\BB3\BB4\BB5及筒袋泵、高效节能旋壳泵、核级泵、石油化工泵等产品的研发与制造，2012年建成运行。
+                    .detail-middle
+                        p 衷心感谢关注着海狮泵业的每一位朋友，因为您的理解和信任、关心和支持，海狮泵业得以稳健发展。海狮泵业将不负重托，在泵业制造中坚持创新进取、攻克科技难关，以实业兴国而实现新时代的辉煌。在这个过程中，我们没有过丝毫懈怠，始终以“以民促核、以核带民、全面发展、再创辉煌”发展理念做大做强企业，为民族工业的发展尽一份力。
+                        p 我们树立了“团结、开拓、敬业、奋进”的企业精神，采用了世界标准的技术装备，借鉴了先进的管理经验，在技术、规模、管理上逐渐跻身于中国泵业制造行业的前列，为人们的健康和幸福而努力，从点滴做起，从自身做起以提升我们的产品和服务，建设以人为本的和谐企业及社会。我们会继续向国际化迈进，以提供具有国际品质的产品和服务为自己的骄傲和价值取向。
+                        p 我公司拥有一支实力雄厚的科技队伍和管理队伍，以严谨求实的科学态度，开拓进取的工作作风和求实创新的精神致力于产品的开发、生产和应用。我们将以“顾客满意和实现持续的质量改进”为追求的永恒目标，全面贯彻“顾客至上、安全优质、环保健康、遵规守法、持续改进”的质量方针。以良好的“海狮”品牌形象迎接市场、技术、质量、效益的全面挑战，在新的世纪，再创新的辉煌！
+                        p 我们愿和所有的朋友携起手来，团结奋进，共创未来！
+                    .detail-bottom
+                        p 董事长：马忠元
+                        p 2012年12月11日
+            .content-detail-right
+                .about-nav
+                    h4  栏目列表
+                    ul
+                        li
+                            a(href="../about") 公司简介
+                        li
+                            a(href="../about/develop") 发展历程
+                        li
+                            a(href="../about/honor") 荣誉资质
+                        li
+                            a(href="../about/speech") 董事长致辞
+                .hot-recommend
+                    h4 热点内容
+                    ul
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结,第二代旋壳泵研发成功了，大家都很高兴
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+// 引入私有的js
+block js
+    script(src='/js/front_end/front_end_about/about.js')

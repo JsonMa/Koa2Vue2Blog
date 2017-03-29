@@ -1,0 +1,87 @@
+// 集成模板
+extends ../front_end_layout
+block title
+    title 企业概况
+
+// 引入私有的css
+block css
+    link(rel='stylesheet', href='/css/front_end/front_end_about/about.css')
+
+block content
+    .banner-container
+    .content-container
+        .content-title
+            h3.title 发展历程   DEVELOPMENT
+            p.subtitle 首页>>企业概况>>发展历程
+        .content-detail
+            .content-detail-left
+                .detail-title
+                    h4 发展历程
+                    hr
+                .detail-content-develop
+                    .detail-top
+                        span Develop
+                        .detail-top-value
+                            p 江苏海狮泵业制造有限公司创办于1977年4月，1998年由上海水泵厂石油化工泵分厂、江苏新亚化工机械总厂联合组建江苏海狮泵业制造有限公司，2010年在靖江市城南经济开发区投资新建高新产品制造区专门从事立、卧式、单、双吸离心泵、BB2\BB3\BB4\BB5及筒袋泵、高效节能旋壳泵、核级泵、石油化工泵等产品的研发与制造，2012年建成运行。
+                    .detail-middle
+                        ul
+                            li
+                                span 2011年立式多级低温液氧泵通过国家级鉴定
+                            li
+                                span 2011年安全壳喷淋泵、低压安注泵、余热排出泵三种核二级泵通过国家鉴定
+                            li
+                                span 2011年通过API-Q1认证（石油石化和天然气工业质量刚要规范认证）、ASME认证（核级产品认证）
+                            li
+                                span 2011年被评为“中国最具成长力创新型企业”
+                            li
+                                span 2012年取得核二级泵设计和制造资格许可证
+                            li
+                                span 2012年获得中国机械工业联合会颁发的EPR第三代压水堆核电站冷却水泵科学技术奖
+                            li
+                                span 2012年大型石化装置能量回收透平通过国家级鉴定
+                            li
+                                span 2013年在十三里工业园与荷兰AKAY集团合资建设OH泵生产厂
+                            li
+                                span 2013年公司在瓦房店建设大型低温试验台
+                            li
+                                span 2013年取得ISO14001环境管理体系认证
+                            li
+                                span 2013年获得中石化徐州管道院-仪长原油复线工程仪征至九江段/2500KW串联输油泵机组国产化研制项目
+                            li
+                                span 2013年销售额突破10亿元人民币
+                            li
+                                span 2014年获得OHSAS18001职业健康管理体系认证
+            .content-detail-right
+                .about-nav
+                    h4  栏目列表
+                    ul
+                        li
+                            a(href="../about") 公司简介
+                        li
+                            a(href="../about/develop") 发展历程
+                        li
+                            a(href="../about/honor") 荣誉资质
+                        li
+                            a(href="../about/speech") 董事长致辞
+                .hot-recommend
+                    h4 热点内容
+                    ul
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结,第二代旋壳泵研发成功了，大家都很高兴
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+// 引入私有的js
+block js
+    script(src='/js/front_end/front_end_about/about.js')

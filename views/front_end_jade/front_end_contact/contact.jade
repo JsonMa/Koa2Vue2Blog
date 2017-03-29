@@ -1,0 +1,85 @@
+// 集成模板
+extends ../front_end_layout
+block title
+    title 企业概况
+
+// 引入私有的css
+block css
+    link(rel='stylesheet', href='/css/front_end/front_end_contact/contact.css')
+
+block content
+    .banner-container
+    .content-container
+        .content-title
+            h3.title 联系我们   CONTACT
+            p.subtitle 首页>>联系我们
+        .content-detail
+            .content-detail-left
+                .detail-title
+                    h4 联系我们
+                    hr
+                .detail-content-contact
+                    .detail-top
+                        i.fa.fa-map-marker(aria-hidden='true')
+                        .detail-top-right
+                            p 重庆伊尔流体设备制造有限公司
+                            p Chongqing YIR Fluid Equipment Manufacturing Co., Ltd.
+                    .detail-middle
+                        ul
+                            li
+                                span 电话：023-68329999
+                            li
+                                span 传真：023-68325032
+                            li
+                                span 手机：13908342789
+                            li
+                                span 邮编：400707
+                            li
+                                span 邮箱：cqyir@vip.163.com
+                            li
+                                span 地址：重庆市北碚区童家溪镇同兴北路198号
+                    .detail-bottom
+                        p.detail-bottom-title 请告诉我们您的需求
+                        from
+                            ul
+                                li
+                                    label 您的姓名：
+                                        input(type="text" name="guestName")
+                                li
+                                    label 联系电话：
+                                        input(type="text" name="guestPhone")
+                                li
+                                    label 电子邮件：
+                                        input(type="text" name="guestMail")
+                                li
+                                    span 您的留言：
+                                    textarea(rows="10" cols="55" name="guestMessage")
+                            a.btn 提交留言
+            .content-detail-right
+                .about-nav
+                    h4  栏目列表
+                    ul
+                        li
+                            a(href="../contact") 联系我们
+                .hot-recommend
+                    h4 热点内容
+                    ul
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结,第二代旋壳泵研发成功了，大家都很高兴
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+// 引入私有的js
+block js
+    script(src='/js/front_end/front_end_contact/contact.js')

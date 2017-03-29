@@ -1,0 +1,194 @@
+.banner-container {
+  width: 100%;
+  height: 216px;
+  background: url('../../../images/front_end/banner_common_05.jpg') no-repeat;
+}
+.content-container {
+  background: #ececec;
+  .content-title {
+    width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    top: -130px;
+    color: #fff;
+    h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 12px;
+      padding-bottom: 20px;
+    }
+  }
+  .content-detail {
+    width: 1000px;
+    margin: 0 auto;
+    margin-top: -130px;
+    min-height: 840px;
+    background: #fff;
+    .content-detail-left {
+      width: 750px;
+      float: left;
+      min-height: 400px;
+      .detail-title {
+        padding: 0 20px;
+        h4 {
+          font-size: 14px;
+          padding: 20px 0 10px 0;
+          border-bottom: 1px solid #eee;
+        }
+        hr {
+          height: 2px;
+          width: 55px;
+          background: #1879c6;
+          margin-top: -3px;
+          border: none;
+          text-align: left;
+        }
+      }
+      .detail-content-contact {
+        padding: 0 40px;
+        .detail-top {
+          margin-top: 40px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid #eee;
+          i {
+            color: #1879c6;
+            font-size: 30px;
+            position: relative;
+            margin-right: 15px;
+            top: -2px;
+          }
+          .detail-top-right {
+            display: inline-block;
+            width: 500px;
+            p:nth-child(1) {
+              font-size: 14px;
+            }
+          }
+        }
+        .detail-middle {
+          padding-left: 6px;
+          line-height: 24px;
+          text-indent: 2em;
+          font-size: 13px;
+          ul {
+            li {
+              span {
+                line-height: 35px;
+                font-size: 13px;
+              }
+              &:before {
+                content: '';
+                display: inline-block;
+                height: 5px;
+                width: 5px;
+                position: relative;
+                right: 0;
+                margin-right: 6px;
+                top: -2px;
+                background: url(../../../images/front_end/circle.png) no-repeat;
+              }
+            }
+          }
+        }
+        .detail-bottom {
+          margin-top: 20px;
+          p {
+            padding: 10px 32px 20px 32px;
+            color: rgba(0, 0, 0, 0.9);
+            line-height: 22px;
+            font-size: 14px;
+            span {
+              color: #1879c6;
+              font-size: 14px;
+            }
+          }
+          ul {
+            padding: 0 32px;
+            li {
+              padding-bottom: 10px;
+              input {
+                display: inline-block;
+                height: 24px;
+                width: 320px;
+              }
+              span {
+                vertical-align: top;
+              }
+            }
+          }
+          a {
+            display: inline-block;
+            padding: 10px 40px;
+            background: #1879c6;
+            color: #fff;
+            border-radius: 2px;
+            opacity: 0.9;
+            cursor: pointer;
+            margin-left: 92px;
+            margin-top: 20px;
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+    a {
+      color: #000;
+      cursor: pointer;
+      &:hover {
+        color: #1879c6;
+      }
+    }
+    .content-detail-right {
+      width: 250px;
+      float: left;
+      font-size: 12px;
+      h4 {
+        font-size: 14px;
+        padding: 20px 0 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .about-nav {
+        ul {
+          li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            &:before {
+              content: '';
+              display: inline-block;
+              height: 5px;
+              width: 5px;
+              position: relative;
+              right: 0;
+              margin-right: 6px;
+              top: -2px;
+              background: url(../../../images/front_end/circle.png) no-repeat;
+            }
+          }
+        }
+      }
+      .hot-recommend {
+        h4 {
+          padding-top: 30px;
+        }
+        ul {
+          padding-right: 15px;
+          li {
+            padding: 5px 0 10px 0;
+            border-bottom: 1px solid #eee;
+            a {
+              display: block;
+              padding: 5px 0;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -60,6 +60,24 @@ export default class extends controller {
 			};
 			// await this.DBModule.Users.saveUser(user);
 			await ctx.render('./front_end_jade/front_end_about/speech')
+		});
+
+		// 联系我们路由
+		this.router.get('/contact', async(ctx, next) => {
+			ctx.state = {
+				title: '成功了'
+			};
+			// await this.DBModule.Users.saveUser(user);
+			await ctx.render('./front_end_jade/front_end_contact/contact')
+		});
+
+		// 加入我们路由
+		this.router.get('/join', async(ctx, next) => {
+			ctx.state = {
+				title: '成功了'
+			};
+			// await this.DBModule.Users.saveUser(user);
+			await ctx.render('./front_end_jade/front_end_joinus/join')
 		})
 	}
 	

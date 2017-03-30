@@ -40,9 +40,13 @@ app.use(async (ctx, next) => {
 });
 
 // router
-let myRouters = fs.readdirSync('./routes');
-myRouters.forEach(name => {
-	name!= 'tools' && (new (require(`./routes/${name}`))(router, DBModule, app)).init();
+let fontRouters = fs.readdirSync('./routes/front_end');
+fontRouters.forEach(name => {
+	name!= 'tools' && (new (require(`./routes/front_end/${name}`))(router, DBModule, app)).init();
+});
+let backRouters = fs.readdirSync('./routes/back_end');
+backRouters.forEach(name => {
+	name!= 'tools' && (new (require(`./routes/back_end/${name}`))(router, DBModule, app)).init();
 });
 
 app.use(router.routes(), router.allowedMethods());

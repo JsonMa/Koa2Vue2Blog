@@ -1,7 +1,7 @@
 /**
  * Created by Mahao on 2016/12/9.
  */
-import controller from './tools/controllers'
+import controller from '../tools/controllers'
 export default class extends controller {
 	renders() {
 

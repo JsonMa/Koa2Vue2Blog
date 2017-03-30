@@ -1,0 +1,255 @@
+.banner-container {
+  width: 100%;
+  height: 216px;
+  background: url('../../../images/front_end/banner_common_06.jpg') no-repeat;
+}
+.content-container {
+  background: #ececec;
+  .content-title {
+    width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    top: -130px;
+    color: #fff;
+    h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 12px;
+      padding-bottom: 20px;
+    }
+  }
+  .content-detail {
+    width: 1000px;
+    margin: 0 auto;
+    margin-top: -130px;
+    min-height: 840px;
+    background: #fff;
+    .content-detail-left {
+      width: 750px;
+      display: inline-block;
+      min-height: 400px;
+      .detail-title {
+        padding: 0 20px;
+        h4 {
+          font-size: 14px;
+          padding: 20px 0 10px 0;
+          border-bottom: 1px solid #eee;
+        }
+        hr {
+          height: 2px;
+          width: 55px;
+          background: #1879c6;
+          margin-top: -3px;
+          border: none;
+          text-align: left;
+        }
+      }
+      .detail-content-contact {
+        padding: 0 40px;
+        .detail-top {
+          margin-top: 20px;
+          padding-bottom: 20px;
+          display: inline-block;
+          float: left;
+          width: 660px;
+          ul {
+            li {
+              margin-bottom: 10px;
+              float: left;
+              border-bottom: 1px solid #eee;
+              padding-bottom: 6px;
+            }
+            li:nth-child(1) {
+              margin-top: 10px;
+            }
+          }
+          .news-content {
+            .news-item {
+              margin-bottom: 10px;
+              .date-left{
+                float: left;
+                width: 50px;
+                text-align: center;
+                .date-month {
+                  border: 2px solid #eee;
+                  font-size: 20px;
+                  color: #1879c6;
+                  display: inline-block;
+                  padding: 8px 10px;
+                }
+              }
+              .content-right {
+                width: 590px;
+                margin-left: 20px;
+                float: left;
+                position: relative;
+                .news-title {
+                  font-size: 16px;
+                  margin-bottom: 3px;
+                  color: #000;
+                  opacity: 0.8;
+                  font-weight: bold;
+                  &:hover {
+                    color: #1879c6;
+                  }
+                }
+                .news-abstract {
+                  line-height: 19px;
+                  margin-top: 8px;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                  width: 520px;
+                }
+                .news-detail {
+                  margin-bottom: 0;
+                  font-size: 12px;
+                  color: #1879c6;
+                  opacity: 0.9;
+                  cursor: pointer;
+                  position: absolute;
+                  right: 0;
+                  top: 26px;
+                  &:hover {
+                    opacity: 1;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .detail-middle {
+          padding-left: 22px;
+          margin-top: 35px;
+          line-height: 24px;
+          text-indent: 2em;
+          font-size: 13px;
+        }
+        .detail-bottom {
+          margin-top: 10px;
+          .detail-bottom-title {
+            padding: 10px 32px 10px 48px;
+            color: rgba(0, 0, 0, 0.9);
+            line-height: 22px;
+            font-size: 14px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+            &:before {
+              content: '';
+              display: inline-block;
+              height: 5px;
+              width: 5px;
+              position: relative;
+              right: 0;
+              margin-right: 6px;
+              top: -2px;
+              background: url(../../../images/front_end/circle.png) no-repeat;
+            }
+          }
+          ul {
+            padding-left: 72px;
+            li {
+              padding-bottom: 15px;
+              font-size: 14px;
+              .job-container {
+                display: none;
+              }
+              .job-describe {
+                margin-top: 10px;
+                font-size: 13px;
+              }
+              .job-requirement {
+                font-size: 13px;
+              }
+              i {
+                float: right;
+                cursor: pointer;
+              }
+              p {
+                font-size: 13px;
+                text-indent: 2em;
+                margin: 10px 0;
+              }
+              .active {
+                display: block;
+                border-bottom: 1px solid #eee;
+              }
+            }
+          }
+          a {
+            display: inline-block;
+            padding: 10px 40px;
+            background: #1879c6;
+            color: #fff;
+            border-radius: 2px;
+            opacity: 0.9;
+            cursor: pointer;
+            margin-left: 92px;
+            margin-top: 20px;
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+    a {
+      color: #000;
+      cursor: pointer;
+      &:hover {
+        color: #1879c6;
+      }
+    }
+    .content-detail-right {
+      width: 250px;
+      font-size: 12px;
+      display: inline-block;
+      vertical-align: top;
+      h4 {
+        font-size: 14px;
+        padding: 20px 0 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .about-nav {
+        ul {
+          li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            &:before {
+              content: '';
+              display: inline-block;
+              height: 5px;
+              width: 5px;
+              position: relative;
+              right: 0;
+              margin-right: 6px;
+              top: -2px;
+              background: url(../../../images/front_end/circle.png) no-repeat;
+            }
+          }
+        }
+      }
+      .hot-recommend {
+        h4 {
+          padding-top: 30px;
+        }
+        ul {
+          padding-right: 15px;
+          li {
+            padding: 5px 0 10px 0;
+            border-bottom: 1px solid #eee;
+            a {
+              display: block;
+              padding: 5px 0;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+    }
+  }
+}

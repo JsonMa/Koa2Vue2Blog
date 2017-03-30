@@ -1,7 +1,7 @@
 // 集成模板
 extends ../front_end_layout
 block title
-    title 企业概况
+    title 联系我们
 
 // 引入私有的css
 block css
@@ -45,9 +45,11 @@ block content
                                 li
                                     label 您的姓名：
                                         input(type="text" name="guestName")
+                                    span.must  *
                                 li
                                     label 联系电话：
                                         input(type="text" name="guestPhone")
+                                    span.must  *
                                 li
                                     label 电子邮件：
                                         input(type="text" name="guestMail")

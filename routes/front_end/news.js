@@ -16,7 +16,7 @@ export default class extends controller {
 			}; // 数据库查询参数
 
 			ctx.state = {}; // 返回的数据
-			let totalNews = await this.DBModule.News.findTotalNews(); // 获取总条数
+			let totalNews = await this.DBModule.News.findTotalNews({newsType: 'company'}); // 获取公司新闻总条数
             let total = totalNews.count; // 新闻总条数
             let result = await this.DBModule.News.findNewsList(queryParams); // 当前查询条件下的新闻数据
             let isFirstPage = queryParams.pageNum - 1 == 0; //　是否第一页
@@ -43,12 +43,37 @@ export default class extends controller {
 
 		// 行业新闻路由
 		this.router.get('/news/industry', async(ctx, next) => {
-			ctx.state = {
-				title: '成功了',
-				dataTotal: 10,
-				total: 12
-			};
-			// await this.DBModule.Users.saveUser(user);
+            let pageNum = ctx.query.page ? parseInt(ctx.query.page) : 1; // 获取页数
+            // console.log(ctx.query.page);
+            let queryParams = {
+                pageNum: pageNum, // 当前页数
+                pageSize: 2, // 每页显示数量
+                newsType: 'industry' // 新闻类型
+            }; // 数据库查询参数
+
+            ctx.state = {}; // 返回的数据初始化
+            let totalNews = await this.DBModule.News.findTotalNews({newsType: 'industry'}); // 获取industry新闻总条数
+            let total = totalNews.count; // 新闻总条数
+            let result = await this.DBModule.News.findNewsList(queryParams); // 当前查询条件下的新闻数据
+            let isFirstPage = queryParams.pageNum - 1 == 0; //　是否第一页
+            let isLastPage = ((queryParams.pageNum - 1) * queryParams.pageSize + result.data.length) == total; // 是否最后一页
+            let responseData = {
+                pageNum: queryParams.pageNum,
+                pageSize: queryParams.pageSize,
+                isFirstPage: isFirstPage,
+                isLastPage: isLastPage,
+                total: total,
+                newsData: result.data,
+                requestUrl: '../news/industry?page='
+            };
+            ctx.state = responseData;
+
+            // 判断是否是debug
+            var debug = ctx.request.query._d;
+            if (debug == 1) {
+                ctx.body = ctx.state;
+                return false;
+            }
 			await ctx.render('./front_end_jade/front_end_news/industry_news')
 		});
 

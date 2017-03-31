@@ -2,7 +2,7 @@
  * Created by Mahao on 2017/3/31.
  */
 export default class {
-	constructor(mongoose, _) {
+	constructor(mongoose, _, moment) {
 		this._ = _;
 		let Schema = mongoose.Schema;
 		var newsSchema =  new Schema({
@@ -33,8 +33,15 @@ export default class {
 				default: false
 			} // 是否隐藏
 		},{
-			versionKey: false // 是否禁用字段“__v”，表示是否是通过save创建的
+			versionKey: false, // 是否禁用字段“__v”，表示是否是通过save创建的
+            timestamps: { createdAt: 'createTime', updatedAt: 'updateTime' }
 		});
+        newsSchema.virtual('formatCreatedTime').get(function () {
+            return moment(this.createTime).format('YYYY-MM-DD');
+        }); // 设置虚拟时间属性
+        newsSchema.virtual('formatUpdateTime').get(function () {
+            return moment(this.updatedAt).format('YYYY-MM-DD');
+        }); // 设置虚拟时间属性
 		// newsSchema.set('toJSON', { getters: true, virtuals: true});
 		// newsSchema.set('toObject', { getters: true, virtuals: true});
 		// newsSchema.path('createTime').get(function (v) {
@@ -123,8 +130,7 @@ export default class {
 	findNewsList(params) {
 		if(params) {
 			return new Promise((resolve, reject) => {
-                console.log(params);
-                this.News.find({})
+                this.News.find({newsType: params.newsType})
                     .skip((params.pageNum - 1) * params.pageSize)
                     .limit(params.pageSize)
                     .exec(function (err, res){
@@ -141,17 +147,21 @@ export default class {
 	}
 
     // 查询所有的新闻数目
-    findTotalNews() {
+    findTotalNews(queryParams) {
         return new Promise((resolve, reject) => {
-            this.News.count({}, function (err, count){
+            if (queryParams && typeof queryParams == "object") {
+                this.News.count(queryParams, function (err, count){
 
-                // res 为查询到的文档
-                if (err) {
-                    reject({ status: false, msg: err})
-                } else {
-                    resolve({ status: true, msg: '新闻总条数查询成功', count: count})
-                }
-            })
+                    // res 为查询到的文档
+                    if (err) {
+                        reject({ status: false, msg: err})
+                    } else {
+                        resolve({ status: true, msg: '新闻总条数查询成功', count: count})
+                    }
+                })
+            } else {
+                reject({ status: false, msg: '非法的查询参数'})
+            }
         })
     }
 }

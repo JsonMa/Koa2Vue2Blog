@@ -22,51 +22,18 @@ block content
                     .detail-top
                         .news-content
                             ul
+                                - for (var news in newsData)
                                 li
                                     .news-item.clearfix
                                         .date-left
-                                            .date-month 26
-                                            .date-day Dec
+                                            - var month = (newsData[news].createTime).toString().split(' ')[1];
+                                            - var day = (newsData[news].createTime).toString().split(' ')[2];
+                                            .date-month #{day}
+                                            .date-day #{month}
                                         .content-right
-                                            a(href="http://www.baidu.com").news-title 伊尔人坚持“创新、严谨、卓越”为核心
-                                            .news-abstract 伊尔人坚持“创新、严谨、卓越”为核心； 秉承民族优秀传统，全力打造安全、环保、科技、节能型产品
-                                            a.news-detail(href="http://www.baidu.com") [查看详情]
-                                li
-                                    .news-item.clearfix
-                                        .date-left
-                                            .date-month 26
-                                            .date-day Dec
-                                        .content-right
-                                            a.news-title(href="http://www.baidu.com") 伊尔人坚持“创新、严谨、卓越”为核心
-                                            .news-abstract 伊尔人坚持“创新、严谨、卓越”为核心； 秉承民族优秀传统，全力打造安全、环保、科技、节能型产品环保、科技、节能型产品环保、科技、节能型产品环保、科技、节能型产品
-                                            a.news-detail(href="http://www.baidu.com") [查看详情]
-                                li
-                                    .news-item.clearfix
-                                        .date-left
-                                            .date-month 26
-                                            .date-day Dec
-                                        .content-right
-                                            a.news-title(href="http://www.baidu.com") 伊尔人坚持“创新、严谨、卓越”为核心
-                                            .news-abstract 伊尔人坚持“创新、严谨、卓越”为核心； 秉承民族优秀传统，全力打造安全、环保、科技、节能型产品环保、科技、节能型产品环保、科技、节能型产品环保、科技、节能型产品
-                                            a.news-detail(href="http://www.baidu.com") [查看详情]
-                                li
-                                    .news-item.clearfix
-                                        .date-left
-                                            .date-month 26
-                                            .date-day Dec
-                                        .content-right
-                                            a.news-title(href="http://www.baidu.com") 伊尔人坚持“创新、严谨、卓越”为核心
-                                            .news-abstract 伊尔人坚持“创新、严谨、卓越”为核心； 秉承民族优秀传统，全力打造安全、环保、科技、节能型产品环保、科技、节能型产品环保、科技、节能型产品环保、科技、节能型产品
-                                            a.news-detail(href="http://www.baidu.com") [查看详情]
-                                li
-                                    .news-item.clearfix
-                                        .date-left
-                                            .date-month 26
-                                            .date-day Dec
-                                        .content-right
-                                            a.news-title(href="http://www.baidu.com") 伊尔人坚持“创新、严谨、卓越”为核心
-                                            .news-abstract 伊尔人坚持“创新、严谨、卓越”为核心； 秉承民族优秀传统，全力打造安全、环保、科技、节能型产品环保、科技、节能型产品环保、科技、节能型产品环保、科技、节能型产品
-                                            a.news-detail(href="http://www.baidu.com") [查看详情]
+                                            a(href="../news/detail?id=#{newsData[news]._id}").news-title #{newsData[news].title}
+                                            .news-abstract #{newsData[news].subTitle}
+                                            a.news-detail(href="../news/detail?id=#{newsData[news]._id}") [查看详情]
                     .detail-bottom
                         include ../front_end_paging.jade
             .content-detail-right

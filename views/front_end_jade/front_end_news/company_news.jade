@@ -26,10 +26,10 @@ block content
                                     li
                                         .news-item.clearfix
                                             .date-left
-                                                //- var month = (newsData[news].createTime).toString().split(' ')[1];
-                                                //- var day = (newsData[news].createTime).toString().split(' ')[2];
-                                                //.date-month #{day}
-                                                //.date-day #{month}
+                                                - var month = (newsData[news].createTime).toString().split(' ')[1];
+                                                - var day = (newsData[news].createTime).toString().split(' ')[2];
+                                                .date-month #{day}
+                                                .date-day #{month}
                                             .content-right
                                                 a(href="../news/detail?id=#{newsData[news]._id}").news-title #{newsData[news].title}
                                                 .news-abstract #{newsData[news].subTitle}

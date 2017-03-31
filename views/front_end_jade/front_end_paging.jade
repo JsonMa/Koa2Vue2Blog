@@ -1,12 +1,14 @@
-nav(aria-label='Page navigation')
+nav.navigation
     ul.pagination
         li
-            a(href='#', aria-label='Previous')
-                span(aria-hidden='true') «
+            a(href='#') 首页
+        li
+            a.page-control.previous(href='#')
+                span(aria-hidden='true') 上一页
         li
             a(href='#') 1
         li
-            a(href='#') 2
+            a.active(href='#') 2
         li
             a(href='#') 3
         li
@@ -14,5 +16,7 @@ nav(aria-label='Page navigation')
         li
             a(href='#') 5
         li
-            a(href='#', aria-label='Next')
-                span(aria-hidden='true') »
+            a.page-control.next(href='#')
+                span(aria-hidden='true') 下一页
+        li
+            a(href='#') 末页

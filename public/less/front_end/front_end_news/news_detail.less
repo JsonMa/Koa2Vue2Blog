@@ -1,0 +1,186 @@
+.banner-container {
+  width: 100%;
+  height: 216px;
+  background: url('../../../images/front_end/banner_common_06.jpg') no-repeat;
+}
+.content-container {
+  background: #ececec;
+  .content-title {
+    width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    top: -130px;
+    color: #fff;
+    h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 12px;
+      padding-bottom: 20px;
+    }
+  }
+  .content-detail {
+    width: 1000px;
+    margin: 0 auto;
+    margin-top: -130px;
+    min-height: 840px;
+    background: #fff;
+    .content-detail-left {
+      width: 750px;
+      display: inline-block;
+      min-height: 400px;
+      .detail-title {
+        padding: 0 20px;
+        h4 {
+          font-size: 14px;
+          padding: 20px 0 10px 0;
+          border-bottom: 1px solid #eee;
+        }
+        hr {
+          height: 2px;
+          width: 55px;
+          background: #1879c6;
+          margin-top: -3px;
+          border: none;
+          text-align: left;
+        }
+      }
+      .detail-content-news {
+        padding: 0 40px;
+        .detail-top {
+          margin-top: 20px;
+          padding-bottom: 20px;
+          display: inline-block;
+          width: 660px;
+          .news-title {
+            h4 {
+              font-size: 18px;
+              text-align: center;
+              margin: 20px 0 30px 0;
+            }
+            text-align: right;
+            .origin,.time {
+              display: inline-block;
+              font-size: 13px;
+            }
+            .time {
+              margin-left: 20px;
+            }
+          }
+          .news-abstract {
+            margin-top: 20px;
+            p {
+              line-height: 24px;
+              font-size: 13px;
+            }
+          }
+          .news-content {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            p {
+              line-height: 24px;
+              font-size: 13px;
+              text-indent: 2em;
+            }
+          }
+        }
+        .detail-bottom {
+          margin-top: 10px;
+          font-size: 13px;
+          .news-from,.key-word {
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            .news-from-value {
+              font-weight: normal;
+              margin-left: 10px;
+            }
+            .key-word-value {
+              margin-left: 10px;
+              font-weight: normal;
+            }
+          }
+          .news-switch {
+            font-weight: bold;
+            div {
+              display: inline-block;
+            }
+            .news-switch-left {
+              width: 330px;
+            }
+            .news-switch-previous,.news-switch-next {
+              font-weight: normal;
+            }
+          }
+          a {
+            margin-left: 10px;
+            opacity: 0.9;
+            cursor: pointer;
+            &:hover {
+              opacity: 1;
+              color: #1879c6;
+            }
+          }
+        }
+      }
+    }
+    a {
+      color: #000;
+      cursor: pointer;
+      &:hover {
+        color: #1879c6;
+      }
+    }
+    .content-detail-right {
+      width: 250px;
+      font-size: 12px;
+      display: inline-block;
+      vertical-align: top;
+      h4 {
+        font-size: 14px;
+        padding: 20px 0 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .about-nav {
+        ul {
+          li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            &:before {
+              content: '';
+              display: inline-block;
+              height: 5px;
+              width: 5px;
+              position: relative;
+              right: 0;
+              margin-right: 6px;
+              top: -2px;
+              background: url(../../../images/front_end/circle.png) no-repeat;
+            }
+          }
+        }
+      }
+      .hot-recommend {
+        h4 {
+          padding-top: 30px;
+        }
+        ul {
+          padding-right: 15px;
+          li {
+            padding: 5px 0 10px 0;
+            border-bottom: 1px solid #eee;
+            a {
+              display: block;
+              padding: 5px 0;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+    }
+  }
+}

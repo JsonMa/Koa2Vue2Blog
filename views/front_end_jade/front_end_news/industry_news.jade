@@ -1,0 +1,101 @@
+// 集成模板
+extends ../front_end_layout
+block title
+    title 资讯中心
+
+// 引入私有的css
+block css
+    link(rel='stylesheet', href='/css/front_end/front_end_news/news.css')
+
+block content
+    .banner-container
+    .content-container
+        .content-title
+            h3.title 新闻资讯  NEWS CENTER
+            p.subtitle 首页>>新闻资讯>>行业新闻
+        .content-detail
+            .content-detail-left
+                .detail-title
+                    h4 新闻资讯
+                    hr
+                .detail-content-contact
+                    .detail-top
+                        .news-content
+                            ul
+                                li
+                                    .news-item.clearfix
+                                        .date-left
+                                            .date-month 26
+                                            .date-day Dec
+                                        .content-right
+                                            a(href="http://www.baidu.com").news-title 伊尔人坚持“创新、严谨、卓越”为核心
+                                            .news-abstract 伊尔人坚持“创新、严谨、卓越”为核心； 秉承民族优秀传统，全力打造安全、环保、科技、节能型产品
+                                            a.news-detail(href="http://www.baidu.com") [查看详情]
+                                li
+                                    .news-item.clearfix
+                                        .date-left
+                                            .date-month 26
+                                            .date-day Dec
+                                        .content-right
+                                            a.news-title(href="http://www.baidu.com") 伊尔人坚持“创新、严谨、卓越”为核心
+                                            .news-abstract 伊尔人坚持“创新、严谨、卓越”为核心； 秉承民族优秀传统，全力打造安全、环保、科技、节能型产品环保、科技、节能型产品环保、科技、节能型产品环保、科技、节能型产品
+                                            a.news-detail(href="http://www.baidu.com") [查看详情]
+                                li
+                                    .news-item.clearfix
+                                        .date-left
+                                            .date-month 26
+                                            .date-day Dec
+                                        .content-right
+                                            a.news-title(href="http://www.baidu.com") 伊尔人坚持“创新、严谨、卓越”为核心
+                                            .news-abstract 伊尔人坚持“创新、严谨、卓越”为核心； 秉承民族优秀传统，全力打造安全、环保、科技、节能型产品环保、科技、节能型产品环保、科技、节能型产品环保、科技、节能型产品
+                                            a.news-detail(href="http://www.baidu.com") [查看详情]
+                                li
+                                    .news-item.clearfix
+                                        .date-left
+                                            .date-month 26
+                                            .date-day Dec
+                                        .content-right
+                                            a.news-title(href="http://www.baidu.com") 伊尔人坚持“创新、严谨、卓越”为核心
+                                            .news-abstract 伊尔人坚持“创新、严谨、卓越”为核心； 秉承民族优秀传统，全力打造安全、环保、科技、节能型产品环保、科技、节能型产品环保、科技、节能型产品环保、科技、节能型产品
+                                            a.news-detail(href="http://www.baidu.com") [查看详情]
+                                li
+                                    .news-item.clearfix
+                                        .date-left
+                                            .date-month 26
+                                            .date-day Dec
+                                        .content-right
+                                            a.news-title(href="http://www.baidu.com") 伊尔人坚持“创新、严谨、卓越”为核心
+                                            .news-abstract 伊尔人坚持“创新、严谨、卓越”为核心； 秉承民族优秀传统，全力打造安全、环保、科技、节能型产品环保、科技、节能型产品环保、科技、节能型产品环保、科技、节能型产品
+                                            a.news-detail(href="http://www.baidu.com") [查看详情]
+                    .detail-bottom
+                        include ../front_end_paging.jade
+            .content-detail-right
+                .about-nav
+                    h4  栏目列表
+                    ul
+                        li
+                            a(href="../news/company") 公司新闻
+                        li
+                            a(href="../news/industry") 行业新闻
+                .hot-recommend
+                    h4 热点内容
+                    ul
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结,第二代旋壳泵研发成功了，大家都很高兴
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+// 引入私有的js
+block js
+    script(src='/js/front_end/front_end_news/news.js')

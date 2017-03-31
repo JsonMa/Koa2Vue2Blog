@@ -1,22 +1,32 @@
 nav.navigation
     ul.pagination
         li
-            a(href='#') 首页
+            - var firstUrl = requestUrl + 1;
+            a(href='#{firstUrl}') 首页
         li
-            a.page-control.previous(href='#')
-                span(aria-hidden='true') 上一页
+            - var preUrl = requestUrl + (pageNum - 1);
+            if (pageNum - 1) == 0
+                a.page-control.next.disabled(href='javascript:void(0)')
+                    span.disabled(aria-hidden='true') 上一页
+            else
+                a.page-control.previous(href='#{preUrl}')
+                    span(aria-hidden='true') 上一页
+        - var totalPage = Math.ceil(total / pageSize);
+        - for (var i = 1; i <= totalPage; i++)
+            - var url = requestUrl + i;
+            li
+                if i == pageNum
+                    a.active(href='#{ url }')  #{ i }
+                else
+                    a(href='#{url}') #{ i }
         li
-            a(href='#') 1
+            - var nextUrl = requestUrl + (pageNum + 1);
+            if (pageNum + 1) >= totalPage
+                a.page-control.next.disabled(href='javascript:void(0)')
+                    span.disabled(aria-hidden='true') 下一页
+            else
+                a.page-control.next(href='#{ nextUrl }')
+                    span(aria-hidden='true') 下一页
         li
-            a.active(href='#') 2
-        li
-            a(href='#') 3
-        li
-            a(href='#') 4
-        li
-            a(href='#') 5
-        li
-            a.page-control.next(href='#')
-                span(aria-hidden='true') 下一页
-        li
-            a(href='#') 末页
+            - var lastUrl = requestUrl + totalPage;
+            a(href='#{lastUrl}') 末页

@@ -10,7 +10,13 @@ export default class extends controller {
 			ctx.state = {
 				title: '成功了'
 			};
-			// await this.DBModule.Users.saveUser(user);
+			var user = {
+				userName: 'asdf',
+				userPass: 'afdas',
+				userDes: 'afsdasf',
+				userAvatar: 'asdfas'
+			};
+			await this.DBModule.Users.saveUser(user);
 			await ctx.render('./front_end_jade/front_end_index')
 		});
 

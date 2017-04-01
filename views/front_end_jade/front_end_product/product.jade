@@ -1,7 +1,7 @@
 // 集成模板
 extends ../front_end_layout
 block title
-    title 资讯中心
+    title 产品中心
 
 // 引入私有的css
 block css
@@ -23,61 +23,20 @@ block content
                     .detail-top
                         .product--content
                             ul
-                                li
-                                    .product-content-left
-                                        img(src="../images/front_end/product/pump_pitot_01.jpg")
-                                    .product-content-right
-                                        p 余热排出泵（核安全二级）
-                                        p 结构：
-                                        p 设计标准：RCC-M《压水堆核岛机械设备设计和建造规则》
-                                        p 流量：120m3/h，910m3/h，1475m3/h
-                                        p 扬程：95m，77m，≈43m
-                                        p 温度：200℃
-                                        p 压力：10.0 MPa
-                                li
-                                    .product-content-left
-                                        img(src="../images/front_end/product/pump_pitot_01.jpg")
-                                    .product-content-right
-                                        p 余热排出泵（核安全二级）
-                                        p 结构：
-                                        p 设计标准：RCC-M《压水堆核岛机械设备设计和建造规则》
-                                        p 流量：120m3/h，910m3/h，1475m3/h
-                                        p 扬程：95m，77m，≈43m
-                                        p 温度：200℃
-                                        p 压力：10.0 MPa
-                                li
-                                    .product-content-left
-                                        img(src="../images/front_end/product/pump_pitot_01.jpg")
-                                    .product-content-right
-                                        p 余热排出泵（核安全二级）
-                                        p 结构：
-                                        p 设计标准：RCC-M《压水堆核岛机械设备设计和建造规则》
-                                        p 流量：120m3/h，910m3/h，1475m3/h
-                                        p 扬程：95m，77m，≈43m
-                                        p 温度：200℃
-                                        p 压力：10.0 MPa
-                                li
-                                    .product-content-left
-                                        img(src="../images/front_end/product/pump_pitot_01.jpg")
-                                    .product-content-right
-                                        p 余热排出泵（核安全二级）
-                                        p 结构：
-                                        p 设计标准：RCC-M《压水堆核岛机械设备设计和建造规则》
-                                        p 流量：120m3/h，910m3/h，1475m3/h
-                                        p 扬程：95m，77m，≈43m
-                                        p 温度：200℃
-                                        p 压力：10.0 MPa
-                                li
-                                    .product-content-left
-                                        img(src="../images/front_end/product/pump_pitot_01.jpg")
-                                    .product-content-right
-                                        p 余热排出泵（核安全二级）
-                                        p 结构：
-                                        p 设计标准：RCC-M《压水堆核岛机械设备设计和建造规则》
-                                        p 流量：120m3/h，910m3/h，1475m3/h
-                                        p 扬程：95m，77m，≈43m
-                                        p 温度：200℃
-                                        p 压力：10.0 MPa
+                                - for (var index in pumpData)
+                                    li
+                                        - var pump = pumpData[index];
+                                        .product-content-left
+                                            img(src="#{pump.imgUrl}" alt="#{pump.name}")
+                                        .product-content-right
+                                            a.product-name(href="../product/detail?page=#{pageNum}&id=#{pump._id}&type=pumps") #{pump.name}#{pump.safeStage}
+                                            p 结构：#{pump.params.structure}
+                                            p 设计标准：#{pump.params.standard}
+                                            p 流量：#{pump.params.flow}
+                                            p 扬程：#{pump.params.high}
+                                            p 温度：#{pump.params.temperature}
+                                            p 压力：#{pump.params.pressure}
+
                     .detail-bottom
                         include ../front_end_paging.jade
             .content-detail-right
@@ -113,4 +72,4 @@ block content
 
 // 引入私有的js
 block js
-    script(src='/js/front_end/front_end_product/product.js')
+    script(src='/js/front_end/front_end_product/pump.js')

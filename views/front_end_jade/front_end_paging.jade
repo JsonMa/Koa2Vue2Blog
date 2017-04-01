@@ -21,7 +21,7 @@ nav.navigation
                     a(href='#{url}') #{ i }
         li
             - var nextUrl = requestUrl + (pageNum + 1);
-            if (pageNum + 1) >= totalPage
+            if (pageNum + 1) > totalPage
                 a.page-control.next.disabled(href='javascript:void(0)')
                     span.disabled(aria-hidden='true') 下一页
             else

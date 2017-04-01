@@ -7,30 +7,30 @@ export default class extends controller {
 
         // 产品中心--泵
         this.router.get('/product/pumps', async(ctx, next) => {
-            // let pageNum = ctx.query.page ? parseInt(ctx.query.page) : 1; // 获取页数
-            // // console.log(ctx.query.page);
-            // let queryParams = {
-            //     pageNum: pageNum, // 当前页数
-            //     pageSize: 2, // 每页显示数量
-            //     newsType: 'company' // 新闻类型
-            // }; // 数据库查询参数
-            //
-            // ctx.state = {}; // 返回的数据
-            // let totalNews = await this.DBModule.News.findTotalNews({newsType: 'company'}); // 获取公司新闻总条数
-            // let total = totalNews.count; // 新闻总条数
-            // let result = await this.DBModule.News.findNewsList(queryParams); // 当前查询条件下的新闻数据
-            // let isFirstPage = queryParams.pageNum - 1 == 0; //　是否第一页
-            // let isLastPage = ((queryParams.pageNum - 1) * queryParams.pageSize + result.data.length) == total; // 是否最后一页
-            // let responseData = {
-            //     pageNum: queryParams.pageNum,
-            //     pageSize: queryParams.pageSize,
-            //     isFirstPage: isFirstPage,
-            //     isLastPage: isLastPage,
-            //     total: total,
-            //     newsData: result.data,
-            //     requestUrl: '../news/company?page='
-            // };
-            // ctx.state = responseData;
+            let pageNum = ctx.query.page ? parseInt(ctx.query.page) : 1; // 获取页数
+            let queryParams = {
+                pageNum: pageNum, // 当前页数
+                pageSize: 6, // 每页显示数量
+                pumpType: 'company' // 泵类型
+            }; // 数据库查询参数
+            
+            ctx.state = {}; // 返回的数据
+            let totalPumps = await this.DBModule.Pumps.findTotalPump({pumpType: 'company'}); // 获取泵总条数
+            let total = totalPumps.count; // 泵总条数
+            let result = await this.DBModule.Pumps.findPumpList(queryParams); // 当前查询条件下的新闻数据
+            let isFirstPage = queryParams.pageNum - 1 == 0; //　是否第一页
+            let isLastPage = ((queryParams.pageNum - 1) * queryParams.pageSize + result.data.length) == total; // 是否最后一页
+            let responseData = {
+                pageNum: queryParams.pageNum,
+                pageSize: queryParams.pageSize,
+                isFirstPage: isFirstPage,
+                isLastPage: isLastPage,
+                total: total,
+                pumpData: result.data,
+                requestUrl: '../product/pumps?page='
+            };
+            ctx.state = responseData;
+            // await this.DBModule.Pumps.savePump(); // 保存泵
 
             // 判断是否是debug
             var debug = ctx.request.query._d;
@@ -80,11 +80,16 @@ export default class extends controller {
         // 产品详情
         this.router.get('/product/detail', async(ctx, next) => {
             ctx.state = { }; // 设置state为空对象
-            let newsId = ctx.query.id; // 获取新闻的ID
-            // await this.DBModule.News.saveNews(); // 获取当前新闻
-            ctx.state.nowNews = await this.DBModule.News.findNews(newsId); // 获取当前新闻
-            ctx.state.nextNews = await this.DBModule.News.findNewsNext(newsId); // 获取后一条新闻
-            ctx.state.lastNews = await this.DBModule.News.findNewsPrevious(newsId); // 获取前一条新闻
+            let productId = ctx.query.id; // 获取产品的ID
+            let queryParams = {
+                queryId: ctx.query.id,
+                queryPage: ctx.query.page,
+                queryType: ctx.query.type
+            };
+            ctx.state.queryParams = queryParams; // 返回查询的参数
+            ctx.state.nowProduct = await this.DBModule.Pumps.findPump(productId); // 获取当前产品信息
+            // ctx.state.nextProduct = await this.DBModule.Pumps.findPumpNext(productId); // 获取后一条新闻
+            // ctx.state.lastPr = await this.DBModule.Pumps.findPumpPrevious(productId); // 获取前一条新闻
 
             // 判断是否是debug
             var debug = ctx.request.query._d;
@@ -92,7 +97,7 @@ export default class extends controller {
                 ctx.body = ctx.state;
                 return false;
             }
-            await ctx.render('./front_end_jade/front_end_news/detail_news')
+            await ctx.render('./front_end_jade/front_end_product/product_detail')
         });
     }
 

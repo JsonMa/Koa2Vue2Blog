@@ -11,7 +11,7 @@ export default class extends controller {
             // console.log(ctx.query.page);
 			let queryParams = {
 				pageNum: pageNum, // 当前页数
-				pageSize: 2, // 每页显示数量
+				pageSize: 8, // 每页显示数量
                 newsType: 'company' // 新闻类型
 			}; // 数据库查询参数
 

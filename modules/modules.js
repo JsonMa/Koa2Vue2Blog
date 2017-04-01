@@ -9,5 +9,6 @@ export default class {
 		this.Articles = new (require('./articles.js'))(mongoose, _, moment);
 		this.Users = new (require('./users.js'))(mongoose, _, moment);
 		this.News = new (require('./news.js'))(mongoose, _, moment);
+		this.Pumps = new (require('./pump.js'))(mongoose, _, moment);
 	}
 }

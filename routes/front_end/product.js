@@ -8,14 +8,15 @@ export default class extends controller {
         // 产品中心--泵
         this.router.get('/product/pumps', async(ctx, next) => {
             let pageNum = ctx.query.page ? parseInt(ctx.query.page) : 1; // 获取页数
+            let series = ctx.query.series; // 获取系列类型
             let queryParams = {
                 pageNum: pageNum, // 当前页数
-                pageSize: 6, // 每页显示数量
-                pumpType: 'company' // 泵类型
+                pageSize: 5, // 每页显示数量
+                pumpType: series // 泵类型
             }; // 数据库查询参数
             
             ctx.state = {}; // 返回的数据
-            let totalPumps = await this.DBModule.Pumps.findTotalPump({pumpType: 'company'}); // 获取泵总条数
+            let totalPumps = await this.DBModule.Pumps.findTotalPump({pumpType: queryParams.pumpType}); // 获取泵总条数
             let total = totalPumps.count; // 泵总条数
             let result = await this.DBModule.Pumps.findPumpList(queryParams); // 当前查询条件下的新闻数据
             let isFirstPage = queryParams.pageNum - 1 == 0; //　是否第一页
@@ -26,6 +27,7 @@ export default class extends controller {
                 isFirstPage: isFirstPage,
                 isLastPage: isLastPage,
                 total: total,
+                series: series,
                 pumpData: result.data,
                 requestUrl: '../product/pumps?page='
             };
@@ -84,7 +86,8 @@ export default class extends controller {
             let queryParams = {
                 queryId: ctx.query.id,
                 queryPage: ctx.query.page,
-                queryType: ctx.query.type
+                queryType: ctx.query.type,
+                series: ctx.query.series
             };
             ctx.state.queryParams = queryParams; // 返回查询的参数
             ctx.state.nowProduct = await this.DBModule.Pumps.findPump(productId); // 获取当前产品信息

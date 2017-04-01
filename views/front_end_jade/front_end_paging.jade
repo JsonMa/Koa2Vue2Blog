@@ -1,32 +1,33 @@
-nav.navigation
-    ul.pagination
-        li
-            - var firstUrl = requestUrl + 1;
-            a(href='#{firstUrl}') 首页
-        li
-            - var preUrl = requestUrl + (pageNum - 1);
-            if (pageNum - 1) == 0
-                a.page-control.next.disabled(href='javascript:void(0)')
-                    span.disabled(aria-hidden='true') 上一页
-            else
-                a.page-control.previous(href='#{preUrl}')
-                    span(aria-hidden='true') 上一页
-        - var totalPage = Math.ceil(total / pageSize);
-        - for (var i = 1; i <= totalPage; i++)
-            - var url = requestUrl + i;
-            li
-                if i == pageNum
-                    a.active(href='#{ url }')  #{ i }
-                else
-                    a(href='#{url}') #{ i }
-        li
-            - var nextUrl = requestUrl + (pageNum + 1);
-            if (pageNum + 1) > totalPage
-                a.page-control.next.disabled(href='javascript:void(0)')
-                    span.disabled(aria-hidden='true') 下一页
-            else
-                a.page-control.next(href='#{ nextUrl }')
-                    span(aria-hidden='true') 下一页
-        li
-            - var lastUrl = requestUrl + totalPage;
-            a(href='#{lastUrl}') 末页
+- var totalPage = Math.ceil(total / pageSize);
+    if totalPage > 1
+        nav.navigation
+            ul.pagination
+                li
+                    - var firstUrl = requestUrl + 1;
+                    a(href='#{firstUrl}') 首页
+                li
+                    - var preUrl = requestUrl + (pageNum - 1);
+                    if (pageNum - 1) == 0
+                        a.page-control.next.disabled(href='javascript:void(0)')
+                            span.disabled(aria-hidden='true') 上一页
+                    else
+                        a.page-control.previous(href='#{preUrl}')
+                            span(aria-hidden='true') 上一页
+                - for (var i = 1; i <= totalPage; i++)
+                    - var url = requestUrl + i;
+                    li
+                        if i == pageNum
+                            a.active(href='#{ url }')  #{ i }
+                        else
+                            a(href='#{url}') #{ i }
+                li
+                    - var nextUrl = requestUrl + (pageNum + 1);
+                    if (pageNum + 1) > totalPage
+                        a.page-control.next.disabled(href='javascript:void(0)')
+                            span.disabled(aria-hidden='true') 下一页
+                    else
+                        a.page-control.next(href='#{ nextUrl }')
+                            span(aria-hidden='true') 下一页
+                li
+                    - var lastUrl = requestUrl + totalPage;
+                    a(href='#{lastUrl}') 末页

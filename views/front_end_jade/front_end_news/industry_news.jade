@@ -21,19 +21,23 @@ block content
                 .detail-content-contact
                     .detail-top
                         .news-content
-                            ul
-                                - for (var news in newsData)
-                                li
-                                    .news-item.clearfix
-                                        .date-left
-                                            - var month = (newsData[news].createTime).toString().split(' ')[1];
-                                            - var day = (newsData[news].createTime).toString().split(' ')[2];
-                                            .date-month #{day}
-                                            .date-day #{month}
-                                        .content-right
-                                            a(href="../news/detail?id=#{newsData[news]._id}").news-title #{newsData[news].title}
-                                            .news-abstract #{newsData[news].subTitle}
-                                            a.news-detail(href="../news/detail?id=#{newsData[news]._id}") [查看详情]
+                            if (newsData[0])
+                                ul
+                                    - for (var news in newsData)
+                                    li
+                                        .news-item.clearfix
+                                            .date-left
+                                                - var month = (newsData[news].createTime).toString().split(' ')[1];
+                                                - var day = (newsData[news].createTime).toString().split(' ')[2];
+                                                .date-month #{day}
+                                                .date-day #{month}
+                                            .content-right
+                                                a(href="../news/detail?id=#{newsData[news]._id}").news-title #{newsData[news].title}
+                                                .news-abstract #{newsData[news].subTitle}
+                                                a.news-detail(href="../news/detail?id=#{newsData[news]._id}") [查看详情]
+                            else
+                                .none-data-container
+                                    p 暂无相关新闻
                     .detail-bottom
                         include ../front_end_paging.jade
             .content-detail-right

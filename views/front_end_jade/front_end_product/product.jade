@@ -22,20 +22,25 @@ block content
                 .detail-content-contact
                     .detail-top
                         .product--content
-                            ul
-                                - for (var index in pumpData)
-                                    li
-                                        - var pump = pumpData[index];
-                                        .product-content-left
-                                            img(src="#{pump.imgUrl}" alt="#{pump.name}")
-                                        .product-content-right
-                                            a.product-name(href="../product/detail?page=#{pageNum}&id=#{pump._id}&type=pumps") #{pump.name}#{pump.safeStage}
-                                            p 结构：#{pump.params.structure}
-                                            p 设计标准：#{pump.params.standard}
-                                            p 流量：#{pump.params.flow}
-                                            p 扬程：#{pump.params.high}
-                                            p 温度：#{pump.params.temperature}
-                                            p 压力：#{pump.params.pressure}
+                            -if (pumpData[0])
+                                ul
+                                    - for (var index in pumpData)
+                                        li
+                                            - var pump = pumpData[index];
+                                            .product-content-left
+                                                a(href="../product/detail?page=#{pageNum}&id=#{pump._id}&type=pumps&series=#{series}")
+                                                    img(src="#{pump.imgUrl}" alt="#{pump.name}")
+                                            .product-content-right
+                                                a.product-name(href="../product/detail?page=#{pageNum}&id=#{pump._id}&type=pumps&series=#{series}") #{pump.name}#{pump.safeStage}
+                                                p 结构：#{pump.params.structure}
+                                                p 设计标准：#{pump.params.standard}
+                                                p 流量：#{pump.params.flow}
+                                                p 扬程：#{pump.params.high}
+                                                p 温度：#{pump.params.temperature}
+                                                p 压力：#{pump.params.pressure}
+                            -else
+                                .none-data-container
+                                    p 暂无相关产品
 
                     .detail-bottom
                         include ../front_end_paging.jade
@@ -44,11 +49,11 @@ block content
                     h4  栏目列表
                     ul
                         li
-                            a(href="../product/pumps/:series='magnetic'") 磁力泵系列
+                            a(href="../product/pumps?series=magnetic") 磁力泵系列
                         li
-                            a(href="../product/pumps/:series='chemical'") 化工泵系列
+                            a(href="../product/pumps?series=chemical") 化工泵系列
                         li
-                            a(href="../product/pumps/:series='pitot'") 皮托管泵系列
+                            a(href="../product/pumps?series=pitot") 皮托管泵系列
                         li
                             a(href="../product/seals") 机械密封系列
                 .hot-recommend

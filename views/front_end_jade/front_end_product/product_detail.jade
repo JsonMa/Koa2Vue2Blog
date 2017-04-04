@@ -20,34 +20,38 @@ block content
                     hr
                 .detail-content-product
                     .detail-top
-                        - var product = nowProduct.data[0];
-                        .product-title
-                            h4 #{product.name}
-                            .img-container
-                                img(src="#{product.imgUrl}" alt="#{product.name}")
-                        .product-params
-                            h4 产品参数
-                            p 结构： #{product.params.structure}
-                            p 设计标准： #{product.params.standard}
-                            p 流量： #{product.params.flow}
-                            p 扬程： #{product.params.high}
-                            p 温度： #{product.params.temperature}
-                            p 压力： #{product.params.pressure}
-                        .product-stage
-                            h4 设备等级
-                            p 安全等级： #{product.stage.safe}
-                            p 制造等级： #{product.stage.manufacture}
-                            p 质保等级： #{product.stage.warranty}
-                            p 抗震等级： #{product.stage.antiSeismic}
-                            p 清洁度等级： #{product.stage.clean}
-                        .product-abstract
-                            h4 产品描述
-                            p #{product.Summary}
-                        .product-area
-                            h4 应用范围
-                            p #{product.area}
-                        .page-back
-                            a(href="../product/#{queryParams.queryType}?page=#{queryParams.queryPage}&series=#{queryParams.series}") <<返回产品列表
+                        -if (pumpProduct && pumpProduct.data && pumpProduct.data[0])
+                            .product-title
+                                h4 #{pumpProduct.data[0].name}
+                                .img-container
+                                    img(src="#{pumpProduct.data[0].imgUrl}" alt="#{pumpProduct.data[0].name}")
+                            .product-params
+                                h4 产品参数
+                                p 结构： #{pumpProduct.data[0].params.structure}
+                                p 设计标准： #{pumpProduct.data[0].params.standard}
+                                p 流量： #{pumpProduct.data[0].params.flow}
+                                p 扬程： #{pumpProduct.data[0].params.high}
+                                p 温度： #{pumpProduct.data[0].params.temperature}
+                                p 压力： #{pumpProduct.data[0].params.pressure}
+                            .product-stage
+                                h4 设备等级
+                                p 安全等级： #{pumpProduct.data[0].stage.safe}
+                                p 制造等级： #{pumpProduct.data[0].stage.manufacture}
+                                p 质保等级： #{pumpProduct.data[0].stage.warranty}
+                                p 抗震等级： #{pumpProduct.data[0].stage.antiSeismic}
+                                p 清洁度等级： #{pumpProduct.data[0].stage.clean}
+                            .product-abstract
+                                h4 产品描述
+                                p #{pumpProduct.data[0].Summary}
+                            .product-area
+                                h4 应用范围
+                                p #{pumpProduct.data[0].area}
+                            .page-back
+                                a(href="../product/#{queryParams.queryType}?page=#{queryParams.queryPage}&series=#{queryParams.series}") <<返回产品列表
+                        -else if ( sealProduct && sealProduct.data && sealProduct.data[0])
+                            .seal-detail 机械密封信息
+                        -else
+                            p 无相关产品信息
                     //.detail-bottom
                     //    .news-from 文章来源：
                     //        span.news-from-value #{nowNews.data[0].origin}

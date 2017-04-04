@@ -13,16 +13,37 @@ block content
         .content-title
             h3.title 产品中心  PRODUCT
             p.subtitle 首页>>产品中心>>
-                span 磁力泵系列
+                case series
+                    when 'magnetic'
+                        span 磁力泵系列
+                    when 'pitot'
+                        span 皮托管泵系列
+                    when 'chemical'
+                        span 化工泵系列
+                    when 'seal'
+                        span 机械密封系列
+                    default
+                        span 磁力泵系列
+
         .content-detail
             .content-detail-left
                 .detail-title
-                    h4 磁力泵系列
+                    case series
+                        when 'magnetic'
+                            h4 磁力泵系列
+                        when 'pitot'
+                            h4 皮托管泵系列
+                        when 'chemical'
+                            h4 化工泵系列
+                        when 'seal'
+                            h4 机械密封系列
+                        default
+                            h4 磁力泵系列
                     hr
                 .detail-content-contact
                     .detail-top
                         .product--content
-                            -if (pumpData[0])
+                            -if (pumpData && pumpData[0])
                                 ul
                                     - for (var index in pumpData)
                                         li
@@ -38,6 +59,19 @@ block content
                                                 p 扬程：#{pump.params.high}
                                                 p 温度：#{pump.params.temperature}
                                                 p 压力：#{pump.params.pressure}
+                            -else if (sealData && sealData[0])
+                                - for (var index in sealData)
+                                    li
+                                        - var seal = sealData[index];
+                                        .product-content-left
+                                            a(href="../product/detail?page=#{pageNum}&id=#{seal._id}&type=seal&series=#{series}")
+                                                img(src="#{seal.imgUrl}" alt="#{seal.name}")
+                                        .product-content-right
+                                            a.product-name(href="../product/detail?page=#{pageNum}&id=#{seal._id}&type=seal&series=#{series}") #{seal.name}
+                                            p 转速：#{seal.params.speed}
+                                            p 轴径：#{seal.params.shaft}
+                                            p 压力：#{seal.params.pressure}
+                                            p 温度：#{seal.params.temperature}
                             -else
                                 .none-data-container
                                     p 暂无相关产品

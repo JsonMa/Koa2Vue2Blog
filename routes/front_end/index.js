@@ -61,19 +61,13 @@ export default class extends controller {
 
 		// 企业概况路由
 		this.router.get('/about', async(ctx, next) => {
-			ctx.state = {
-				title: '成功了'
-			};
-			// await this.DBModule.Users.saveUser(user);
+			ctx.state = {};
 			await ctx.render('./front_end_jade/front_end_about/about')
 		});
 
 		// 企业概况-发展历程路由
 		this.router.get('/about/develop', async(ctx, next) => {
-			ctx.state = {
-				title: '成功了'
-			};
-			// await this.DBModule.Users.saveUser(user);
+			ctx.state = {};
 			await ctx.render('./front_end_jade/front_end_about/develop')
 		});
 
@@ -114,10 +108,7 @@ export default class extends controller {
 
 		// 企业概况-董事长致辞
 		this.router.get('/about/speech', async(ctx, next) => {
-			ctx.state = {
-				title: '成功了'
-			};
-			// await this.DBModule.Users.saveUser(user);
+			ctx.state = {};
 			await ctx.render('./front_end_jade/front_end_about/speech')
 		});
 		
@@ -206,24 +197,23 @@ export default class extends controller {
 
 		// 联系我们路由
 		this.router.get('/contact', async(ctx, next) => {
-			ctx.state = {
-				title: '成功了'
-			};
-			// await this.DBModule.Users.saveUser(user);
-			await ctx.render('./front_end_jade/front_end_program/contact')
+			ctx.state = {};
+			await ctx.render('./front_end_jade/front_end_contact/contact')
 		});
 
 		// 加入我们路由
 		this.router.get('/join', async(ctx, next) => {
-			ctx.state = {
-				title: '成功了'
-			};
-			// await this.DBModule.Users.saveUser(user);
+			ctx.state = {};
 			await ctx.render('./front_end_jade/front_end_joinus/join')
 		})
 	}
 	
 	actions() {
-
+        this.router.post('/contact', async(ctx, next) => {
+            ctx.body = {
+                "code": 500,
+                "msg": validate.msg
+            }
+        });
 	}
 }

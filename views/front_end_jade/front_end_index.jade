@@ -107,33 +107,37 @@ block content
                 a.seal.switch-tab 机械密封系列
             .product-content-container
                 .magnetic-container
-                    ul#magnetic
-                        -for(var i = 0; i < magneticData.length; i++)
-                            li
-                                a(href="../product/detail?page=1&id=#{magneticData[i]._id}&type=seals&series=seal")
-                                    img(src='#{magneticData[i].imgUrl}', alt='#{magneticData[i].name}', style='height:160px;')
-                                span #{magneticData[i].name}
+                    -if(magneticData && magneticData[0])
+                        ul#magnetic
+                            -for(var i = 0; i < magneticData.length; i++)
+                                li
+                                    a(href="../product/detail?page=1&id=#{magneticData[i]._id}&type=seals&series=seal")
+                                        img(src='#{magneticData[i].imgUrl}', alt='#{magneticData[i].name}', style='height:160px;')
+                                    span #{magneticData[i].name}
                 .chemical-container
-                    ul#chemical
-                        -for(var i = 0; i < chemicalData.length; i++)
-                            li
-                                a(href="../product/detail?page=1&id=#{chemicalData[i]._id}&type=seals&series=seal")
-                                    img(src='#{chemicalData[i].imgUrl}', alt='#{chemicalData[i].name}', style='height:160px;')
-                                span #{chemicalData[i].name}
+                    -if(chemicalData && chemicalData[0])
+                        ul#chemical
+                            -for(var i = 0; i < chemicalData.length; i++)
+                                li
+                                    a(href="../product/detail?page=1&id=#{chemicalData[i]._id}&type=seals&series=seal")
+                                        img(src='#{chemicalData[i].imgUrl}', alt='#{chemicalData[i].name}', style='height:160px;')
+                                    span #{chemicalData[i].name}
                 .pitot-container
-                    ul#pitot
-                        -for(var i = 0; i < pitotData.length; i++)
-                            li
-                                a(href="../product/detail?page=1&id=#{pitotData[i]._id}&type=seals&series=seal")
-                                    img(src='#{pitotData[i].imgUrl}', alt='#{pitotData[i].name}', style='height:160px;')
-                                span #{pitotData[i].name}
+                    -if(pitotData && pitotData[0])
+                        ul#pitot
+                            -for(var i = 0; i < pitotData.length; i++)
+                                li
+                                    a(href="../product/detail?page=1&id=#{pitotData[i]._id}&type=seals&series=seal")
+                                        img(src='#{pitotData[i].imgUrl}', alt='#{pitotData[i].name}', style='height:160px;')
+                                    span #{pitotData[i].name}
                 .seal-container
-                    ul#seal
-                        -for(var i = 0; i < sealData.length; i++)
-                            li
-                                a(href="../product/detail?page=1&id=#{sealData[i]._id}&type=seals&series=seal")
-                                    img(src='#{sealData[i].imgUrl}', alt='#{sealData[i].name}', style='height:160px;')
-                                span #{sealData[i].name}
+                    -if(sealData && sealData[0])
+                        ul#seal
+                            -for(var i = 0; i < sealData.length; i++)
+                                li
+                                    a(href="../product/detail?page=1&id=#{sealData[i]._id}&type=seals&series=seal")
+                                        img(src='#{sealData[i].imgUrl}', alt='#{sealData[i].name}', style='height:160px;')
+                                    span #{sealData[i].name}
             .product-content-more
                 a(href="../product/pumps?series=magnetic")
                     p.btn 更多产品>

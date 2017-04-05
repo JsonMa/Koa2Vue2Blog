@@ -19,18 +19,18 @@ block content
                     h4 企业风采
                     hr
                 .detail-content-enterprise
-                    ul.enterprise-list
-                        - if(enterpriseData && enterpriseData[0])
+                    - if(enterpriseData && enterpriseData[0])
+                        ul.enterprise-list
                             - for (var i = 0; i < enterpriseData.length; i++)
-                                li
-                                    .product-content-left
-                                        a(href="../about/detail?page=#{pageNum}&id=#{enterpriseData[i]._id}&type=enterprise")
-                                            img(src="#{enterpriseData[i].imgUrl}" alt="#{enterpriseData[i].name}")
-                                    .product-content-right
-                                        a.product-name(href="../about/detail?page=#{pageNum}&id=#{enterpriseData[i]._id}&type=enterprise") #{enterpriseData[i].name}
-                        -else
-                            li
-                                p 暂无相关企业风采信息
+                                        li
+                                            .product-content-left
+                                                a(href="../about/detail?page=#{pageNum}&id=#{enterpriseData[i]._id}&type=enterprise")
+                                                    img(src="#{enterpriseData[i].imgUrl}" alt="#{enterpriseData[i].name}")
+                                            .product-content-right
+                                                a.product-name(href="../about/detail?page=#{pageNum}&id=#{enterpriseData[i]._id}&type=enterprise") #{enterpriseData[i].name}
+                    -else
+                        .none-info-container
+                            p 暂无相关企业风采信息
                 .detail-bottom
                     include ../front_end_paging.jade
 

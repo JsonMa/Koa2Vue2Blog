@@ -20,16 +20,16 @@ block content
                     hr
                 .detail-content-honor
                     .detail-middle
-                        ul
-                            -if(honorData && honorData[0])
+                        -if(honorData && honorData[0])
+                            ul
                                 -for(var i = 0; i < honorData.length; i++)
                                     li
                                         a(href="../about/detail?page=#{pageNum}&id=#{honorData[i]._id}&type=honor")
                                             img(src="#{honorData[i].imgUrl}")
                                         p #{honorData[i].name}
-                            -else
-                                li
-                                    p 暂无相关信息
+                        -else
+                            .none-info-container
+                                p 暂无相关信息
                     .detail-bottom
                         include ../front_end_paging.jade
 

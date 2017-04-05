@@ -62,7 +62,7 @@ $(function () {
 					activeClass = $activeItem.attr('class').split(' ')[0];
 				$activeItem.removeClass('active');
 				$('.' + activeClass + '-container').fadeOut();
-				$this.addClass('active')
+				$this.addClass('active');
 				$('.' + presentClass + '-container').fadeIn();
             })
         }

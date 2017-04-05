@@ -7,16 +7,55 @@ export default class extends controller {
 
 		// 首页路由
 		this.router.get('/', async(ctx, next) => {
-			ctx.state = {
-				title: '成功了'
-			};
-			var user = {
-				userName: 'asdf',
-				userPass: 'afdas',
-				userDes: 'afsdasf',
-				userAvatar: 'asdfas'
-			};
-			await this.DBModule.Users.saveUser(user);
+            let pageNum = ctx.query.page ? parseInt(ctx.query.page) : 1; // 获取页数
+            let queryParams = {
+                pageNum: pageNum, // 当前页数
+                pageSize: 2, // 每页显示数量
+                newsType: 'company' // 新闻类型
+            };
+            let sealQueryParams = {
+                pageNum: pageNum, // 当前页数
+                pageSize: 4, // 每页显示数量
+                sealType: 'common' // 密封类型
+            };
+            let pitotQueryParams = {
+                pageNum: pageNum, // 当前页数
+                pageSize: 4, // 每页显示数量
+                pumpType: 'pitot' // 密封类型
+            };
+            let chemicalQueryParams = {
+                pageNum: pageNum, // 当前页数
+                pageSize: 4, // 每页显示数量
+                pumpType: 'chemical' // 密封类型
+            };
+            let magneticQueryParams = {
+                pageNum: pageNum, // 当前页数
+                pageSize: 4, // 每页显示数量
+                pumpType: 'magnetic' // 密封类型
+            };
+
+            ctx.state = {}; // 返回的数据初始化
+            let result = await this.DBModule.News.findNewsList(queryParams); // 当前查询条件下的新闻
+            let sealResult = await this.DBModule.Seals.findSealList(sealQueryParams); // 当前查询条件下的新闻
+            let pitotResult = await this.DBModule.Pumps.findPumpList(pitotQueryParams); // 当前查询条件下的新闻
+            let chemicalResult = await this.DBModule.Pumps.findPumpList(chemicalQueryParams); // 当前查询条件下的新闻
+            let magneticResult = await this.DBModule.Pumps.findPumpList(magneticQueryParams); // 当前查询条件下的新闻
+            let responseData = {
+                newsData: result.data, // 新闻数据
+                sealData: sealResult.data, // 机械密封数据
+                pitotData: pitotResult.data, // 皮托管泵数据
+                chemicalData: chemicalResult.data, // 化工泵数据
+                magneticData: magneticResult.data, // 磁力泵数据
+                requestUrl: '../index?page='
+            };
+            ctx.state = responseData;
+
+            // 判断是否是debug
+            var debug = ctx.request.query._d;
+            if (debug == 1) {
+                ctx.body = ctx.state;
+                return false;
+            }
 			await ctx.render('./front_end_jade/front_end_index')
 		});
 

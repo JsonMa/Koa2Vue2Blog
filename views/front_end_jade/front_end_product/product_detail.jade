@@ -19,8 +19,8 @@ block content
                     h4 产品详情
                     hr
                 .detail-content-product
-                    .detail-top
-                        -if (pumpProduct && pumpProduct.data && pumpProduct.data[0])
+                    -if (pumpProduct && pumpProduct.data && pumpProduct.data[0])
+                        .detail-top.detail-pump-top
                             .product-title
                                 h4 #{pumpProduct.data[0].name}
                                 .img-container
@@ -48,10 +48,29 @@ block content
                                 p #{pumpProduct.data[0].area}
                             .page-back
                                 a(href="../product/#{queryParams.queryType}?page=#{queryParams.queryPage}&series=#{queryParams.series}") <<返回产品列表
-                        -else if ( sealProduct && sealProduct.data && sealProduct.data[0])
-                            .seal-detail 机械密封信息
-                        -else
-                            p 无相关产品信息
+                    -else if ( sealProduct && sealProduct.data && sealProduct.data[0])
+                        .detail-top.detail-seal-top
+                            .seal-title
+                                h4 #{sealProduct.data[0].name}
+                                .img-container
+                                    img(src="#{sealProduct.data[0].imgStructureUrl}")
+                            .seal-params
+                                h4 使用参数
+                                p 压力： #{sealProduct.data[0].params.pressure}
+                                p 转速： #{sealProduct.data[0].params.speed}
+                                p 温度： #{sealProduct.data[0].params.temperature}
+                                p 轴径： #{sealProduct.data[0].params.shaft}
+                            .seal-standard
+                                h4 执行标准
+                                -for (var i = 0; i < sealProduct.data[0].standards.length; i++)
+                                    p #{sealProduct.data[0].standards[i]}
+                            .seal-features
+                                h4 产品特点
+                                p #{sealProduct.data[0].features}
+                            .page-back
+                                a(href="../product/#{queryParams.queryType}?page=#{queryParams.queryPage}&series=#{queryParams.series}") <<返回产品列表
+                    -else
+                        p 无相关产品信息
                     //.detail-bottom
                     //    .news-from 文章来源：
                     //        span.news-from-value #{nowNews.data[0].origin}

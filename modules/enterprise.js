@@ -1,26 +1,14 @@
 /**
- * Created by Administrator on 2017/4/5.
+ * Created by Mahao on 2017/4/5.
  */
 export default class {
     constructor(mongoose, _, moment) {
         this._ = _;
         let Schema = mongoose.Schema;
-        var sealSchema =  new Schema({
-            name: String, // 密封名称
-            imgUrl: String, // 密封缩略图
-            imgStructureUrl: String, // 密封结构图
-            standards: [], // 产品执行标准
-            features: String, // 产品特点
-            params: {
-                speed: String, // 转速
-                shaft: String, // 轴径
-                temperature: String, // 温度
-                pressure: String // 压力
-            }, // 密封使用参数
-            sealType: {
-                type: String,
-                default: 'common'
-            }, // 泵类型
+        var enterpriseSchema =  new Schema({
+            name: String, // 图片名称
+            imgUrl: String, // 泵图片地址
+            Summary: String, // 产品概述
             createTime: {
                 type: Date,
                 default: Date.now
@@ -37,64 +25,53 @@ export default class {
             versionKey: false, // 是否禁用字段“__v”，表示是否是通过save创建的
             timestamps: { createdAt: 'createTime', updatedAt: 'updateTime' }
         });
-        sealSchema.virtual('formatCreatedTime').get(function () {
+        enterpriseSchema.virtual('formatCreatedTime').get(function () {
             return moment(this.createTime).format('YYYY-MM-DD');
         }); // 设置虚拟时间属性
-        sealSchema.virtual('formatUpdateTime').get(function () {
+        enterpriseSchema.virtual('formatUpdateTime').get(function () {
             return moment(this.updatedAt).format('YYYY-MM-DD');
         }); // 设置虚拟时间属性
-        this.Seal =  mongoose.model('seal', sealSchema);
+        this.Enterprise =  mongoose.model('enterprise', enterpriseSchema);
     }
-    saveSeal() {
+    saveEnterprise() {
         return new Promise((resolve, reject) => {
-                var sealInfo = {
-                    name: 'H75VA4-S', // 密封名称
-                    imgUrl: '../images/front_end/product/seal/product_slider_02.jpg', // 密封缩略图
-                    imgStructureUrl: '../images/front_end/product/seal/seal_structure_01.png', // 密封结构图
-                    standards: [
-                        'API 682 / ISO 21049',
-                        'API 682 4th ed. Cat. 2/3 - 1CW-FL'
-                    ], // 产品执行标准
-                    features: '适用温度-200℃～+450℃ ;适用密封腔压力≤7.5Mpa（内压≤1.5MPa）;适用转速V≤25 m/s ;按密封腔温度和介质的腐蚀性可选用波纹管材料为 17-4PH、AM350、Inconel-718、HC-276、TA2（均系进口材料）;采用进口优质碳石墨 。', // 产品特点
-                    params: {
-                        speed: '≤3600r/min', // 转速
-                        shaft: '18~125mm', // 轴径
-                        temperature: '-40~260℃', // 温度
-                        pressure: '0~2MPa' // 压力
-                    }, // 密封使用参数
+                var enterpriseInfo = {
+                    name: '公司餐厅', // 图片名称
+                    imgUrl: '../images/front_end/about/enterprise_image/enterprise_01.jpg', // 企业风采图片地址
+                    Summary: '结合我公司多年积累的泵制造经验设计制造的。该泵为卧式单级单吸悬臂式结构。可以满足冷热冲击和杂质运行等特殊工况。并满足地震下完整性和可运行性。' // 图片概述
                 };
-                let Seal = this.Seal;
-                let addSeal = new Seal(sealInfo);
-                addSeal.save(err => {
+                let Enterprise = this.Enterprise;
+                let addEnterprise = new Enterprise(enterpriseInfo);
+                addEnterprise.save(err => {
                     if (err) {
                         reject({status: false, msg: err})
                     }  else {
-                        resolve({status: true, msg: '产品保存成功'})
+                        resolve({status: true, msg: '企业风采保存成功'})
                     }
                 })
             }
         )
     }
 
-    // 获取当前ID下的机械密封
-    findSeal(sealId) {
+    // 获取当前ID下的新闻
+    findEnterprise(imageId) {
         return new Promise((resolve, reject) => {
-            this.Seal.find({_id: sealId}, function (err, res){
+            this.Enterprise.find({_id: imageId}, function (err, res){
 
                 // res 为查询到的单个文档
                 if (err) {
                     reject({ status: false, msg: err})
                 } else {
-                    resolve({ status: true, msg: '密封查询成功', data: res})
+                    resolve({ status: true, msg: '查询成功', data: res})
                 }
             });
         })
     }
 
-    // 获取当前密封的后一类型密封
-    findSealNext(sealId) {
+    // 获取当前新闻的后一条记录
+    findEnterpriseNext(imageId) {
         return new Promise((resolve, reject) => {
-            this.Seal.find({'_id' :{ "$gt" :sealId} })
+            this.Enterprise.find({'_id' :{ "$gt" :imageId} })
                 .limit(1)
                 .sort({_id:-1})
                 .exec(function (err, res){
@@ -109,10 +86,10 @@ export default class {
         })
     }
 
-    // 获取当前密封的前一类型密封
-    findSealPrevious(sealId) {
+    // 获取当前新闻的前一条记录
+    findEnterprisePrevious(imageId) {
         return new Promise((resolve, reject) => {
-            this.Seal.find({'_id' :{ "$lt" :sealId} })
+            this.Enterprise.find({'_id' :{ "$lt" :imageId} })
                 .limit(1)
                 .sort({_id:-1})
                 .exec(function (err, res){
@@ -127,11 +104,11 @@ export default class {
         })
     }
 
-    // 查询密封列表
-    findSealList(params) {
+    // 查询新闻列表
+    findEnterpriseList(params) {
         if(params) {
             return new Promise((resolve, reject) => {
-                this.Seal.find({sealType: params.sealType})
+                this.Enterprise.find({})
                     .skip((params.pageNum - 1) * params.pageSize)
                     .limit(params.pageSize)
                     .exec(function (err, res){
@@ -140,24 +117,24 @@ export default class {
                         if (err) {
                             reject({ status: false, msg: err})
                         } else {
-                            resolve({ status: true, msg: '密封列表查询成功', data: res})
+                            resolve({ status: true, msg: '企业风采列表查询成功', data: res})
                         }
                     });
             })
         }
     }
 
-    // 查询所有的密封数目
-    findTotalSeal(queryParams) {
+    // 查询所有的产品数目
+    findTotalEnterprise(queryParams) {
         return new Promise((resolve, reject) => {
             if (queryParams && typeof queryParams == "object") {
-                this.Seal.count(queryParams, function (err, count){
+                this.Enterprise.count(queryParams, function (err, count){
 
                     // res 为查询到的文档
                     if (err) {
                         reject({ status: false, msg: err})
                     } else {
-                        resolve({ status: true, msg: '密封总条数查询成功', count: count})
+                        resolve({ status: true, msg: '企业风采总条数查询成功', count: count})
                     }
                 })
             } else {

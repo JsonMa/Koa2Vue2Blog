@@ -11,35 +11,37 @@ block content
     .banner-container
     .content-container
         .content-title
-            h3.title 荣誉资质   HONOR
-            p.subtitle 首页>>企业概况>>荣誉资质
+            h3.title 企业风采   ENTERPRISE IMAGES
+            p.subtitle 首页>>企业概况>>企业风采
         .content-detail
             .content-detail-left
                 .detail-title
-                    h4 荣誉资质
+                    h4 企业风采
                     hr
-                .detail-content-honor
-                    .detail-middle
-                        ul
-                            li
-                                img(src="../images/front_end/about/certifaction01.png")
-                                p 生产许可证
-                            li
-                                img(src="../images/front_end/about/certifaction02.png")
-                                p 生产许可证
-                            li
-                                img(src="../images/front_end/about/certifaction03.png")
-                                p 生产许可证
-                            li
-                                img(src="../images/front_end/about/certifaction04.png")
-                                p 生产许可证
-                            li
-                                img(src="../images/front_end/about/certifaction05.png")
-                                p 生产许可证
-                            li
-                                img(src="../images/front_end/about/certifaction06.png")
-                                p 生产许可证
-
+                .detail-content-enterprise-detail
+                    .detail-top
+                        ul.enterprise-detail-list
+                            - if(enterprise && enterprise[0])
+                                h4 #{enterprise[0].name}
+                                img(src="#{enterprise[0].imgUrl}")
+                            -else
+                                p 暂无相关企业风采信息
+                    .detail-bottom
+                        .news-switch
+                            if preEnterprise[0]
+                                .news-switch-left 上一篇：
+                                    a(href="../about/detail?id=#{preEnterprise[0]._id}").news-switch-previous #{preEnterprise[0].name}
+                            else
+                                .news-switch-left 上一篇：
+                                    a(href="javascript:void(0)").news-switch-previous 无相关内容
+                            if nextEnterprise[0]
+                                .news-switch-right 下一篇：
+                                    a(href="../about/detail?id=#{nextEnterprise[0]._id}").news-switch-next #{nextEnterprise[0].name}
+                            else
+                                .news-switch-right 下一篇：
+                                    a(href="javascript:void(0)").news-switch-next 无相关内容
+                        .page-back
+                            a(href="../about/enterprise?page=#{queryParams.queryPage}") <<返回列表
 
             .content-detail-right
                 .about-nav

@@ -1,0 +1,88 @@
+// 集成模板
+extends ../front_end_layout
+block title
+    title 企业概况
+
+// 引入私有的css
+block css
+    link(rel='stylesheet', href='/css/front_end/front_end_program/program.css')
+
+block content
+    .banner-container
+    .content-container
+        .content-title
+            h3.title 工程技术中心   ENGINEERING TECHNOLOGY CENTER
+            p.subtitle 首页>>工程技术中心>>常见问题
+        .content-detail
+            .content-detail-left
+                .detail-title
+                    h4 常见问题
+                    hr
+                .detail-content-question
+                    .detail-middle
+                        div.question-item
+                            span.question-title 问：
+                            span.question-value 重庆伊尔流体设备制造有限公司以生产什么产品为主？
+                        div.question-item
+                            span.question-title 答：
+                            span.question-value 皮托管泵、磁力泵、化工泵、机械密封等。
+                        div.question-item
+                            span.question-title 问：
+                            span.question-value 产品主要应用在哪些领域？
+                        div.question-item
+                            span.question-title 答：
+                            span.question-value 核电站、石油、化工、化肥、钢铁焦化、煤化工、汽车制造、食品医药等领域。
+                        div.question-item
+                            span.question-title 问：
+                            span.question-value 离心式泵如何工作？
+                        div.question-item
+                            span.question-title 答：
+                            span.question-value 通过叶轮旋转形成负压，将液体吸入泵体及叶轮内，经过叶轮离心力的作用使液体获得能量，液体借此克服管路阻力和重力，进行远距离输送？
+                        div.question-item
+                            span.question-title 问：
+                            span.question-value 离心泵的主要零部件？
+                        div.question-item
+                            span.question-title 答：
+                            span.question-value 原动机、联轴器、轴承部件、密封部件、过流部件。
+                        div.question-item
+                            span.question-title 问：
+                            span.question-value 轴承部件中有哪些零件？
+                        div.question-item
+                            span.question-title 答：
+                            span.question-value 轴承箱体、泵轴、轴承、轴承压盖、防尘盘、恒位油杯、放气塞、放油塞。
+                        div.question-item
+                            span.question-title 问：
+                            span.question-value 离心泵工作中最忌讳汽蚀，产生汽蚀的原因有多少？
+                        div.question-item
+                            span.question-title 答：
+                            span.question-value 过滤网堵塞、入口管路口径小、入口液位高度不够等等。
+
+            .content-detail-right
+                .about-nav
+                    h4  栏目列表
+                    ul
+                        li
+                            a(href="../program/quality") 质保控制
+                        li
+                            a(href="../program/question") 常见问题
+                .hot-recommend
+                    h4 热点内容
+                    ul
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结,第二代旋壳泵研发成功了，大家都很高兴
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+// 引入私有的js
+block js

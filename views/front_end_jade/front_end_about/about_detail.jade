@@ -1,0 +1,101 @@
+// 集成模板
+extends ../front_end_layout
+block title
+    title 企业概况
+
+// 引入私有的css
+block css
+    link(rel='stylesheet', href='/css/front_end/front_end_about/about.css')
+
+block content
+    .banner-container
+    .content-container
+        .content-title
+            h3.title 企业风采   ENTERPRISE IMAGES
+            p.subtitle 首页>>企业概况>>企业风采
+        .content-detail
+            .content-detail-left
+                .detail-title
+                    h4 企业风采
+                    hr
+                .detail-content-enterprise-detail
+                    .detail-top
+                        ul.enterprise-detail-list
+                            - if(enterprise && enterprise[0])
+                                h4 #{enterprise[0].name}
+                                img.enterprise-img(src="#{enterprise[0].imgUrl}")
+                            -else if(honor && honor[0])
+                                h4 #{honor[0].name}
+                                img.honor-img(src="#{honor[0].imgUrl}")
+                            -else
+                                p 暂无相关信息
+                    .detail-bottom
+                        .news-switch
+                            -if(preEnterprise && nextEnterprise)
+                                -if (preEnterprise && preEnterprise[0])
+                                    .news-switch-left 上一篇：
+                                        a(href="../about/detail?id=#{preEnterprise[0]._id}&type=enterprise&page=#{queryParams.queryPage}").news-switch-previous #{preEnterprise[0].name}
+                                -else
+                                    .news-switch-left 上一篇：
+                                        a(href="javascript:void(0)").news-switch-previous 无相关内容
+                                -if (nextEnterprise && nextEnterprise[0])
+                                    .news-switch-right 下一篇：
+                                        a(href="../about/detail?id=#{nextEnterprise[0]._id}&type=enterprise&page=#{queryParams.queryPage}").news-switch-next #{nextEnterprise[0].name}
+                                -else
+                                    .news-switch-right 下一篇：
+                                        a(href="javascript:void(0)").news-switch-next 无相关内容
+                            -else
+                                -if (preHonor && preHonor[0])
+                                    .news-switch-left 上一篇：
+                                        a(href="../about/detail?id=#{preHonor[0]._id}&type=honor&page=#{queryParams.queryPage}").news-switch-previous #{preHonor[0].name}
+                                -else
+                                    .news-switch-left 上一篇：
+                                        a(href="javascript:void(0)").news-switch-previous 无相关内容
+                                -if (nextHonor && nextHonor[0])
+                                    .news-switch-right 下一篇：
+                                        a(href="../about/detail?id=#{nextHonor[0]._id}&type=honor&page=#{queryParams.queryPage}").news-switch-next #{nextHonor[0].name}
+                                -else
+                                    .news-switch-right 下一篇：
+                                        a(href="javascript:void(0)").news-switch-next 无相关内容
+                        - if(enterprise && enterprise[0])
+                            .page-back
+                                a(href="../about/enterprise?page=#{queryParams.queryPage}") <<返回列表
+                        -else
+                            .page-back
+                                a(href="../about/honor?page=#{queryParams.queryPage}") <<返回列表
+            .content-detail-right
+                .about-nav
+                    h4  栏目列表
+                    ul
+                        li
+                            a(href="../about") 公司简介
+                        li
+                            a(href="../about/develop") 发展历程
+                        li
+                            a(href="../about/honor") 荣誉资质
+                        li
+                            a(href="../about/enterprise") 企业风采
+                        li
+                            a(href="../about/speech") 董事长致辞
+                .hot-recommend
+                    h4 热点内容
+                    ul
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结,第二代旋壳泵研发成功了，大家都很高兴
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+                        li
+                            a.title 2016年度工作总结
+                            span.title-date 2017-12-11
+
+// 引入私有的js
+block js
+    script(src='/js/front_end/front_end_about/about.js')

@@ -1,0 +1,161 @@
+.banner-container {
+  width: 100%;
+  height: 216px;
+  background: url('../../../images/front_end/banner_common_01.jpg') no-repeat;
+}
+.content-container {
+  background: #ececec;
+  .content-title {
+    width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    top: -130px;
+    color: #fff;
+    h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 12px;
+      padding-bottom: 20px;
+    }
+  }
+  .content-detail {
+    width: 1000px;
+    margin: 0 auto;
+    margin-top: -130px;
+    min-height: 750px;
+    background: #fff;
+    .content-detail-left {
+      width: 750px;
+      float: left;
+      min-height: 400px;
+      .detail-title {
+        padding: 0 20px;
+        h4 {
+          font-size: 14px;
+          padding: 20px 0 10px 0;
+          border-bottom: 1px solid #eee;
+        }
+        hr {
+          height: 2px;
+          width: 55px;
+          background: #1879c6;
+          margin-top: -3px;
+          border: none;
+          text-align: left;
+        }
+      }
+
+      // 常见问题
+      .detail-content-question {
+        padding: 0 40px;
+        .detail-middle {
+          padding-left: 35px;
+          line-height: 24px;
+          text-indent: 2em;
+          font-size: 13px;
+          margin-top: 40px;
+          .question-item {
+            margin: 10px 0;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+            color: #1879c6;
+          }
+          .question-title {
+            vertical-align: top;
+          }
+          .question-value {
+            color: black;
+            text-indent: 0;
+            display: inline-block;
+            width: 583px;
+          }
+        }
+      }
+    }
+    a {
+      color: #000;
+      cursor: pointer;
+      &:hover {
+        color: #1879c6;
+      }
+    }
+    .content-detail-right {
+      width: 250px;
+      float: left;
+      font-size: 12px;
+      h4 {
+        font-size: 14px;
+        padding: 20px 0 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .about-nav {
+        ul {
+          li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            &:before {
+              content: '';
+              display: inline-block;
+              height: 5px;
+              width: 5px;
+              position: relative;
+              right: 0;
+              margin-right: 6px;
+              top: -2px;
+              background: url(../../../images/front_end/circle.png) no-repeat;
+            }
+          }
+        }
+      }
+      .hot-recommend {
+        h4 {
+          padding-top: 30px;
+        }
+        ul {
+          padding-right: 15px;
+          li {
+            padding: 5px 0 10px 0;
+            border-bottom: 1px solid #eee;
+            a {
+              display: block;
+              padding: 5px 0;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// 质保控制
+.detail-content-quality {
+  padding: 0 40px;
+  .detail-middle {
+    padding-left: 35px;
+    line-height: 24px;
+    text-indent: 2em;
+    font-size: 13px;
+    margin-top: 40px;
+    .quality-item {
+      margin: 10px 0;
+      padding-bottom: 5px;
+      //border-bottom: 1px solid #eee;
+    }
+    .quality-title {
+      text-indent: 0;
+      vertical-align: top;
+      font-weight: bold;
+    }
+    .quality-value {
+      color: #333333;
+      text-indent: 2em;
+      display: inline-block;
+      width: 583px;
+    }
+  }
+}

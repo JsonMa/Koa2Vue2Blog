@@ -11,6 +11,7 @@ export default class {
 		this.News = new (require('./news.js'))(mongoose, _, moment); // 新闻模块
 		this.Pumps = new (require('./pump.js'))(mongoose, _, moment); // 泵模块
 		this.Seals = new (require('./seal.js'))(mongoose, _, moment); // 机械密封模块
-		this.Enterprise = new (require('./enterprise.js'))(mongoose, _, moment); // 企业风采模块
+		this.Enterprise = new (require('./enterprise.js'))(mongoose, _, moment); // 企业概况模块
+		this.Honor = new (require('./honor.js'))(mongoose, _, moment); // 荣誉资质模块
 	}
 }

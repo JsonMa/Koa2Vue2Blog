@@ -21,25 +21,17 @@ block content
                 .detail-content-honor
                     .detail-middle
                         ul
-                            li
-                                img(src="../images/front_end/about/certifaction01.png")
-                                p 生产许可证
-                            li
-                                img(src="../images/front_end/about/certifaction02.png")
-                                p 生产许可证
-                            li
-                                img(src="../images/front_end/about/certifaction03.png")
-                                p 生产许可证
-                            li
-                                img(src="../images/front_end/about/certifaction04.png")
-                                p 生产许可证
-                            li
-                                img(src="../images/front_end/about/certifaction05.png")
-                                p 生产许可证
-                            li
-                                img(src="../images/front_end/about/certifaction06.png")
-                                p 生产许可证
-
+                            -if(honorData && honorData[0])
+                                -for(var i = 0; i < honorData.length; i++)
+                                    li
+                                        a(href="../about/detail?page=#{pageNum}&id=#{honorData[i]._id}&type=honor")
+                                            img(src="#{honorData[i].imgUrl}")
+                                        p #{honorData[i].name}
+                            -else
+                                li
+                                    p 暂无相关信息
+                    .detail-bottom
+                        include ../front_end_paging.jade
 
             .content-detail-right
                 .about-nav

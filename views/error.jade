@@ -1,6 +1,17 @@
-extends layout
-
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+doctype html
+html
+  head(lang='ch')
+    meta(charset='UTF-8')
+    link(href='/favicon.ico', rel='shortcut icon', type='image/x-icon')
+    link(href='/favicon.ico', rel='icon', type='image/x-icon')
+    link(href='/favicon.ico', rel='bookmark', type='image/x-icon')
+    title 404错误
+    link(rel='stylesheet', href='../css/front_end/front_end_error.css')
+  body
+    .errorMain
+      img.img-error(src="../images/404.png")
+      h4 Oops! Looks like something was broken
+      h4 未找到相关的文件
+      a(href="../")
+        img.img-home(src="../images/404_home.png")
+    script(src='./plugins/jquery/jquery.1.12.5.min.js')

@@ -38,6 +38,48 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
 
+// get error
+app.use(async (ctx, next) => {
+    try{
+
+        // 登录了之后将用户信息统一放入每一个返回的页面 得在next前面, url 也返回到页面
+        // if(ctx.request.method.toLowerCase() == 'get' && ctx.session.user){
+        //     console.log('ctx.session.user : ',ctx.session.user);
+        //     ctx.state['user'] = ctx.session.user;
+        // }
+
+
+        await next();
+
+        // next 执行完后 请求状态发生改变，404 错误不会走catch，所以在try中处理404等错误 默认请求的状态是404
+        if (ctx.status.toString().substr(0,1) == 4) {
+            ctx.state = {
+                errorCode: ctx.status + ' 请求资源未找到'
+            };
+            await ctx.render('error', {
+            });
+        }
+    }
+    catch (err){
+        console.log('ctx.err : ', err);
+        if (ctx.request.method.toLowerCase() == 'post') {
+            ctx.body = {
+                error: err,
+                status: 'failed',
+                errMsg: err.errMsg ? err.errMsg : 'server error'
+            };
+        }
+        else{
+            ctx.state = {
+                errorCode: '服务器内部错误！'
+            };
+            await ctx.render('error', {
+            });
+        }
+    }
+
+});
+
 // router
 let fontRouters = fs.readdirSync('./routes/front_end');
 fontRouters.forEach(name => {

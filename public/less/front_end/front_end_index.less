@@ -209,12 +209,13 @@
       height: 220px;
       margin-top: 20px;
       overflow: hidden;
+      position: relative;
       li {
         span {
           position: absolute;
           bottom: 0;
           left: 0;
-          width: 100%;
+          width: 240px;
           display: block;
           text-align: center;
           //background: rgba(0, 122, 255, 0.8);
@@ -222,6 +223,13 @@
           padding: 10px 0;
           color: #fff;
         }
+      }
+      .content-container {
+        //position: absolute;
+        //z-index: 1;
+        //left: 50%;
+        //top: 0;
+        //transform: translateX(-50%);
       }
     }
     .product-content-more {

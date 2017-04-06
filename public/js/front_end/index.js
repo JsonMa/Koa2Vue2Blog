@@ -55,16 +55,20 @@ $(function () {
 	        });
         },
         bindEvent: function () {
-            $('.switch-tab').click(function () {
+
+            // tab切换
+            $('.switch-tab').on('click',function () {
                 var $this = $(this);
                 var presentClass = $this.attr('class').split(' ')[0],
 				 	$activeItem = $('.product-content-tab').find('.active'),
 					activeClass = $activeItem.attr('class').split(' ')[0];
 				$activeItem.removeClass('active');
-				$('.' + activeClass + '-container').fadeOut();
+				var $active = $('.' + activeClass + '-container').parent();
 				$this.addClass('active');
-				$('.' + presentClass + '-container').fadeIn();
-            })
+                var $present = $('.' + presentClass + '-container');
+                $present.clone().prependTo($active);
+                $present.remove();
+            });
         }
     };
 

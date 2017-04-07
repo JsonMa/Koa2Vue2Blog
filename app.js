@@ -1,3 +1,6 @@
+import session from "koa2-cookie-session"; // session
+import * as api from './routes/tools/api.js'; // api函数
+
 const fs = require ('fs');
 const Koa = require('koa');
 const app = new Koa();
@@ -5,11 +8,13 @@ const router = require('koa-router')();
 const views = require('koa-views');
 const co = require('co');
 const convert = require('koa-convert');
+const cookies = require( "cookies" );
 const json = require('koa-json');
 const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser')();
 const logger = require('koa-logger');
 const mongoose = require('mongoose'); // mongoose
+const _ = require("underscore"); // underscore
 require('dotenv').config(); // 加载环境变量
 const MONGO_HOST = process.env.BLOG_MONGO_HOST || 'localhost';
 const DBModule = new (require('./modules/modules.js'))(mongoose);
@@ -28,6 +33,14 @@ app.use(require('koa-static')(__dirname + '/public')); // 静态资源目录
 
 app.use(views(__dirname + '/views', {
   extension: 'jade'
+}));
+
+// koa2-cookie-session
+app.use(session({
+    key: "yir-session",   //default "koa:sid"
+    expires: 5/(24*60*60), //default 7 day 除以24*60 得到分钟
+    // expires: 7, //default 7 day 除以24*60 得到分钟
+    path:"/" // 允许所有路径访问cookie
 }));
 
 // logger
@@ -56,8 +69,7 @@ app.use(async (ctx, next) => {
             ctx.state = {
                 errorCode: ctx.status + ' 请求资源未找到'
             };
-            await ctx.render('error', {
-            });
+            await ctx.render('error');
         }
     }
     catch (err){
@@ -73,11 +85,28 @@ app.use(async (ctx, next) => {
             ctx.state = {
                 errorCode: '服务器内部错误！'
             };
-            await ctx.render('error', {
-            });
+            await ctx.render('error');
         }
     }
 
+});
+
+// hotRecommend
+app.use(async(ctx, next) => {
+    if(ctx.request.method.toLowerCase() == 'get'){
+        let queryParams = {
+            pageNum: 1, // 当前页数
+            pageSize: 5, // 每页显示数量
+            newsType: 'company' // 新闻类型
+        };
+        if(_.isEmpty(ctx.session.recommend)) {
+            var recommend = await api.hotRecommend(DBModule, queryParams);
+            if (recommend.status) {
+                ctx.session.recommend = recommend.data;
+            }
+        }
+    }
+    await next();
 });
 
 // router

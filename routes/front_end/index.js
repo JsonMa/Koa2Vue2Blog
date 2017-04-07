@@ -46,9 +46,14 @@ export default class extends controller {
                 pitotData: pitotResult.data, // 皮托管泵数据
                 chemicalData: chemicalResult.data, // 化工泵数据
                 magneticData: magneticResult.data, // 磁力泵数据
-                requestUrl: '../index?page='
+                requestUrl: '../index?page=',
             };
+            // console.log(recommend);
             ctx.state = responseData;
+
+            // 热点推荐
+            let recommend = ctx.session.recommend || '';
+            ctx.state.hotRecommend = recommend;
 
             // 判断是否是debug
             var debug = ctx.request.query._d;
@@ -62,12 +67,34 @@ export default class extends controller {
 		// 企业概况路由
 		this.router.get('/about', async(ctx, next) => {
 			ctx.state = {};
+
+            // 热点推荐
+            let recommend = ctx.session.recommend || '';
+            ctx.state.hotRecommend = recommend;
+
+            // 判断是否是debug
+            var debug = ctx.request.query._d;
+            if (debug == 1) {
+                ctx.body = ctx.state;
+                return false;
+            }
 			await ctx.render('./front_end_jade/front_end_about/about')
 		});
 
 		// 企业概况-发展历程路由
 		this.router.get('/about/develop', async(ctx, next) => {
-			ctx.state = {};
+            ctx.state = {};
+
+            // 热点推荐
+            let recommend = ctx.session.recommend || '';
+            ctx.state.hotRecommend = recommend;
+
+            // 判断是否是debug
+            var debug = ctx.request.query._d;
+            if (debug == 1) {
+                ctx.body = ctx.state;
+                return false;
+            }
 			await ctx.render('./front_end_jade/front_end_about/develop')
 		});
 
@@ -95,6 +122,10 @@ export default class extends controller {
                 requestUrl: '../about/honor?page='
             };
             ctx.state = responseData;
+
+            // 热点推荐
+            let recommend = ctx.session.recommend || '';
+            ctx.state.hotRecommend = recommend;
             // await this.DBModule.Honor.saveHonor();
 
             // 判断是否是debug
@@ -108,7 +139,11 @@ export default class extends controller {
 
 		// 企业概况-董事长致辞
 		this.router.get('/about/speech', async(ctx, next) => {
-			ctx.state = {};
+            ctx.state = {};
+
+            // 热点推荐
+            let recommend = ctx.session.recommend || '';
+            ctx.state.hotRecommend = recommend;
 			await ctx.render('./front_end_jade/front_end_about/speech')
 		});
 		
@@ -126,7 +161,7 @@ export default class extends controller {
 			let result = await this.DBModule.Enterprise.findEnterpriseList(queryParams); // 当前查询条件下的企业风采
 			let isFirstPage = queryParams.pageNum - 1 == 0; //　是否第一页
 			let isLastPage = ((queryParams.pageNum - 1) * queryParams.pageSize + result.data.length) == total; // 是否最后一页
-			let responseData = {
+            let responseData = {
 				pageNum: queryParams.pageNum,
 				pageSize: queryParams.pageSize,
 				isFirstPage: isFirstPage,
@@ -134,8 +169,12 @@ export default class extends controller {
 				total: total,
                 enterpriseData: result.data,
 				requestUrl: '../about/enterprise?page='
-			};
+            };
 			ctx.state = responseData;
+
+            // 热点推荐
+            let recommend = ctx.session.recommend || '';
+            ctx.state.hotRecommend = recommend;
             // await this.DBModule.Enterprise.saveEnterprise();
 
             // 判断是否是debug
@@ -174,6 +213,10 @@ export default class extends controller {
                 ctx.state.preEnterprise = preEnterprise.data;
             }
 
+            // 热点推荐
+            let recommend = ctx.session.recommend || '';
+            ctx.state.hotRecommend = recommend;
+
             // 判断是否是debug
             var debug = ctx.request.query._d;
             if (debug == 1) {
@@ -186,24 +229,40 @@ export default class extends controller {
         // 工程技术中心-质保体系
         this.router.get('/program/quality', async(ctx, next) => {
             ctx.state = {};
+
+            // 热点推荐
+            let recommend = ctx.session.recommend || '';
+            ctx.state = recommend;
             await ctx.render('./front_end_jade/front_end_program/quality')
         });
 
         // 工程技术中心-常见问题
         this.router.get('/program/question', async(ctx, next) => {
             ctx.state = {};
+
+            // 热点推荐
+            let recommend = ctx.session.recommend || '';
+            ctx.state.hotRecommend = recommend;
             await ctx.render('./front_end_jade/front_end_program/question')
         });
 
 		// 联系我们路由
 		this.router.get('/contact', async(ctx, next) => {
 			ctx.state = {};
+
+            // 热点推荐
+            let recommend = ctx.session.recommend || '';
+            ctx.state.hotRecommend = recommend;
 			await ctx.render('./front_end_jade/front_end_contact/contact')
 		});
 
 		// 加入我们路由
 		this.router.get('/join', async(ctx, next) => {
 			ctx.state = {};
+
+            // 热点推荐
+            let recommend = ctx.session.recommend || '';
+            ctx.state.hotRecommend = recommend;
 			await ctx.render('./front_end_jade/front_end_joinus/join')
 		})
 	}

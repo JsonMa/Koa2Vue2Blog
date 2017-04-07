@@ -1,0 +1,39 @@
+doctype html
+html
+    head
+        block title
+
+        // 引入共有的common.css文件
+        link(rel='stylesheet', href='/css/back_end/login.css')
+        // 引入字体样式
+        link(rel='stylesheet', href='/plugins/font/font-awesome.css')
+        link(rel='stylesheet', href='/plugins/bootstrap/bootstrap.min.css')
+        // 引入common
+        link(rel='stylesheet', href='/plugins/common/common.css')
+    body
+        .wrapper.login-wrapper
+            header.main-header
+                a.logo(href='#')
+                    span.logo-mini YIR后台管理系统
+                nav.navbar.navbar-static-top
+            .login-title-container
+                h4  伊尔流体后台管理系统
+            .form-content
+                form#login.form-horizontal(role='form')
+                    .form-group
+                        //label.col-sm-3.control-label(for='userName')
+                        .col-md-10.col-md-offset-1
+                            input#userName.form-control(type='text', name='userName', required='')
+                    .form-group
+                        //label.col-sm-3.control-label(for='pwd')
+                        .col-md-10.col-md-offset-1
+                            input#pwd.form-control(type='password', name='pwd', required='')
+                    .form-group
+                        //label.col-sm-5.control-label
+                        .col-md-10.col-md-offset-1
+                            button.btn.btn-primary.log-in(type='submit') 登陆
+        // 引入公有的JS文件
+        script(src='/plugins/jquery/jquery.1.12.5.min.js')
+        script(src='/plugins/bootstrap/bootstrap.min.js')
+        script(src='/plugins/common/common.js')
+        script(src='/js/back_end/login.js')

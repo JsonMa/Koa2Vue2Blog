@@ -6,7 +6,6 @@ node_modules
 *.env
 .gitignore
 npm-debug.log
-views/back_end_jade/
 
 # 忽略编译后的CSS文件
 public/css/

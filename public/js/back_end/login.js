@@ -15,7 +15,7 @@ $(function(){
                 if(form) {
                     location.href = form;
                 } else {
-                    location.href = '../admin/index';
+                    location.href = '/admin/index';
                 }
             }else{
 

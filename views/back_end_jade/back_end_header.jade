@@ -1,24 +1,19 @@
 header.main-header
-    // Logo
     a.logo(href='#')
-        // mini logo for sidebar mini 50x50 pixels
         span.logo-mini
-            b I
-            | OT
-        // logo for regular state and mobile devices
+            b Y
+            | IR
         span.logo-lg
-            b Ioteams
+            b CQYIR
             | 管理系统
-    // Header Navbar: style can be found in header.less
     nav.navbar.navbar-static-top
-        // Sidebar toggle button
         a.sidebar-toggle(href='#', data-toggle='offcanvas', role='button')
             span.sr-only Toggle navigation
         .navbar-custom-menu
             ul.nav.navbar-nav
                 li.dropdown.user.user-menu
                     a.dropdown-toggle(href='#', data-toggle='dropdown')
-                        img.user-image(src='img/user2-160x160.jpg', alt='User Image')
-                        span.hidden-xs {{ user.nickname }}
+                        img.user-image(src='../images/back_end/user2-160x160.jpg', alt='User Image')
+                        span.hidden-xs admin
                 li
-                    a.log-out(href='/manage/logout') 退出登录 >>
+                    a.log-out(href='/admin/logout') 退出登录 >>

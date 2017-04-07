@@ -1,0 +1,95 @@
+// 集成模板
+extends ./back_end_layout
+block title
+    title 重庆伊尔流体设备制造有限公司
+
+// 引入私有的css
+block css
+
+block content
+    // 左侧的菜单栏 Left side colum. contains the logo and sidebar
+    aside.main-sidebar
+        // sidebar: style can be found in sidebar.less
+        section.sidebar
+            // Sidebar user panel
+            .user-panel
+                .pull-left.image
+                    img.img-circle(src='../images/back_end/user2-160x160.jpg', alt='User Image')
+                .pull-left.info
+                    p Admin
+                    a(href='#')
+                        i.fa.fa-circle.text-success
+                        |  已登录
+            // search form
+            form.sidebar-form(action='#', method='get')
+                .input-group
+                    input.form-control(type='text', name='q', placeholder='Search...')
+                    span.input-group-btn
+                        button#search-btn.btn.btn-flat(type='submit', name='search')
+                            i.fa.fa-search
+            ul.sidebar-menu
+                li.active.treeview
+                    a(href='#')
+                        i.fa.fa-edit
+                        span 创客马拉松
+                        span.pull-right-container
+                            i.fa.fa-angle-left.pull-fright
+                    ul.treeview-menu
+                        li.active
+                            a(href='/manage/marathon')
+                                i.fa.fa-circle-o
+                                | 团队管理
+                li.treeview
+                    a(href='#')
+                        i.fa.fa-edit
+                        span 唤醒计划
+                        span.pull-right-container
+                            i.fa.fa-angle-left.pull-fright
+                    ul.treeview-menu
+                        li
+                            a(href='/manage/innovative')
+                                i.fa.fa-circle-o
+                                | 报名表管理
+                li.treeview
+                    a(href='#')
+                        i.fa.fa-edit
+                        span 最强ACE
+                        span.pull-right-container
+                            i.fa.fa-angle-left.pull-fright
+                    ul.treeview-menu
+                        li
+                            a(href='/manage/captain')
+                                i.fa.fa-circle-o
+                                | 报名表管理
+                li.treeview
+                    a(href='#')
+                        i.fa.fa-users
+                        span 用户管理
+                        span.pull-right-container
+                            i.fa.fa-angle-left.pull-right
+                    ul.treeview-menu
+                        li
+                            a(href='/manage/addadmin')
+                                i.fa.fa-circle-o
+                                | 用户管理
+    // Content Wrapper. Contains page content
+    .content-wrapper
+        // Content Header (Page header)
+        section.content-header
+            h1
+                | 团队管理
+                small TEAM MANAGEMENT
+
+            button.clear-vote.btn.btn-default(style='float: right; margin-left: 30px', votestatus='close') 关闭投票
+            button.clear-vote.btn.btn-default(style='float: right; margin-left: 30px', votestatus='open') 开启投票
+            button.out-excle-btn.btn.btn-primary 导出所有团队
+        // Main content
+        section.content
+            .row
+                .col-xs-12
+                    .box.table-container
+                        .box-header
+                            h3.box-title Team Information Table
+                        .box-body
+// 引入私有的js
+block js

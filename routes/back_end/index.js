@@ -26,7 +26,7 @@ export default class extends controller {
                 ctx.body = ctx.state;
                 return false;
             }
-            await ctx.render('./back_end_jade/index')
+            await ctx.render('./back_end_jade/back_end_index')
         });
     }
 

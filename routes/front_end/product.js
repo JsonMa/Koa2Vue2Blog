@@ -32,6 +32,10 @@ export default class extends controller {
                 requestUrl: '../product/pumps?page='
             };
             ctx.state = responseData;
+
+            // 热点推荐
+            let recommend = ctx.session.recommend || '';
+            ctx.state.hotRecommend = recommend;
             // await this.DBModule.Pumps.savePump(); // 保存泵
 
             // 判断是否是debug
@@ -71,6 +75,10 @@ export default class extends controller {
             };
             ctx.state = responseData;
 
+            // 热点推荐
+            let recommend = ctx.session.recommend || '';
+            ctx.state.hotRecommend = recommend;
+
             // await this.DBModule.Seals.saveSeal(); // 保存泵
             // 判断是否是debug
             var debug = ctx.request.query._d;
@@ -99,6 +107,10 @@ export default class extends controller {
             }
             // ctx.state.nextProduct = await this.DBModule.Pumps.findPumpNext(productId); // 获取后一条新闻
             // ctx.state.lastPr = await this.DBModule.Pumps.findPumpPrevious(productId); // 获取前一条新闻
+
+            // 热点推荐
+            let recommend = ctx.session.recommend || '';
+            ctx.state.hotRecommend = recommend;
 
             // 判断是否是debug
             var debug = ctx.request.query._d;

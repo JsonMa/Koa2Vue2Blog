@@ -232,7 +232,8 @@ export default class extends controller {
 
             // 热点推荐
             let recommend = ctx.session.recommend || '';
-            ctx.state = recommend;
+            ctx.state.hotRecommend = recommend;
+
             await ctx.render('./front_end_jade/front_end_program/quality')
         });
 
@@ -243,6 +244,7 @@ export default class extends controller {
             // 热点推荐
             let recommend = ctx.session.recommend || '';
             ctx.state.hotRecommend = recommend;
+
             await ctx.render('./front_end_jade/front_end_program/question')
         });
 

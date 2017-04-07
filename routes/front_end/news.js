@@ -32,6 +32,10 @@ export default class extends controller {
 			};
             ctx.state = responseData;
 
+            // 热点推荐
+            let recommend = ctx.session.recommend || '';
+            ctx.state.hotRecommend = recommend;
+
             // 判断是否是debug
             var debug = ctx.request.query._d;
             if (debug == 1) {
@@ -68,6 +72,10 @@ export default class extends controller {
             };
             ctx.state = responseData;
 
+            // 热点推荐
+            let recommend = ctx.session.recommend || '';
+            ctx.state.hotRecommend = recommend;
+
             // 判断是否是debug
             var debug = ctx.request.query._d;
             if (debug == 1) {
@@ -86,6 +94,10 @@ export default class extends controller {
 			ctx.state.nextNews = await this.DBModule.News.findNewsNext(newsId); // 获取后一条新闻
 			ctx.state.lastNews = await this.DBModule.News.findNewsPrevious(newsId); // 获取前一条新闻
 
+            // 热点推荐
+            let recommend = ctx.session.recommend || '';
+            ctx.state.hotRecommend = recommend;
+            
             // 判断是否是debug
             var debug = ctx.request.query._d;
             if (debug == 1) {

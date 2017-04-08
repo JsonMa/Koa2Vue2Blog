@@ -966,21 +966,3 @@ if (!window.JSON) {
 		}
 	};
 }
-
-
-var $profileImg = $('.profile-detail-img');
-var $profileDetail = $('.profile-detail-ul');
-$profileImg.on('click', function (e) {
-	$profileDetail.toggleClass('hide');
-	e.stopPropagation();
-	e.preventDefault();
-});
-$(document).on('click', function(){
-	$profileDetail.addClass('hide');
-});
-$(function () {
-	function resizeRender(){
-		$('.content').css('min-height', Math.max($(window).height() - 45 - 38, $('.menu').height()));
-	}
-	resizeRender();
-});

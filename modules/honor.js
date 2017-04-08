@@ -28,8 +28,14 @@ export default class {
         honorSchema.virtual('formatCreatedTime').get(function () {
             return moment(this.createTime).format('YYYY-MM-DD');
         }); // 设置虚拟时间属性
+        honorSchema.virtual('createdTimeDetail').get(function () {
+            return moment(this.createTime).format('YYYY-MM-DD HH:MM:SS');
+        }); // 设置虚拟时间属性
         honorSchema.virtual('formatUpdateTime').get(function () {
-            return moment(this.updatedAt).format('YYYY-MM-DD');
+            return moment(this.lastEditTime).format('YYYY-MM-DD');
+        }); // 设置虚拟时间属性
+        honorSchema.virtual('updateTimeDetail').get(function () {
+            return moment(this.lastEditTime).format('YYYY-MM-DD HH:MM:SS');
         }); // 设置虚拟时间属性
         this.Honor =  mongoose.model('honor', honorSchema);
     }
@@ -53,7 +59,7 @@ export default class {
         )
     }
 
-    // 获取当前ID下的新闻
+    // 获取当前ID下荣誉资质
     findHonor(honorId) {
         return new Promise((resolve, reject) => {
             this.Honor.find({_id: honorId}, function (err, res){
@@ -68,7 +74,7 @@ export default class {
         })
     }
 
-    // 获取当前新闻的后一条记录
+    // 获取当前荣誉资质的后一条记录
     findHonorNext(imageId) {
         return new Promise((resolve, reject) => {
             this.Honor.find({'_id' :{ "$gt" :imageId} })
@@ -86,7 +92,7 @@ export default class {
         })
     }
 
-    // 获取当前新闻的前一条记录
+    // 获取当前荣誉资质的前一条记录
     findHonorPrevious(imageId) {
         return new Promise((resolve, reject) => {
             this.Honor.find({'_id' :{ "$lt" :imageId} })
@@ -104,11 +110,12 @@ export default class {
         })
     }
 
-    // 查询新闻列表
+    // 查询荣誉资质列表
     findHonorList(params) {
         if(params) {
+            let condition = params.showAll == true ? {}: {hidden: false};
             return new Promise((resolve, reject) => {
-                this.Honor.find({})
+                this.Honor.find(condition)
                     .skip((params.pageNum - 1) * params.pageSize)
                     .limit(params.pageSize)
                     .exec(function (err, res){
@@ -124,7 +131,7 @@ export default class {
         }
     }
 
-    // 查询所有的产品数目
+    // 查询所有的荣誉资质数目
     findTotalHonor(queryParams) {
         return new Promise((resolve, reject) => {
             if (queryParams && typeof queryParams == "object") {
@@ -139,6 +146,46 @@ export default class {
                 })
             } else {
                 reject({ status: false, msg: '非法的查询参数'})
+            }
+        })
+    }
+
+    // 修改特定的荣誉资质状态
+    changeHonrStatus(params) {
+        return new Promise((resolve, reject) => {
+            if (params && typeof params == "object") {
+                this.Honor.findById(params._id, function (err, doc) {
+                    if (err) {
+                        reject({ status: false, msg: '数据库查询错误'})
+                    }
+                    doc.hidden = params.hidden;
+                    doc.save(err => {
+                        if(err) {
+                            reject({ status: false, msg: '状态修改失败'})
+                        } else {
+                            resolve({ status: true, msg: '状态修改成功'})
+                        }
+                    });
+                })
+            } else {
+                reject({ status: false, msg: '参数错误'})
+            }
+        })
+    }
+
+    // 删除特定的荣誉资质状态
+    deleteHonrStatus(params) {
+        return new Promise((resolve, reject) => {
+            if (params && typeof params == "object") {
+                this.Honor.remove({_id: params._id}, function (err, doc) {
+                    if (err) {
+                        reject({ status: false, msg: '数据库查询错误'})
+                    } else {
+                        resolve({ status: true, msg: '荣誉资质删除成功'})
+                    }
+                })
+            } else {
+                reject({ status: false, msg: '参数错误'})
             }
         })
     }

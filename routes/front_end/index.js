@@ -103,11 +103,12 @@ export default class extends controller {
             let pageNum = ctx.query.page ? parseInt(ctx.query.page) : 1; // 获取页数
             let queryParams = {
                 pageNum: pageNum, // 当前页数
-                pageSize: 6 // 每页显示数量
+                pageSize: 6, // 每页显示数量
+                showAll: false
             }; // 数据库查询参数
 
             ctx.state = {}; // 返回的数据初始化
-            let totalHonor = await this.DBModule.Honor.findTotalHonor({}); // 获取荣誉资质总条数
+            let totalHonor = await this.DBModule.Honor.findTotalHonor({hidden: false}); // 获取荣誉资质总条数
             let total = totalHonor.count; // 荣誉资质总条数
             let result = await this.DBModule.Honor.findHonorList(queryParams); // 当前查询条件下的荣誉资质
             let isFirstPage = queryParams.pageNum - 1 == 0; //　是否第一页
@@ -268,7 +269,7 @@ export default class extends controller {
 			await ctx.render('./front_end_jade/front_end_joinus/join')
 		})
 	}
-	
+
 	actions() {
         this.router.post('/contact', async(ctx, next) => {
             ctx.body = {

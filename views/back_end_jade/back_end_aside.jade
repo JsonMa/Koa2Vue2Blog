@@ -1,0 +1,82 @@
+// 左侧的菜单栏 Left side colum. contains the logo and sidebar
+aside.main-sidebar
+    // sidebar: style can be found in sidebar.less
+    section.sidebar
+        // Sidebar user panel
+        .user-panel
+            .pull-left.image
+                img.img-circle(src='../images/back_end/user2-160x160.jpg', alt='User Image')
+            .pull-left.info
+                p Admin
+                a(href='#')
+                    i.fa.fa-circle.text-success
+                    |  已登录
+        // search form
+        form.sidebar-form(action='#', method='get')
+            .input-group
+                input.form-control(type='text', name='q', placeholder='Search...')
+                span.input-group-btn
+                    button#search-btn.btn.btn-flat(type='submit', name='search')
+                        i.fa.fa-search
+
+        ul.sidebar-menu
+            li.active.treeview
+                a(href='#')
+                    i.fa.fa-edit
+                    span 企业概况
+                    span.pull-right-container
+                        i.fa.fa-angle-left.pull-fright
+                ul.treeview-menu
+                    li.active
+                        a(href='/admin/captain')
+                            i.fa.fa-circle-o
+                            | 荣誉资质
+                    li
+                        a(href='/admin/captain')
+                            i.fa.fa-circle-o
+                            | 企业形象
+        ul.sidebar-menu
+            li.treeview
+                a(href='#')
+                    i.fa.fa-newspaper-o
+                    span 新闻中心
+                    span.pull-right-container
+                        i.fa.fa-angle-left.pull-fright
+                ul.treeview-menu
+                    li
+                        a(href='/manage/marathon')
+                            i.fa.fa-circle-o
+                            | 团队管理
+            li.treeview
+                a(href='#')
+                    i.fa.fa-th
+                    span 产品中心
+                    span.pull-right-container
+                        i.fa.fa-angle-left.pull-fright
+                ul.treeview-menu
+                    li
+                        a(href='/manage/innovative')
+                            i.fa.fa-circle-o
+                            | 报名表管理
+            li.treeview
+                a(href='#')
+                    i.fa.fa-phone
+                    span 联系我们
+                    span.pull-right-container
+                        i.fa.fa-angle-left.pull-right
+                ul.treeview-menu
+                    li
+                        a(href='/manage/addadmin')
+                            i.fa.fa-circle-o
+                            | 用户管理
+            li.treeview
+                a(href='#')
+                    i.fa.fa-users
+                    span 加入我们
+                    span.pull-right-container
+                        i.fa.fa-angle-left.pull-right
+                ul.treeview-menu
+                    li
+                        a(href='/manage/addadmin')
+                            i.fa.fa-circle-o
+                            | 用户管理

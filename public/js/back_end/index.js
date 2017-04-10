@@ -42,7 +42,7 @@ $(function () {
                                 '<textarea id="imgDes" class="form-control" rows="3" name="des" placeholder="请输入荣誉描述"></textarea>'+
                             '</div>'+
                             '<div class="form-group">'+
-                                '<label for="fileInput" class="control-label">上传图片：</label>'+
+                                '<label for="fileInput" class="control-label">上传图片：(宽、高比例为1:1.4，参考值为：460像素x650像素)</label>'+
                                 '<div class="control-label">'+
                                     // '<input type="file" id="fileInput">'+
                                     '<div id="zyupload" class="zyupload"></div>  '+

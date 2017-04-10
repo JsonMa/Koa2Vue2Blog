@@ -31,6 +31,7 @@ block content
                             table#example.table.table-bordered.table-hover(style="text-align: center")
                                 thead
                                     tr
+                                        th ID
                                         th 荣誉名称
                                         th 荣誉概述
                                         th 创建时间
@@ -39,8 +40,11 @@ block content
                                         th 状态
                                         th 操作
                                 tbody
+                                    -var baseIndex = (pageNum - 1) * pageSize;
                                     -for (var i = 0; i < honorData.length; i++)
                                         tr
+                                            -var index = baseIndex + i + 1;
+                                            td #{index}
                                             td.honorName #{honorData[i].name}
                                             td.honorSummary #{honorData[i].Summary}
                                             td.honorCteateTime #{honorData[i].createdTimeDetail}

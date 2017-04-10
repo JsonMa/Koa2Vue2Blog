@@ -4,6 +4,7 @@
 
 const crypto = require('crypto'); // 加密组件
 const _ = require("underscore");
+import fs from 'fs';
 
 // 密码加密
 export function encryption(str){
@@ -108,7 +109,7 @@ export function hotRecommend(db, params) {
                 reject({status: false})
             }
         );
-    })
+    });
     // return async(ctx, next) => {
     //     if(_.isEmpty(ctx.session.recommend)){
     //         console.log('未包含热门推荐');
@@ -125,4 +126,24 @@ export function hotRecommend(db, params) {
     //         await next();
     //     }
     // }
+}
+
+//重命名文件（数组）
+export function renameFiles(imgs, savePath) {
+    return new Promise((resolve, reject) => {
+        var resultsPath = [];
+        _.each(imgs, item => {
+            var originalname = item.originalname.split('.');
+            var fileType = "." + originalname[originalname.length - 1];
+            var toPath = savePath + item.filename + fileType;
+            resultsPath.push(toPath);
+            fs.rename(item.path, "public/images/" + toPath, err => {
+                if (err) {
+                    console.log(err);
+                    reject({ status: false });
+                }
+            });
+        });
+        resolve({ status: true, resultsPath: resultsPath });
+    })
 }

@@ -39,13 +39,8 @@ export default class {
         }); // 设置虚拟时间属性
         this.Honor =  mongoose.model('honor', honorSchema);
     }
-    saveHonor() {
+    saveHonor(honorInfo) {
         return new Promise((resolve, reject) => {
-                var honorInfo = {
-                    name: '生产许可证', // 图片名称
-                    imgUrl: '../images/front_end/about/certifaction01.png', // 荣誉资质图片地址
-                    Summary: '这是公司的生产许可证' // 图片概述
-                };
                 let Honor = this.Honor;
                 let addHonor = new Honor(honorInfo);
                 addHonor.save(err => {

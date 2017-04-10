@@ -6,6 +6,7 @@ block title
 // 引入私有的css
 block css
     link(rel='stylesheet' href="../css/back_end/about.css")
+    link(rel='stylesheet', href='/plugins/zyupload/skins/zyupload-1.0.0.css')
 block content
     // 引入共有的aside
     include ./back_end_aside.jade
@@ -74,4 +75,6 @@ block content
 
 // 引入私有的js
 block js
+    script(src='/plugins/zyupload/zyupload.basic-1.0.0.js')
     script(src='/js/back_end/index.js')
+

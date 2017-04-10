@@ -102,6 +102,9 @@
 				this.$root.on('hidden.bs.modal', function (e) {
 					_this.$root.remove();
 					_this.$root = null;
+					if ($('#zyupload')) {
+						$('#zyupload').empty(); // 删除子元素
+					}
 				});
 			}
 		},
@@ -109,6 +112,7 @@
 			var _this = this;
 			var options = this._options;
 			this.$root.on('click', '.j_dlg_close', function(e){
+				alert('111');
 				e.preventDefault();
 				//beforeClose执行结果为false,说明关闭时间被阻止了
 				if(options.beforeClose && options.beforeClose.apply(_this) === false){
@@ -120,6 +124,7 @@
 				}
 			}).on('click', '.j_ok', function(){
 				options.okCallback && options.okCallback.apply(_this);
+				return false
 			}).on('click', '.j_cancel', function(){
 				options.cancelCallback && options.cancelCallback.apply(_this);
 			});
@@ -128,10 +133,13 @@
 		/**
 		 * 打开对话框
 		 * */
-		open: function(){
+		open: function(callback){
 			this.$root.modal({
 
 			});
+			if(typeof callback == 'function') {
+				callback();
+			}
 		},
 		/**
 		 * 关闭对话框
@@ -165,13 +173,13 @@
 			okText: '确定', //确定按钮的文字
 			okCallback: function(){
 				ok && ok.call(this);
-				confirmDialog.close();
+				// confirmDialog.close();
 			}, //确定按钮的回调
 			showCancel: true, //是否显示取消按钮
 			cancelText: '取消', //取消按钮的文字
 			cancelCallback: function(){
 				cancel && cancel.call(this);
-				confirmDialog.close();
+				// confirmDialog.close();
 			} //取消按钮的回调
 		});
 		confirmDialog.open();

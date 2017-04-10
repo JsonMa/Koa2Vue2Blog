@@ -2,6 +2,10 @@
  * Created by Mahao on 2017/4/7.
  */
 import controller from '../tools/controllers'
+import multer from 'koa-multer';
+// const multer = require('koa-multer');
+const upload = multer({ dest: 'uploads/' });
+const koaBody = require('koa-body')({multipart: true});
 export default class extends controller {
     renders() {
 
@@ -25,6 +29,7 @@ export default class extends controller {
                 pageSize: 12, // 每页显示数量
                 showAll: true
             }; // 数据库查询参数
+
 
             ctx.state = {}; // 返回的数据初始化
             let totalHonor = await this.DBModule.Honor.findTotalHonor({}); // 获取荣誉资质总条数
@@ -104,6 +109,47 @@ export default class extends controller {
                     "code": 200,
                     "msg": deleteHonor.msg
                 };
+            }
+        });
+
+        // index-荣誉资质图片上传
+        this.router.post('/upload/honor',upload.single('file'), async (ctx, next) => {
+            var requestBody = ctx.req.file;
+
+            // console.log(ctx.request);
+            console.log(requestBody);
+            if (this._.isEmpty(requestBody)) {
+                ctx.body = { code: 500, msg: "上传失败" };
+                return false;
+            }
+            let reNameResult = await this.api.renameFiles([requestBody], "front_end/about/honor/");
+            var resultsPath = reNameResult.resultsPath;
+            if (reNameResult.status) {
+                // var updateResult = await this.DBModule.Activity.updateActivityProgramImg(resultsPath, activityId);
+                ctx.body = { code: 0, imgPath: resultsPath };
+            } else {
+                ctx.body = { code: 500, msg: '保存失败' };
+            }
+        });
+
+        // index-荣誉资质图片上传
+        this.router.post('/honor/add', async (ctx, next) => {
+            console.log(ctx.request.body);
+            var requestBody = ctx.request.body;
+            if (requestBody) {
+                var honorInfo = {
+                    name: requestBody.name, // 图片名称
+                    imgUrl: '../images/' + requestBody.imgUrl, // 荣誉资质图片地址
+                    Summary: requestBody.imgDes // 图片概述
+                };
+                let result = await this.DBModule.Honor.saveHonor(honorInfo);
+                if(result.status) {
+                    ctx.body = { code: 0, msg: result.msg };
+                } else {
+                    ctx.body = { code: 500, msg: result.msg };
+                }
+            } else {
+                ctx.body = { code: 500, msg: '参数错误' };
             }
         });
     }

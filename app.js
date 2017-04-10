@@ -11,7 +11,7 @@ const convert = require('koa-convert');
 const cookies = require( "cookies" );
 const json = require('koa-json');
 const onerror = require('koa-onerror');
-const bodyparser = require('koa-bodyparser')();
+const bodyParser = require('koa-bodyparser');
 const logger = require('koa-logger');
 const mongoose = require('mongoose'); // mongoose
 const _ = require("underscore"); // underscore
@@ -26,7 +26,7 @@ db.once('open', function () {
 });
 
 // middlewares
-app.use(convert(bodyparser));
+app.use(convert(bodyParser()));
 app.use(convert(json()));
 app.use(convert(logger()));
 app.use(require('koa-static')(__dirname + '/public')); // 静态资源目录

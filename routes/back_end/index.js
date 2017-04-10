@@ -3,9 +3,7 @@
  */
 import controller from '../tools/controllers'
 import multer from 'koa-multer';
-// const multer = require('koa-multer');
 const upload = multer({ dest: 'uploads/' });
-const koaBody = require('koa-body')({multipart: true});
 export default class extends controller {
     renders() {
 
@@ -54,6 +52,23 @@ export default class extends controller {
                 return false;
             }
             await ctx.render('./back_end_jade/back_end_index')
+        });
+
+        // honor 详情
+        // 登录
+        this.router.get('/admin/honor_detail', async(ctx, next) => {
+            let honorId = ctx.request.query.id;
+            let honor = await this.DBModule.Honor.findHonor({_id: honorId}); // 获取荣誉资质总条数
+            if (honor.status) {
+                ctx.state.honorData = honor.data[0]; // 获取第一个元素
+            }
+            // 判断是否是debug
+            var debug = ctx.request.query._d;
+            if (debug == 1) {
+                ctx.body = ctx.state;
+                return false;
+            }
+            await ctx.render('./back_end_jade/back_end_about/honor_edit')
         });
     }
 
@@ -139,10 +154,32 @@ export default class extends controller {
             if (requestBody) {
                 var honorInfo = {
                     name: requestBody.name, // 图片名称
-                    imgUrl: '../images/' + requestBody.imgUrl, // 荣誉资质图片地址
+                    imgUrl: requestBody.imgUrl, // 荣誉资质图片地址
                     Summary: requestBody.imgDes // 图片概述
                 };
                 let result = await this.DBModule.Honor.saveHonor(honorInfo);
+                if(result.status) {
+                    ctx.body = { code: 0, msg: result.msg };
+                } else {
+                    ctx.body = { code: 500, msg: result.msg };
+                }
+            } else {
+                ctx.body = { code: 500, msg: '参数错误' };
+            }
+        });
+
+        // index-修改荣誉资质
+        this.router.post('/honor/edit', async (ctx, next) => {
+            // console.log(ctx.request.body);
+            var requestBody = ctx.request.body;
+            if (requestBody) {
+                let honorInfo = {
+                    name: requestBody.name, // 图片名称
+                    imgUrl: requestBody.imgUrl, // 荣誉资质图片地址
+                    Summary: requestBody.imgDes, // 图片概述
+                    _id: requestBody.id // 图片概述
+                };
+                let result = await this.DBModule.Honor.changeHonrValue(honorInfo);
                 if(result.status) {
                     ctx.body = { code: 0, msg: result.msg };
                 } else {

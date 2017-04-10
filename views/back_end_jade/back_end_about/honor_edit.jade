@@ -1,0 +1,79 @@
+// 集成模板
+extends ../back_end_layout
+block title
+    title 重庆伊尔流体后台管理系统
+
+// 引入私有的css
+block css
+    link(rel='stylesheet' href="../css/back_end/about.css")
+    link(rel='stylesheet', href='/plugins/zyupload/skins/zyupload-1.0.0.css')
+block content
+    // 引入共有的aside
+    include ../back_end_aside.jade
+
+    // Content Wrapper. Contains page content
+    .content-wrapper
+        // Content Header (Page header)
+        section.content-header
+            h1
+                | 企业概况
+                small 荣誉资质
+            //button.add-honor.btn.btn-primary 新增
+        // Main content
+        section.content
+            .row
+                .col-md-12
+                    .box.table-container
+                        .box-header
+                            h3.box-title 荣誉详情
+                                small  荣誉资质
+                        .box-body
+                            .row
+                                .col-md-6.col-md-offset-3
+                                    form
+                                        .form-group
+                                            label(for='inputName') 荣誉名称：
+                                            input#inputName.form-control(type='text', placeholder='请输入荣誉名称' value="#{honorData.name}")
+                                            input#imgUrl.form-control(type='hidden', value="#{honorData.imgUrl}")
+                                            input#imgId.form-control(type='hidden', value="#{honorData._id}")
+                                        .form-group
+                                            label(for='imgDes') 荣誉描述：
+                                            textarea#imgDes.form-control(rows='3' value="#{honorData.Summary}") #{honorData.Summary}
+                                        .form-group
+                                            label.honor-img-label(style="vertical-align:top") 荣誉图片：
+                                            img#honorImg(src="#{honorData.imgUrl}" style="width: 202px; height: 282px")
+                                            .honor-change
+                                                span.btn.btn-default.change-img(style="margin-left:60px") 修改图片
+                                            //p.help-block Example block-level help text here.
+                                        .form-group(style="text-align:right")
+                                            span.btn.btn-primary.honor-edit 保存修改
+                                    .honor-back(style="text-align: right")
+                                        a(href="")
+                                            << 返回列表
+                                    //.col-md-6(style="text-align:right")
+                                    //    span 荣誉名称:
+                                    //.col-md-5.col-md-offset-1
+                                    //    span
+                                    //.col-md-6(style="text-align:right")
+                                    //    span 创建时间:
+                                    //.col-md-5.col-md-offset-1
+                                    //    span #{honorData.createTime}
+                                    //.col-md-6(style="text-align:right")
+                                    //    span 修改时间:
+                                    //.col-md-5.col-md-offset-1
+                                    //    span #{honorData.updateTime}
+                                    //.col-md-6(style="text-align:right")
+                                    //    span 荣誉简介:
+                                    //.col-md-5.col-md-offset-1
+                                    //    span #{honorData.Summary}
+                                    //.col-md-6(style="text-align:right")
+                                    //    span 荣誉图片:
+                                    //.col-md-5.col-md-offset-1
+                                    //    img(src="#{honorData.imgUrl}")
+                        //include ../front_end_jade/front_end_paging.jade
+
+// 引入私有的js
+block js
+    script(src='/plugins/zyupload/zyupload.basic-1.0.0.js')
+    script(src='/js/back_end/honor_detail.js')
+

@@ -136,10 +136,9 @@ export function renameFiles(imgs, savePath) {
             var originalname = item.originalname.split('.');
             var fileType = "." + originalname[originalname.length - 1];
             var toPath = savePath + item.filename + fileType;
-            resultsPath.push(toPath);
+            resultsPath.push("../images/" + toPath);
             fs.rename(item.path, "public/images/" + toPath, err => {
                 if (err) {
-                    console.log(err);
                     reject({ status: false });
                 }
             });

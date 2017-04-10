@@ -1,6 +1,7 @@
 /**
  * Created by Mahao on 2017/4/5.
  */
+import fs from 'fs';
 export default class {
     constructor(mongoose, _, moment) {
         this._ = _;
@@ -9,10 +10,6 @@ export default class {
             name: String, // 图片名称
             imgUrl: String, // 泵图片地址
             Summary: String, // 产品概述
-            createTime: {
-                type: Date,
-                default: Date.now
-            }, // 创建时间
             lastEditTime: {
                 type: Date,
                 default: Date.now
@@ -158,6 +155,47 @@ export default class {
                         if(err) {
                             reject({ status: false, msg: '状态修改失败'})
                         } else {
+                            resolve({ status: true, msg: '状态修改成功'})
+                        }
+                    });
+                })
+            } else {
+                reject({ status: false, msg: '参数错误'})
+            }
+        })
+    }
+
+    // 修改特定的荣誉资质
+    changeHonrValue(params) {
+        return new Promise((resolve, reject) => {
+            if (params && typeof params == "object") {
+                this.Honor.findById(params._id, function (err, doc) {
+                    if (err) {
+                        reject({ status: false, msg: '数据库查询错误'})
+                    }
+                    let date = new Date();
+                    let imgUrlString = doc.imgUrl;
+                    let isSame = doc.imgUrl == params.imgUrl? true: false;
+                    let oldPath = imgUrlString.replace('..', 'public');
+                    doc.lastEditTime = date;
+                    doc.name = params.name; // 设置名称
+                    doc.imgUrl = params.imgUrl; // 设置图片地址
+                    doc.Summary = params.Summary; // 设置图片简介
+                    doc.save(err => {
+                        if(err) {
+                            reject({ status: false, msg: '状态修改失败'})
+                        } else {
+                            console.log(oldPath);
+                            if (!isSame) {
+                                try
+                                {
+                                    fs.unlink(oldPath);
+                                }
+                                catch(err)
+                                {
+                                    console.log('旧图片删除失败');
+                                }
+                            }
                             resolve({ status: true, msg: '状态修改成功'})
                         }
                     });

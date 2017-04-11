@@ -113,6 +113,25 @@ export default class extends controller {
             await ctx.render('./back_end_jade/back_end_about/enterprise')
         });
 
+        // enterprise 详情
+        this.router.get('/admin/enterprise_detail', async(ctx, next) => {
+            let enterpriseId = ctx.request.query.id;
+            let pageNum = ctx.request.query.page || 1;
+            let enterprise = await this.DBModule.Enterprise.findEnterprise({_id: enterpriseId});
+            if (enterprise.status) {
+                ctx.state.enterpriseData = enterprise.data[0];
+                ctx.state.pageNum = pageNum;
+                ctx.state.nav = 'enterprise';
+            }
+
+            // 判断是否是debug
+            var debug = ctx.request.query._d;
+            if (debug == 1) {
+                ctx.body = ctx.state;
+                return false;
+            }
+            await ctx.render('./back_end_jade/back_end_about/about_edit')
+        });
     }
 
     actions() {
@@ -177,8 +196,8 @@ export default class extends controller {
             }
         });
 
-        // index-荣誉资质图片上传
-        this.router.post('/upload/honor',upload.single('file'), async (ctx, next) => {
+        // index-通用图片上传
+        this.router.post('/upload/about',upload.single('file'), async (ctx, next) => {
             var requestBody = ctx.req.file;
 
             // console.log(ctx.request);
@@ -207,7 +226,7 @@ export default class extends controller {
                 };
 
                 // 判断图片路径是否有更新
-                if(honorInfo.imgUrl.indexOf('uploads/temporary') !=1) {
+                if(honorInfo.imgUrl.indexOf('uploads/temporary') != -1) {
                     let savePath = honorInfo.imgUrl.split('/')[3];
                     let oldPath = 'public\\uploads\\temporary\\' + savePath;
                     let newPath = "public/images/front_end/about/honor/" + savePath;
@@ -242,7 +261,7 @@ export default class extends controller {
                 console.log(honorInfo.imgUrl.indexOf('uploads/temporary'));
                 
                 // 判断图片路径是否有更新
-                if(honorInfo.imgUrl.indexOf('uploads/temporary') !=-1) {
+                if(honorInfo.imgUrl.indexOf('uploads/temporary') != -1) {
                     let savePath = honorInfo.imgUrl.split('/')[3];
                     let oldPath = 'public\\uploads\\temporary\\' + savePath;
                     let newPath = "public/images/front_end/about/honor/" + savePath;
@@ -305,26 +324,6 @@ export default class extends controller {
         });
 
         // enterprise-荣誉资质图片上传
-        this.router.post('/upload/enterprise',upload.single('file'), async (ctx, next) => {
-            var requestBody = ctx.req.file;
-
-            // console.log(ctx.request);
-            // console.log(requestBody);
-            if (this._.isEmpty(requestBody)) {
-                ctx.body = { code: 500, msg: "上传失败" };
-                return false;
-            }
-            let reNameResult = await this.api.renameFiles([requestBody], "public/uploads/temporary/");
-            var resultsPath = reNameResult.resultsPath;
-            if (reNameResult.status) {
-                // var updateResult = await this.DBModule.Activity.updateActivityProgramImg(resultsPath, activityId);
-                ctx.body = { code: 0, imgPath: resultsPath };
-            } else {
-                ctx.body = { code: 500, msg: '保存失败' };
-            }
-        });
-
-        // enterprise-荣誉资质图片上传
         this.router.post('/enterprise/add', async (ctx, next) => {
             // console.log(ctx.request.body);
             var requestBody = ctx.request.body;
@@ -336,7 +335,7 @@ export default class extends controller {
                 };
 
                 // 判断图片路径是否有更新
-                if(enterpriseInfo.imgUrl.indexOf('uploads/temporary') !=1) {
+                if(enterpriseInfo.imgUrl.indexOf('uploads/temporary') != -1) {
                     let savePath = enterpriseInfo.imgUrl.split('/')[3];
                     let oldPath = 'public\\uploads\\temporary\\' + savePath;
                     let newPath = "public/images/front_end/about/enterprise_image/" + savePath;
@@ -359,7 +358,6 @@ export default class extends controller {
 
         // enterprise-修改荣誉资质
         this.router.post('/enterprise/edit', async (ctx, next) => {
-            // console.log(ctx.request.body);
             var requestBody = ctx.request.body;
             if (requestBody) {
                 let enterpriseInfo = {
@@ -368,6 +366,17 @@ export default class extends controller {
                     Summary: requestBody.imgDes, // 图片概述
                     _id: requestBody.id // 图片概述
                 };
+
+                // 判断图片路径是否有更新
+                if(enterpriseInfo.imgUrl.indexOf('uploads/temporary') != -1) {
+                    let savePath = enterpriseInfo.imgUrl.split('/')[3];
+                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
+                    let newPath = "public/images/front_end/about/enterprise_image/" + savePath;
+                    let renameResult = await this.api.moveFiles(oldPath, newPath);
+                    if (renameResult.status) {
+                        enterpriseInfo.imgUrl = renameResult.resultsPath;
+                    }
+                }
                 // let reNameResult = await this.api.renameFiles([requestBody], "public/images/uploads/temporary/");
                 let result = await this.DBModule.Enterprise.changeEnterpriseValue(enterpriseInfo);
                 if(result.status) {

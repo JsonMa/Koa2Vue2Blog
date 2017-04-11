@@ -151,9 +151,9 @@ export function renameFiles(imgs, parentPath, savePath) {
 // 文件移动
 export function moveFiles(oldPath, newPath) {
     return new Promise((resolve, reject) => {
-        var resultsPath = [];
         fs.rename(oldPath, newPath, err => {
             if (err) {
+                console.log(err);
                 reject({ status: false });
             } else {
                 resolve({ status: true, resultsPath: newPath });

@@ -72,13 +72,13 @@ $(function () {
                         if (params.imgUrl !='' && params.name !='') {
                             $.post('/honor/add', params, function(res){
                                 if (res.code == 0) {
-                                    IOT.tips(res.msg, 'success', 800)
+                                    IOT.tips(res.msg, 'success', 800);
+                                    setTimeout(function () {
+                                        window.location.reload()
+                                    }, 800)
                                 } else {
                                     IOT.tips(res.msg, 'error', 800)
                                 }
-                                setTimeout(function () {
-                                    window.location.reload()
-                                }, 800)
                             });
                         } else if(params.imgUrl == '') {
                             IOT.tips('图片地址不能为空，请上传图片！', 'warning' ,'800')
@@ -101,13 +101,13 @@ $(function () {
                 IOT.Dialog.confirm('是否删除该条记录？', function () {
                     $.post(postUrl, {id: _id, imgUrl: imgUrl}, function (result) {
                         if (result.code == 0) {
-                            IOT.tips(result.msg, 'success', 800)
+                            IOT.tips(result.msg, 'success', 800);
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 800)
                         } else {
                             IOT.tips(result.msg, 'warning', 800)
                         }
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, 800)
                     });
                 }, function () {
                     return false
@@ -154,7 +154,7 @@ $(function () {
                 height           :   "auto",                 // 宽度
                 itemWidth        :   "140px",                 // 文件项的宽度
                 itemHeight       :   "115px",                 // 文件项的高度
-                url              :   "/upload/honor",  // 上传文件的路径
+                url              :   "/upload/about",  // 上传文件的路径
                 fileType         :   ["jpg","png"],// 上传文件的类型
                 fileSize         :   51200000,                // 上传文件的大小
                 multiple         :   true,                    // 是否可以多个文件上传

@@ -17,7 +17,7 @@ block content
         section.content-header
             h1
                 | 企业概况
-                small 荣誉资质
+                small 企业概况详情
             //button.add-honor.btn.btn-primary 新增
         // Main content
         section.content
@@ -25,8 +25,8 @@ block content
                 .col-md-12
                     .box.table-container
                         .box-header
-                            h3.box-title 荣誉详情
-                                small  荣誉资质
+                            h3.box-title 概况详情
+                                small  DETAIL
                         .box-body
                             .row
                                 .col-md-6.col-md-offset-3
@@ -39,7 +39,7 @@ block content
                                                 input#imgId.form-control(type='hidden', value="#{honorData._id}")
                                             .form-group
                                                 label(for='imgDes') 荣誉描述：
-                                                textarea#imgDes.form-control(rows='3' value="#{honorData.Summary}") #{honorData.Summary}
+                                                textarea#imgDes.form-control(rows='3' value="#{honorData.Summary}" placeholder="请输入相关荣誉描述") #{honorData.Summary}
                                             .form-group
                                                 -var imgSrc = honorData.imgUrl.replace('public', '..')
                                                 label.honor-img-label(style="vertical-align:top") 荣誉图片：
@@ -49,32 +49,40 @@ block content
                                                 //p.help-block Example block-level help text here.
                                             .form-group(style="text-align:right")
                                                 span.btn.btn-primary.honor-edit 保存修改
+                                        .honor-back(style="text-align: right")
+                                            a(href="../admin/index?page=#{pageNum}")
+                                                << 返回列表
                                     -else if (enterpriseData)
                                         form
                                             .form-group
-                                                label(for='inputName') 荣誉名称：
+                                                label(for='inputName') 企业风采名称：
                                                 input#inputName.form-control(type='text', placeholder='请输入荣誉名称' value="#{enterpriseData.name}")
                                                 input#imgUrl.form-control(type='hidden', value="#{enterpriseData.imgUrl}")
                                                 input#imgId.form-control(type='hidden', value="#{enterpriseData._id}")
                                             .form-group
-                                                label(for='imgDes') 荣誉描述：
-                                                textarea#imgDes.form-control(rows='3' value="#{enterpriseData.Summary}") #{enterpriseData.Summary}
+                                                label(for='imgDes') 企业风采描述：
+                                                textarea#imgDes.form-control(rows='3' value="#{enterpriseData.Summary}" placeholder="请输入企业风采相关描述") #{enterpriseData.Summary}
                                             .form-group
                                                 -var imgSrc = enterpriseData.imgUrl.replace('public', '..')
-                                                label.honor-img-label(style="vertical-align:top") 荣誉图片：
-                                                img#honorImg(src="#{imgSrc}" style="width: 202px; height: 282px")
+                                                label.honor-img-label(style="vertical-align:top") 企业风采图片：
+                                                img#honorImg(src="#{imgSrc}" style="width: 300px; height: 200px")
                                                 .honor-change
-                                                    span.btn.btn-default.change-img(style="margin-left:60px") 修改图片
+                                                    span.btn.btn-default.change-img(style="margin-left:84px") 修改图片
                                                 //p.help-block Example block-level help text here.
                                             .form-group(style="text-align:right")
                                                 span.btn.btn-primary.honor-edit 保存修改
-                                    .honor-back(style="text-align: right")
-                                        a(href="../admin/index?page=#{pageNum}")
-                                            << 返回列表
+                                        .honor-back(style="text-align: right")
+                                            a(href="../admin/enterprise?page=#{pageNum}")
+                                                << 返回列表
+
                         //include ../front_end_jade/front_end_paging.jade
 
 // 引入私有的js
 block js
     script(src='/plugins/zyupload/zyupload.basic-1.0.0.js')
-    script(src='/js/back_end/honor_detail.js')
+    -if (honorData)
+        script(src='/js/back_end/honor_detail.js')
+    -else if(enterpriseData)
+        script(src='/js/back_end/enterprise_detail.js')
+
 

@@ -66,11 +66,11 @@ block content
                             a(href="../contact") 联系我们
                 .hot-recommend
                     h4 热点内容
-                        ul
-                            -for(var i = 0; i < hotRecommend.length; i++)
-                                li
-                                    a(href="../news/detail?id=#{hotRecommend[i]._id}").title #{hotRecommend[i].title}
-                                    span.title-date #{hotRecommend[i].formatCreatedTime}
+                    ul
+                        -for(var i = 0; i < hotRecommend.length; i++)
+                            li
+                                a(href="../news/detail?id=#{hotRecommend[i]._id}").title #{hotRecommend[i].title}
+                                span.title-date #{hotRecommend[i].formatCreatedTime}
 
 // 引入私有的js
 block js

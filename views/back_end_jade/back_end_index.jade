@@ -60,7 +60,7 @@ block content
                                                 //    span
                                                 a(id="#{honorData[i]._id}" href="../admin/honor_detail?id=#{honorData[i]._id}&page=#{pageNum}").btn.btn-primary.btn-margin
                                                     span 编辑
-                                                a(id="#{honorData[i]._id}").btn.btn-default.btn-margin.btn-delete
+                                                a(id="#{honorData[i]._id}" imgUrl = "#{honorData[i].imgUrl}").btn.btn-default.btn-margin.btn-delete
                                                     span 删除
                         include ../front_end_jade/front_end_paging.jade
             .row

@@ -110,8 +110,9 @@ export default class {
     findPumpNext(pumpId) {
         return new Promise((resolve, reject) => {
             this.Pump.find({'_id' :{ "$gt" :pumpId} })
+                .where({hidden: false})
+                .sort({_id: 1})
                 .limit(1)
-                .sort({_id:-1})
                 .exec(function (err, res){
 
                     // res 为查询到的单个文档
@@ -128,8 +129,9 @@ export default class {
     findPumpPrevious(pumpId) {
         return new Promise((resolve, reject) => {
             this.Pump.find({'_id' :{ "$lt" :pumpId} })
-                .limit(1)
+                .where({hidden: false})
                 .sort({_id:-1})
+                .limit(1)
                 .exec(function (err, res){
 
                     // res 为查询到的单个文档

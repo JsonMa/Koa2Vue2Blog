@@ -94,8 +94,9 @@ export default class {
     findNewsNext(newsId) {
         return new Promise((resolve, reject) => {
             this.News.find({'_id' :{ "$gt" :newsId} })
-                .limit(1)
-                .sort({_id:-1})
+				.where({hidden: false})
+				.sort({_id: 1})
+				.limit(1)
                 .exec(function (err, res){
 
                     // res 为查询到的单个文档
@@ -112,8 +113,9 @@ export default class {
     findNewsPrevious(newsId) {
         return new Promise((resolve, reject) => {
             this.News.find({'_id' :{ "$lt" :newsId} })
-                .limit(1)
-                .sort({_id:-1})
+				.where({hidden: false})
+				.sort({_id:-1})
+				.limit(1)
                 .exec(function (err, res){
 
                     // res 为查询到的单个文档

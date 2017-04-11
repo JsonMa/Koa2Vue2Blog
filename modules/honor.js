@@ -70,8 +70,9 @@ export default class {
     findHonorNext(imageId) {
         return new Promise((resolve, reject) => {
             this.Honor.find({'_id' :{ "$gt" :imageId} })
+                .where({hidden: false})
+                .sort({_id: 1})
                 .limit(1)
-                .sort({_id:-1})
                 .exec(function (err, res){
 
                     // res 为查询到的单个文档
@@ -88,8 +89,9 @@ export default class {
     findHonorPrevious(imageId) {
         return new Promise((resolve, reject) => {
             this.Honor.find({'_id' :{ "$lt" :imageId} })
-                .limit(1)
+                .where({hidden: false})
                 .sort({_id:-1})
+                .limit(1)
                 .exec(function (err, res){
 
                     // res 为查询到的单个文档

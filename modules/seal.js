@@ -95,8 +95,9 @@ export default class {
     findSealNext(sealId) {
         return new Promise((resolve, reject) => {
             this.Seal.find({'_id' :{ "$gt" :sealId} })
+                .where({hidden: false})
+                .sort({_id: 1})
                 .limit(1)
-                .sort({_id:-1})
                 .exec(function (err, res){
 
                     // res 为查询到的单个文档
@@ -113,8 +114,9 @@ export default class {
     findSealPrevious(sealId) {
         return new Promise((resolve, reject) => {
             this.Seal.find({'_id' :{ "$lt" :sealId} })
-                .limit(1)
+                .where({hidden: false})
                 .sort({_id:-1})
+                .limit(1)
                 .exec(function (err, res){
 
                     // res 为查询到的单个文档

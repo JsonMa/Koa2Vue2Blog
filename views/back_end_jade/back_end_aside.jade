@@ -27,14 +27,26 @@ aside.main-sidebar
                     span.pull-right-container
                         i.fa.fa-angle-left.pull-fright
                 ul.treeview-menu
-                    li.active
-                        a(href='/admin/captain')
-                            i.fa.fa-circle-o
-                            | 荣誉资质
-                    li
-                        a(href='/admin/captain')
-                            i.fa.fa-circle-o
-                            | 企业形象
+                    -if (nav && nav == 'index')
+                        li.active
+                            a(href='/admin/index')
+                                i.fa.fa-circle-o
+                                | 荣誉资质
+                    -else
+                        li
+                            a(href='/admin/index')
+                                i.fa.fa-circle-o
+                                | 荣誉资质
+                    -if (nav && nav == 'enterprise')
+                        li.active
+                            a(href='/admin/enterprise')
+                                i.fa.fa-circle-o
+                                | 企业形象
+                    -else
+                        li
+                            a(href='/admin/enterprise')
+                                i.fa.fa-circle-o
+                                | 企业形象
         ul.sidebar-menu
             li.treeview
                 a(href='#')
@@ -44,7 +56,7 @@ aside.main-sidebar
                         i.fa.fa-angle-left.pull-fright
                 ul.treeview-menu
                     li
-                        a(href='/manage/marathon')
+                        a(href='/admin/news')
                             i.fa.fa-circle-o
                             | 团队管理
             li.treeview

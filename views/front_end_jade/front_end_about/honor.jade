@@ -23,9 +23,10 @@ block content
                         -if(honorData && honorData[0])
                             ul
                                 -for(var i = 0; i < honorData.length; i++)
+                                    -var imgUrl = honorData[i].imgUrl.replace('public', '..');
                                     li
                                         a(href="../about/detail?page=#{pageNum}&id=#{honorData[i]._id}&type=honor")
-                                            img(src="#{honorData[i].imgUrl}")
+                                            img(src="#{imgUrl}")
                                         p #{honorData[i].name}
                         -else
                             .none-info-container

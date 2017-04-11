@@ -23,10 +23,12 @@ block content
                         ul.enterprise-detail-list
                             - if(enterprise && enterprise[0])
                                 h4 #{enterprise[0].name}
-                                img.enterprise-img(src="#{enterprise[0].imgUrl}")
+                                -var imgSrc = enterprise[0].imgUrl.replace("public", "..");
+                                img.enterprise-img(src="#{imgSrc}")
                             -else if(honor && honor[0])
+                                -var imgSrc = honor[0].imgUrl.replace("public", "..");
                                 h4 #{honor[0].name}
-                                img.honor-img(src="#{honor[0].imgUrl}")
+                                img.honor-img(src="#{imgSrc}")
                             -else
                                 p 暂无相关信息
                     .detail-bottom

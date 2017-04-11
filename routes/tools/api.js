@@ -129,20 +129,38 @@ export function hotRecommend(db, params) {
 }
 
 //重命名文件（数组）
-export function renameFiles(imgs, savePath) {
+export function renameFiles(imgs, parentPath, savePath) {
+    console.log(imgs);
+    var savePath = savePath ||'';
     return new Promise((resolve, reject) => {
         var resultsPath = [];
         _.each(imgs, item => {
             var originalname = item.originalname.split('.');
             var fileType = "." + originalname[originalname.length - 1];
-            var toPath = savePath + item.filename + fileType;
-            resultsPath.push("../images/" + toPath);
-            fs.rename(item.path, "public/images/" + toPath, err => {
+            var toPath = parentPath + savePath + item.filename + fileType;
+            resultsPath.push(toPath); // 暂时位置
+            console.log(item.path);
+            console.log(toPath);
+            fs.rename(item.path, toPath, err => {
                 if (err) {
                     reject({ status: false });
                 }
             });
         });
         resolve({ status: true, resultsPath: resultsPath });
+    })
+}
+
+// 文件移动
+export function moveFiles(oldPath, newPath) {
+    return new Promise((resolve, reject) => {
+        var resultsPath = [];
+        fs.rename(oldPath, newPath, err => {
+            if (err) {
+                reject({ status: false });
+            } else {
+                resolve({ status: true, resultsPath: newPath });
+            }
+        });
     })
 }

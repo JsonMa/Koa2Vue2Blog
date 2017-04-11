@@ -1,0 +1,71 @@
+// 集成模板
+extends ../back_end_layout
+block title
+    title 重庆伊尔流体后台管理系统
+
+// 引入私有的css
+block css
+    link(rel='stylesheet' href="../css/back_end/about.css")
+    link(rel='stylesheet', href='/plugins/zyupload/skins/zyupload-1.0.0.css')
+block content
+    // 引入共有的aside
+    include ../back_end_aside.jade
+
+    // Content Wrapper. Contains page content
+    .content-wrapper
+        // Content Header (Page header)
+        section.content-header
+            h1
+                | 企业概况
+                small 企业形象
+            button.add-honor.btn.btn-primary.add-enterprise 新增
+        // Main content
+        section.content
+            .row
+                .col-xs-12
+                    .box.table-container
+                        .box-header
+                            h3.box-title 形象列表
+                                small  荣誉资质
+                        .box-body
+                            table#example.table.table-bordered.table-hover(style="text-align: center")
+                                thead
+                                    tr
+                                        th ID
+                                        th 形象名称
+                                        th 形象概述
+                                        th 创建时间
+                                        th 修改时间
+                                        th 图片地址
+                                        th 状态
+                                        th 操作
+                                tbody
+                                    -var baseIndex = (pageNum - 1) * pageSize;
+                                    -for (var i = 0; i < enterpriseData.length; i++)
+                                        tr
+                                            -var index = baseIndex + i + 1;
+                                            td #{index}
+                                            td.honorName #{enterpriseData[i].name}
+                                            td.honorSummary #{enterpriseData[i].Summary}
+                                            td.honorCteateTime #{enterpriseData[i].createdTimeDetail}
+                                            td.honorUpdateTime #{enterpriseData[i].updateTimeDetail}
+                                            td(imgUrl = "#{enterpriseData[i].imgUrl}").honorImgUrl.btn-detail 查看图片
+                                            td
+                                                -if(enterpriseData[i].hidden)
+                                                    i(status="false" id="#{enterpriseData[i]._id}").fa.fa-play.button-switch-hide.item-switch
+                                                -else
+                                                    i(status="true" id="#{enterpriseData[i]._id}").fa.fa-stop.button-switch-show.item-switch
+                                            td
+                                                //a(id="#{honorData[i]._id}").btn.btn-primary.btn-margin
+                                                //    span
+                                                a(id="#{enterpriseData[i]._id}" href="../admin/enterprise_detail?id=#{enterpriseData[i]._id}&page=#{pageNum}").btn.btn-primary.btn-margin
+                                                    span 编辑
+                                                a(id="#{enterpriseData[i]._id}").btn.btn-default.btn-margin.btn-delete
+                                                    span 删除
+                        include ../../front_end_jade/front_end_paging.jade
+
+// 引入私有的js
+block js
+    script(src='/plugins/zyupload/zyupload.basic-1.0.0.js')
+    script(src='/js/back_end/enterprise.js')
+

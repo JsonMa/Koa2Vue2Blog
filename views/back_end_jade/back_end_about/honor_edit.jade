@@ -40,36 +40,17 @@ block content
                                             label(for='imgDes') 荣誉描述：
                                             textarea#imgDes.form-control(rows='3' value="#{honorData.Summary}") #{honorData.Summary}
                                         .form-group
+                                            -var imgSrc = honorData.imgUrl.replace('public', '..')
                                             label.honor-img-label(style="vertical-align:top") 荣誉图片：
-                                            img#honorImg(src="#{honorData.imgUrl}" style="width: 202px; height: 282px")
+                                            img#honorImg(src="#{imgSrc}" style="width: 202px; height: 282px")
                                             .honor-change
                                                 span.btn.btn-default.change-img(style="margin-left:60px") 修改图片
                                             //p.help-block Example block-level help text here.
                                         .form-group(style="text-align:right")
                                             span.btn.btn-primary.honor-edit 保存修改
                                     .honor-back(style="text-align: right")
-                                        a(href="")
+                                        a(href="../admin/index?page=#{pageNum}")
                                             << 返回列表
-                                    //.col-md-6(style="text-align:right")
-                                    //    span 荣誉名称:
-                                    //.col-md-5.col-md-offset-1
-                                    //    span
-                                    //.col-md-6(style="text-align:right")
-                                    //    span 创建时间:
-                                    //.col-md-5.col-md-offset-1
-                                    //    span #{honorData.createTime}
-                                    //.col-md-6(style="text-align:right")
-                                    //    span 修改时间:
-                                    //.col-md-5.col-md-offset-1
-                                    //    span #{honorData.updateTime}
-                                    //.col-md-6(style="text-align:right")
-                                    //    span 荣誉简介:
-                                    //.col-md-5.col-md-offset-1
-                                    //    span #{honorData.Summary}
-                                    //.col-md-6(style="text-align:right")
-                                    //    span 荣誉图片:
-                                    //.col-md-5.col-md-offset-1
-                                    //    img(src="#{honorData.imgUrl}")
                         //include ../front_end_jade/front_end_paging.jade
 
 // 引入私有的js

@@ -153,11 +153,12 @@ export default class extends controller {
 			let pageNum = ctx.query.page ? parseInt(ctx.query.page) : 1; // 获取页数
 			let queryParams = {
 				pageNum: pageNum, // 当前页数
-				pageSize: 9 // 每页显示数量
+				pageSize: 9, // 每页显示数量
+                showAll: false
 			}; // 数据库查询参数
 
 			ctx.state = {}; // 返回的数据初始化
-			let totalEnterprise = await this.DBModule.Enterprise.findTotalEnterprise({}); // 获取企业风采总条数
+			let totalEnterprise = await this.DBModule.Enterprise.findTotalEnterprise({hidden: false}); // 获取企业风采总条数
 			let total = totalEnterprise.count; // 企业风采总条数
 			let result = await this.DBModule.Enterprise.findEnterpriseList(queryParams); // 当前查询条件下的企业风采
 			let isFirstPage = queryParams.pageNum - 1 == 0; //　是否第一页

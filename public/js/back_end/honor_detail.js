@@ -32,10 +32,12 @@ $(function () {
                    showOk: true, //显示确定按钮
                    okText: '取消', //确定按钮的文字
                    okCallback: function(){
+                       dialog.close();
                    }, //确定按钮的回调
                    showCancel: true, //是否显示取消按钮
                    cancelText: '保存', //取消按钮的文字
                    cancelCallback: function(){
+                       dialog.close();
                    } //取消按钮的回调
                });
                dialog.open(function (){
@@ -54,13 +56,13 @@ $(function () {
                if (params.imgUrl !='' && params.name !='') {
                    $.post('/honor/edit', params, function(res){
                        if (res.code == 0) {
-                           IOT.tips(res.msg, 'success', 800)
+                           IOT.tips(res.msg, 'success', 800);
+                           // setTimeout(function () {
+                           //     window.location.reload()
+                           // }, 800)
                        } else {
                            IOT.tips(res.msg, 'error', 800)
                        }
-                       // setTimeout(function () {
-                       //     window.location.reload()
-                       // }, 800)
                    });
                } else if(params.imgUrl == '') {
                    IOT.tips('图片地址不能为空，请上传图片！', 'warning' ,'800')
@@ -97,8 +99,8 @@ $(function () {
                    IOT.tips('图片上传成功', 'success', 800);
                    var res = $.parseJSON(response);
                    var $imgUrl = $('#imgUrl');
-                   $imgUrl.val(res.imgPath[0]);
-                   $('#honorImg').attr('src', res.imgPath[0])
+                   $imgUrl.val(res.imgPath[0].replace('public', '..'));
+                   $('#honorImg').attr('src', res.imgPath[0].replace('public', '..'))
                },
                onFailure: function(file, response){          // 文件上传失败的回调方法
 

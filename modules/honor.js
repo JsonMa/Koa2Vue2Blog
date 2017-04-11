@@ -212,7 +212,7 @@ export default class {
     }
 
     // 删除特定的荣誉资质状态
-    deleteHonrStatus(params) {
+    deleteHonor(params) {
         return new Promise((resolve, reject) => {
             if (params && typeof params == "object") {
                 this.Honor.remove({_id: params._id}, function (err, doc) {

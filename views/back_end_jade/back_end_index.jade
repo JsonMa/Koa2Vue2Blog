@@ -46,7 +46,10 @@ block content
                                             -var index = baseIndex + i + 1;
                                             td #{index}
                                             td.honorName #{honorData[i].name}
-                                            td.honorSummary #{honorData[i].Summary}
+                                            - if(honorData[i].Summary)
+                                                td.honorSummary #{honorData[i].Summary}
+                                            -else
+                                                td.honorSummary --
                                             td.honorCteateTime #{honorData[i].createdTimeDetail}
                                             td.honorUpdateTime #{honorData[i].updateTimeDetail}
                                             td(imgUrl = "#{honorData[i].imgUrl}").honorImgUrl.btn-detail 查看图片

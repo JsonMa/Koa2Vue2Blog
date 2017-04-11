@@ -220,4 +220,22 @@ export default class {
             }
         })
     }
+    
+    // 删除特定的企业形象
+    deleteEnterprise(params) {
+        return new Promise((resolve, reject) => {
+            if (params && typeof params == "object") {
+                this.Enterprise.remove({_id: params._id}, function (err, doc) {
+                    if (err) {
+                        console.log(err);
+                        reject({ status: false, msg: '数据库查询错误'})
+                    } else {
+                        resolve({ status: true, msg: '企业形象删除成功'})
+                    }
+                })
+            } else {
+                reject({ status: false, msg: '参数错误'})
+            }
+        })
+    }
 }

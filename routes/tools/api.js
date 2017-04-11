@@ -130,7 +130,6 @@ export function hotRecommend(db, params) {
 
 //重命名文件（数组）
 export function renameFiles(imgs, parentPath, savePath) {
-    console.log(imgs);
     var savePath = savePath ||'';
     return new Promise((resolve, reject) => {
         var resultsPath = [];
@@ -139,8 +138,6 @@ export function renameFiles(imgs, parentPath, savePath) {
             var fileType = "." + originalname[originalname.length - 1];
             var toPath = parentPath + savePath + item.filename + fileType;
             resultsPath.push(toPath); // 暂时位置
-            console.log(item.path);
-            console.log(toPath);
             fs.rename(item.path, toPath, err => {
                 if (err) {
                     reject({ status: false });
@@ -162,5 +159,24 @@ export function moveFiles(oldPath, newPath) {
                 resolve({ status: true, resultsPath: newPath });
             }
         });
+    })
+}
+
+// 删除文件
+export function removeFiles(filePath) {
+    return new Promise((resolve, reject) => {
+        try {
+            fs.unlink(filePath, (err) => {
+                if(err){
+                    reject({ status: false });
+                } else {
+                    resolve({ status: true });
+                }
+            });
+        }
+        catch(err) {
+            console.log('旧图片删除失败');
+            reject({ status: false });
+        }
     })
 }

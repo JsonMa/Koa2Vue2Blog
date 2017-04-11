@@ -34,12 +34,12 @@ $(function () {
                     '<form class="col-md-offset-1 col-md-10">'+
                     '<div class="form-group">'+
                     '<label for="inputEmail3" class="control-label">形象名称：</label>'+
-                    '<input type="text" class="form-control" id="inputName" name="name" placeholder="请输入荣誉资质名称" required>'+
+                    '<input type="text" class="form-control" id="inputName" name="name" placeholder="请输企业风采名称" required>'+
                     '<input type="hidden" class="form-control" id="imgUrl" name="imgUrl">'+
                     '</div>'+
                     '<div class="form-group">'+
                     '<label for="inputPassword3" class="control-label">形象描述：</label>'+
-                    '<textarea id="imgDes" class="form-control" rows="3" name="des" placeholder="请输入荣誉描述"></textarea>'+
+                    '<textarea id="imgDes" class="form-control" rows="3" name="des" placeholder="请输入企业风采描述"></textarea>'+
                     '</div>'+
                     '<div class="form-group">'+
                     '<label for="fileInput" class="control-label">上传图片：(宽、高比例为1.5:1，参考值为：700像素x469像素)</label>'+
@@ -96,17 +96,18 @@ $(function () {
             $('.btn-delete').click(function () {
                 var $this = $(this),
                     _id = $this.attr('id'),
+                    imgUrl = $this.attr('imgUrl'),
                     postUrl = '/enterprise/delete';
                 IOT.Dialog.confirm('是否删除该条记录？', function () {
-                    $.post(postUrl, {id: _id}, function (result) {
+                    $.post(postUrl, {id: _id, imgUrl: imgUrl}, function (result) {
                         if (result.code == 0) {
-                            IOT.tips(result.msg, 'success', 800)
+                            IOT.tips(result.msg, 'success', 800);
+                             setTimeout(function () {
+                                 window.location.reload();
+                             }, 800)
                         } else {
                             IOT.tips(result.msg, 'warning', 800)
                         }
-                        setTimeout(function () {
-                            window.location.reload();
-                        }, 800)
                     });
                 }, function () {
                     return false
@@ -118,9 +119,9 @@ $(function () {
                 var $this = $(this),
                     $parent = $this.parent(),
                     honorName = $parent.find('.honorName').html(),
-                    enterpriseImgUrl = $this.attr("imgUrl");
+                    enterpriseImgUrl = $this.attr("imgUrl").replace("public", "..");;
                 var dialog = new IOT.Dialog({
-                    title: '荣誉详情', //标题
+                    title: '企业风采详情', //标题
                     content: '' +
                     '<div class="row" style="text-align: center">' +
                     '<h4>'+ honorName +'</h4>' +

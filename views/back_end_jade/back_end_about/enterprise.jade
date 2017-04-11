@@ -46,7 +46,10 @@ block content
                                             -var index = baseIndex + i + 1;
                                             td #{index}
                                             td.honorName #{enterpriseData[i].name}
-                                            td.honorSummary #{enterpriseData[i].Summary}
+                                            -if(enterpriseData[i].Summary)
+                                                td.honorSummary #{enterpriseData[i].Summary}
+                                            -else
+                                                td.honorSummary --
                                             td.honorCteateTime #{enterpriseData[i].createdTimeDetail}
                                             td.honorUpdateTime #{enterpriseData[i].updateTimeDetail}
                                             td(imgUrl = "#{enterpriseData[i].imgUrl}").honorImgUrl.btn-detail 查看图片
@@ -60,7 +63,7 @@ block content
                                                 //    span
                                                 a(id="#{enterpriseData[i]._id}" href="../admin/enterprise_detail?id=#{enterpriseData[i]._id}&page=#{pageNum}").btn.btn-primary.btn-margin
                                                     span 编辑
-                                                a(id="#{enterpriseData[i]._id}").btn.btn-default.btn-margin.btn-delete
+                                                a(id="#{enterpriseData[i]._id}" imgUrl = "#{enterpriseData[i].imgUrl}").btn.btn-default.btn-margin.btn-delete
                                                     span 删除
                         include ../../front_end_jade/front_end_paging.jade
 

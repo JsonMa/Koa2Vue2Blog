@@ -96,9 +96,10 @@ $(function () {
             $('.btn-delete').click(function () {
                 var $this = $(this),
                     _id = $this.attr('id'),
+                    imgUrl = $this.attr('imgUrl'),
                     postUrl = '/honor/delete';
                 IOT.Dialog.confirm('是否删除该条记录？', function () {
-                    $.post(postUrl, {id: _id}, function (result) {
+                    $.post(postUrl, {id: _id, imgUrl: imgUrl}, function (result) {
                         if (result.code == 0) {
                             IOT.tips(result.msg, 'success', 800)
                         } else {

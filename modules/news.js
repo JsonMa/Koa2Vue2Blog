@@ -39,8 +39,14 @@ export default class {
         newsSchema.virtual('formatCreatedTime').get(function () {
             return moment(this.createTime).format('YYYY-MM-DD');
         }); // 设置虚拟时间属性
+        newsSchema.virtual('createdTimeDetail').get(function () {
+            return moment(this.createTime).format('YYYY-MM-DD HH:MM:SS');
+        }); // 设置虚拟时间属性
         newsSchema.virtual('formatUpdateTime').get(function () {
             return moment(this.updatedAt).format('YYYY-MM-DD');
+        }); // 设置虚拟时间属性
+        newsSchema.virtual('updateTimeDetail').get(function () {
+            return moment(this.lastEditTime).format('YYYY-MM-DD HH:MM:SS');
         }); // 设置虚拟时间属性
 		// newsSchema.set('toJSON', { getters: true, virtuals: true});
 		// newsSchema.set('toObject', { getters: true, virtuals: true});
@@ -131,8 +137,15 @@ export default class {
     // 查询新闻列表
 	findNewsList(params) {
 		if(params) {
+			let condition = {};
+			if ( !params.showAll) {
+				condition.hidden = false
+			}
+            if ( params.newsType ) {
+                condition.newsType = params.newsType
+            }
 			return new Promise((resolve, reject) => {
-                this.News.find({newsType: params.newsType})
+                this.News.find(condition)
                     .skip((params.pageNum - 1) * params.pageSize)
                     .limit(params.pageSize)
                     .exec(function (err, res){
@@ -163,6 +176,78 @@ export default class {
                 })
             } else {
                 reject({ status: false, msg: '非法的查询参数'})
+            }
+        })
+    }
+
+    // 修改特定的新闻状态
+    changeNewsStatus(params) {
+        return new Promise((resolve, reject) => {
+            if (params && typeof params == "object") {
+                this.News.findById(params._id, function (err, doc) {
+                    if (err) {
+                        console.log(err);
+                        reject({ status: false, msg: '数据库查询错误'})
+                    }
+                    doc.hidden = params.hidden;
+                    doc.save(err => {
+                        if(err) {
+                            console.log(err);
+                            reject({ status: false, msg: '状态修改失败'})
+                        } else {
+                            resolve({ status: true, msg: '状态修改成功'})
+                        }
+                    });
+                })
+            } else {
+                reject({ status: false, msg: '参数错误'})
+            }
+        })
+    }
+
+    // 修改特定的荣誉资质
+    changeNewsValue(params) {
+        return new Promise((resolve, reject) => {
+            if (params && typeof params == "object") {
+                this.News.findById(params._id, function (err, doc) {
+                    if (err) {
+                        reject({ status: false, msg: '数据库查询错误'})
+                    }
+                    let date = new Date();
+                    let imgUrlString = doc.imgUrl;
+                    let isSame = doc.imgUrl == params.imgUrl? true: false;
+                    let oldPath = imgUrlString.replace('..', 'public');
+                    doc.lastEditTime = date;
+                    doc.name = params.name; // 设置名称
+                    doc.imgUrl = params.imgUrl; // 设置图片地址
+                    doc.Summary = params.Summary; // 设置图片简介
+                    doc.save(err => {
+                        if(err) {
+                            reject({ status: false, msg: '状态修改失败'})
+                        } else {
+                            resolve({ status: true, msg: '状态修改成功'})
+                        }
+                    });
+                })
+            } else {
+                reject({ status: false, msg: '参数错误'})
+            }
+        })
+    }
+
+    // 删除指定的新闻
+    deleteNews(params) {
+        return new Promise((resolve, reject) => {
+            if (params && typeof params == "object") {
+                this.News.remove({_id: params._id}, function (err, doc) {
+                    if (err) {
+                        reject({ status: false, msg: '数据库查询错误'})
+                    } else {
+                        resolve({ status: true, msg: '新闻删除成功'})
+                    }
+                })
+            } else {
+                reject({ status: false, msg: '参数错误'})
             }
         })
     }

@@ -1,0 +1,96 @@
+// 集成模板
+extends ../back_end_layout
+block title
+    title 重庆伊尔流体后台管理系统
+
+// 引入私有的css
+block css
+    link(rel='stylesheet' href="../css/back_end/news.css")
+    link(rel='stylesheet', href='/plugins/zyupload/skins/zyupload-1.0.0.css')
+    link(rel='stylesheet', href='/plugins/simplemde/simplemde.min.css')
+block content
+    // 引入共有的aside
+    include ../back_end_aside.jade
+
+    // Content Wrapper. Contains page content
+    .content-wrapper
+        // Content Header (Page header)
+        section.content-header
+            h1
+                | 新闻资讯
+                small 新闻中心
+            //button.add-honor.btn.btn-primary 新增
+        // Main content
+        section.content
+            .row
+                .col-md-12
+                    .box.table-container
+                        .box-header
+                            h3.box-title 新闻详情
+                                small  News detail
+                            .honor-back(style="text-align: right")
+                                a(href="../admin/news?page=#{pageNum}" style="font-size: 12px; margin-right: 20px") << 返回列表
+                        .box-body
+                            .row
+                                .col-md-6.col-md-offset-3
+                                    -if (newsData)
+                                        form
+                                            .form-group
+                                                label(for='newsTitle') 新闻标题：
+                                                input#newsTitle.form-control(type='text', placeholder='请输入新闻标题' value="#{newsData.title}")
+                                                input#newsId.form-control(type='hidden', value="#{newsData._id}")
+                                            .form-group
+                                                label(for='newsSubtitle') 新闻摘要：
+                                                textarea#newsSubtitle.form-control(rows='3' value="#{newsData.subTitle}" placeholder="请输入新闻摘要") #{newsData.subTitle}
+                                            .form-group
+                                                label(for='newsType') 新闻类型：
+                                                select#newsType.form-control
+                                                    option(value="company") 公司新闻
+                                                    option(value="industry") 行业新闻
+                                            .form-group
+                                                label(for='newsAuthor') 新闻作者：
+                                                input#newsAuthor.form-control(type='text', placeholder='请输入新闻作者' value="#{newsData.author}")
+                                            .form-group
+                                                label(for='newsOrigin') 新闻来源：
+                                                input#newsOrigin.form-control(type='text', placeholder='请输入新闻来源' value="#{newsData.origin}")
+                                            .form-group
+                                                label(for='newsContent') 新闻内容：
+                                                textarea#newsContent.form-control(rows='3' value="#{newsData.content}" placeholder="请输入新闻内容") #{newsData.content}
+                                            .form-group(style="text-align:right")
+                                                span.btn.btn-primary.honor-edit 保存修改
+                                        .honor-back(style="text-align: right")
+                                            a(href="../admin/index?page=#{pageNum}")
+                                                << 返回列表
+                                    -else
+                                        form
+                                            .form-group
+                                                label(for='newsTitle') 新闻标题：
+                                                input#newsTitle.form-control(type='text', placeholder='请输入新闻标题')
+                                                input#newsId.form-control(type='hidden')
+                                            .form-group
+                                                label(for='newsSubtitle') 新闻摘要：
+                                                textarea#newsSubtitle.form-control(rows='2' placeholder="请输入新闻摘要")
+                                            .form-group
+                                                label(for='newsType') 新闻类型：
+                                                select#newsType.form-control
+                                                    option(value="company") 公司新闻
+                                                    option(value="industry") 行业新闻
+                                            .form-group
+                                                label(for='newsAuthor') 新闻作者：
+                                                input#newsAuthor.form-control(type='text', placeholder='请输入新闻作者')
+                                            .form-group
+                                                label(for='newsOrigin') 新闻来源：
+                                                input#newsOrigin.form-control(type='text', placeholder='请输入新闻来源')
+                                            .form-group
+                                                label(for='newsContent') 新闻内容：
+                                                span.upload-img(style="margin-bottom: 5px; color: #3c8dbc; cursor: pointer; float: right") 上传图片
+                                                textarea#newsContent.form-control(rows='8' placeholder="请输入新闻内容")
+                                            .form-group(style="text-align:right")
+                                                span.btn.btn-primary.btn-save 保存修改
+// 引入私有的js
+block js
+    script(src='/plugins/zyupload/zyupload.basic-1.0.0.js')
+    script(src='/plugins/simplemde/simplemde.min.js')
+    script(src='/js/back_end/back_end_news/news_detail.js')
+
+

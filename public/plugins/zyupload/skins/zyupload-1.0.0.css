@@ -3,7 +3,8 @@
 	box-sizing: content-box !important;
 }
 form{ font-size:84%; margin:0; line-height:1.5; color:#333; font-family:Arial, sans-serif;}
-a{color:#34538b; text-decoration:none;}a:hover{text-decoration:underline;}
+a{color:#34538b; text-decoration:none;}
+/*a:hover{text-decoration:underline;}*/
 input,select,textarea{font-size:100%;}
 #header{height:60px; padding:0 0 0 40px;}
 #header .logo{margin-top:12px; overflow:hidden; float:left;}

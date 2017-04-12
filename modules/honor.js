@@ -165,7 +165,7 @@ export default class {
                 reject({ status: false, msg: '参数错误'})
             }
         })
-    }
+    } 
 
     // 修改特定的荣誉资质
     changeHonrValue(params) {

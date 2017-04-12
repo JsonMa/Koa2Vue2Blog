@@ -20,45 +20,87 @@ aside.main-sidebar
                         i.fa.fa-search
 
         ul.sidebar-menu
-            li.active.treeview
-                a(href='#')
-                    i.fa.fa-edit
-                    span 企业概况
-                    span.pull-right-container
-                        i.fa.fa-angle-left.pull-fright
-                ul.treeview-menu
-                    -if (nav && nav == 'index')
-                        li.active
-                            a(href='/admin/index')
-                                i.fa.fa-circle-o
-                                | 荣誉资质
-                    -else
-                        li
-                            a(href='/admin/index')
-                                i.fa.fa-circle-o
-                                | 荣誉资质
-                    -if (nav && nav == 'enterprise')
-                        li.active
-                            a(href='/admin/enterprise')
-                                i.fa.fa-circle-o
-                                | 企业形象
-                    -else
-                        li
-                            a(href='/admin/enterprise')
-                                i.fa.fa-circle-o
-                                | 企业形象
+            -if(nav == 'index' || nav == enterprise)
+                li.active.treeview
+                    a(href='#')
+                        i.fa.fa-edit
+                        span 企业概况
+                        span.pull-right-container
+                            i.fa.fa-angle-left.pull-fright
+                    ul.treeview-menu
+                        -if (nav && nav == 'index')
+                            li.active
+                                a(href='/admin/index')
+                                    i.fa.fa-circle-o
+                                    | 荣誉资质
+                        -else
+                            li
+                                a(href='/admin/index')
+                                    i.fa.fa-circle-o
+                                    | 荣誉资质
+                        -if (nav && nav == 'enterprise')
+                            li.active
+                                a(href='/admin/enterprise')
+                                    i.fa.fa-circle-o
+                                    | 企业形象
+                        -else
+                            li
+                                a(href='/admin/enterprise')
+                                    i.fa.fa-circle-o
+                                    | 企业形象
+            -else
+                li.treeview
+                    a(href='#')
+                        i.fa.fa-edit
+                        span 企业概况
+                        span.pull-right-container
+                            i.fa.fa-angle-left.pull-fright
+                    ul.treeview-menu
+                        -if (nav && nav == 'index')
+                            li.active
+                                a(href='/admin/index')
+                                    i.fa.fa-circle-o
+                                    | 荣誉资质
+                        -else
+                            li
+                                a(href='/admin/index')
+                                    i.fa.fa-circle-o
+                                    | 荣誉资质
+                        -if (nav && nav == 'enterprise')
+                            li.active
+                                a(href='/admin/enterprise')
+                                    i.fa.fa-circle-o
+                                    | 企业形象
+                        -else
+                            li
+                                a(href='/admin/enterprise')
+                                    i.fa.fa-circle-o
+                                    | 企业形象
         ul.sidebar-menu
-            li.treeview
-                a(href='#')
-                    i.fa.fa-newspaper-o
-                    span 新闻中心
-                    span.pull-right-container
-                        i.fa.fa-angle-left.pull-fright
-                ul.treeview-menu
-                    li
-                        a(href='/admin/news')
-                            i.fa.fa-circle-o
-                            | 团队管理
+            -if(nav == 'news')
+                li.treeview
+                    a(href='#')
+                        i.fa.fa-newspaper-o
+                        span 新闻中心
+                        span.pull-right-container
+                            i.fa.fa-angle-left.pull-fright
+                    ul.treeview-menu
+                        li.active
+                            a(href='/admin/news')
+                                i.fa.fa-circle-o
+                                | 新闻管理
+            -else
+                li.treeview
+                    a(href='#')
+                        i.fa.fa-newspaper-o
+                        span 新闻中心
+                        span.pull-right-container
+                            i.fa.fa-angle-left.pull-fright
+                    ul.treeview-menu
+                        li
+                            a(href='/admin/news')
+                                i.fa.fa-circle-o
+                                | 新闻管理
             li.treeview
                 a(href='#')
                     i.fa.fa-th
@@ -67,9 +109,13 @@ aside.main-sidebar
                         i.fa.fa-angle-left.pull-fright
                 ul.treeview-menu
                     li
-                        a(href='/manage/innovative')
+                        a(href='/admin/product?type=pump')
                             i.fa.fa-circle-o
-                            | 报名表管理
+                            | 泵类产品管理
+                    li
+                        a(href='/admin/product?type=seal')
+                            i.fa.fa-circle-o
+                            | 机械密封产品管理
             li.treeview
                 a(href='#')
                     i.fa.fa-phone
@@ -78,9 +124,9 @@ aside.main-sidebar
                         i.fa.fa-angle-left.pull-right
                 ul.treeview-menu
                     li
-                        a(href='/manage/addadmin')
+                        a(href='/admin/contact')
                             i.fa.fa-circle-o
-                            | 用户管理
+                            | 信息管理
             li.treeview
                 a(href='#')
                     i.fa.fa-users
@@ -89,6 +135,6 @@ aside.main-sidebar
                         i.fa.fa-angle-left.pull-right
                 ul.treeview-menu
                     li
-                        a(href='/manage/addadmin')
+                        a(href='/admin/join')
                             i.fa.fa-circle-o
-                            | 用户管理
+                            | 招聘管理

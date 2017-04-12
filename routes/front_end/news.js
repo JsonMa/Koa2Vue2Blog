@@ -16,7 +16,7 @@ export default class extends controller {
 			}; // 数据库查询参数
 
 			ctx.state = {}; // 返回的数据
-			let totalNews = await this.DBModule.News.findTotalNews({newsType: 'company'}); // 获取公司新闻总条数
+			let totalNews = await this.DBModule.News.findTotalNews({newsType: 'company', hidden: false}); // 获取公司新闻总条数
             let total = totalNews.count; // 新闻总条数
             let result = await this.DBModule.News.findNewsList(queryParams); // 当前查询条件下的新闻数据
             let isFirstPage = queryParams.pageNum - 1 == 0; //　是否第一页

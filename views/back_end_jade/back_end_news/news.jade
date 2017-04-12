@@ -1,0 +1,74 @@
+// 继承模板
+extends ../back_end_layout
+block title
+    title 重庆伊尔流体后台管理系统
+
+// 引入私有的css
+block css
+    link(rel='stylesheet' href="../css/back_end/news.css")
+    link(rel='stylesheet', href='/plugins/zyupload/skins/zyupload-1.0.0.css')
+block content
+    // 引入共有的aside
+    include ../back_end_aside.jade
+
+    // Content Wrapper. Contains page content
+    .content-wrapper
+        // Content Header (Page header)
+        section.content-header
+            h1
+                | 新闻资讯
+                small 新闻中心
+            a(href="../admin/news_add").add-news.btn.btn-primary 新增新闻
+        // Main content
+        section.content
+            .row
+                .col-xs-12
+                    .box.table-container
+                        .box-header
+                            h3.box-title 新闻中心
+                                small  新闻列表
+                        .box-body
+                            table#example.table.table-bordered.table-hover(style="text-align: center")
+                                thead
+                                    tr
+                                        th ID
+                                        th 新闻标题
+                                        th 作者
+                                        th 类型
+                                        th 新闻来源
+                                        th 创建时间
+                                        th 状态
+                                        th 操作
+                                tbody
+                                    -var baseIndex = (pageNum - 1) * pageSize;
+                                    -for (var i = 0; i < newsData.length; i++)
+                                        tr
+                                            -var index = baseIndex + i + 1;
+                                            td #{index}
+                                            td.honorName #{newsData[i].title}
+                                            td.author #{newsData[i].author}
+                                            -if(newsData[i].newsType == "cpmpany")
+                                                td.type 公司新闻
+                                            -else
+                                                td.type 行业新闻
+                                            td.origin #{newsData[i].origin}
+                                            td.newsCteateTime #{newsData[i].createdTimeDetail}
+                                            td
+                                                -if(newsData[i].hidden)
+                                                    i(status="false" id="#{newsData[i]._id}").fa.fa-play.button-switch-hide.item-switch
+                                                -else
+                                                    i(status="true" id="#{newsData[i]._id}").fa.fa-stop.button-switch-show.item-switch
+                                            td
+                                                //a(id="#{honorData[i]._id}").btn.btn-primary.btn-margin
+                                                //    span
+                                                a(id="#{newsData[i]._id}" href="../admin/news_detail?id=#{newsData[i]._id}&page=#{pageNum}").btn.btn-primary.btn-margin
+                                                    span 编辑
+                                                a(id="#{newsData[i]._id}" imgUrl = "#{newsData[i].imgUrl}").btn.btn-default.btn-margin.btn-delete
+                                                    span 删除
+                        include ../../front_end_jade/front_end_paging.jade
+
+// 引入私有的js
+block js
+    script(src='/plugins/zyupload/zyupload.basic-1.0.0.js')
+    script(src='/js/back_end/back_end_news/news.js')
+

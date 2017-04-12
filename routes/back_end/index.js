@@ -3,8 +3,8 @@
  */
 import controller from '../tools/controllers'
 import multer from 'koa-multer';
-const upload = multer({ dest: 'uploads/' });
-import fs from 'fs';
+const upload = multer({ dest: 'public/uploads/' });
+// import fs from 'fs';
 
 export default class extends controller {
     renders() {

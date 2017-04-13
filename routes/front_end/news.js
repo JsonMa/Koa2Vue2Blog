@@ -2,6 +2,11 @@
  * Created by Mahao on 2017/3/30.
  */
 import controller from '../tools/controllers'
+const md = require('markdown-it')({
+    html: true,
+    linkify: true,
+    typographer: false
+}); // 引入markdown解析
 export default class extends controller {
 	renders() {
 
@@ -89,8 +94,12 @@ export default class extends controller {
 		this.router.get('/news/detail', async(ctx, next) => {
 			ctx.state = { }; // 设置state为空对象
 			let newsId = ctx.query.id; // 获取新闻的ID
-			// await this.DBModule.News.saveNews(); // 获取当前新闻
-			ctx.state.nowNews = await this.DBModule.News.findNews(newsId); // 获取当前新闻
+			// await this.DBModule.News.saveNews(); // 获取当前新闻md
+            let nowNews = await this.DBModule.News.findNews(newsId); // 获取当前新闻
+            console.log(nowNews.data[0]);
+            nowNews.data[0].content = md.render(nowNews.data[0].content );
+            console.log(nowNews.data[0].content);
+            ctx.state.nowNews = nowNews;
 			ctx.state.nextNews = await this.DBModule.News.findNewsNext(newsId); // 获取后一条新闻
 			ctx.state.lastNews = await this.DBModule.News.findNewsPrevious(newsId); // 获取前一条新闻
 

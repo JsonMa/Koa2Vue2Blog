@@ -7,10 +7,13 @@ $(function () {
            this.bindEvent();
        },
        bindEvent: function (){
+
             // markdown编辑器初始化
             var simplemde  = new SimpleMDE({
-                element: document.getElementById('newsContent'),
+                element: document.getElementById('newsContent')
             });
+
+            // 图片上传
             $('.upload-img').click(function () {
                 var dialog = new IOT.Dialog({
                     title: '新增企业形象', //标题
@@ -29,32 +32,55 @@ $(function () {
                     showClose: true, //是否显示右上角关闭按钮
                     className: '', //自定义弹出框类名
                     cache: false, //是否缓存。若为false则close的时候会remove掉对话框对应的dom元素
-                    showOk: true, //显示确定按钮
-                    okText: '取消', //确定按钮的文字
+                    showOk: false, //显示确定按钮
+                    okText: '确定', //确定按钮的文字
                     okCallback: function(){
+
                     }, //确定按钮的回调
                     showCancel: true, //是否显示取消按钮
-                    cancelText: '保存', //取消按钮的文字
+                    cancelText: '确定', //取消按钮的文字
                     cancelCallback: function(){
-
+                        if (!$('.response-url')[0]) {
+                            IOT.tips('没有上传任何图片', 'warning', 1000)
+                        } else {
+                            dialog.close()
+                        }
                     } //取消按钮的回调
                 });
                 dialog.open(function (){
                     news.imageUploader();
                 });
             });
+
+            // 保存新闻内容
             $('.btn-save').click(function (){
-                var params = {
-                    newsContent: simplemde.val(),
-                    newsTitle: $('#newsTitle').val(),
-                    newsSubtitle: $('#newsSubtitle').val(),
-                    newsType: $('#newsType option:selected').val(),
-                    newsAuthor: $('#newsAuthor').val(),
-                    newsOrigin: $('#newsOrigin').val()
-                };
-                $.post('/news/add', params, function (result) {
-                    console.log(result)
-                });
+                var $this = $(this),
+                    btnMode = $this.attr('mode'),
+                    postString = btnMode == 'create'? '/news/add': '/news/edit',
+                    params = {
+                        newsContent: simplemde.value(),  // 获取markdown的值
+                        newsTitle: $('#newsTitle').val(),
+                        newsSubtitle: $('#newsSubtitle').val(),
+                        newsType: $('#newsType option:selected').val(),
+                        newsAuthor: $('#newsAuthor').val(),
+                        newsOrigin: $('#newsOrigin').val(),
+                        newsTag: $('#newsTag').val()
+                    },
+                    id = $this.attr('id');
+                if(id) {
+                    params.id = id
+                }
+                if (params.newsContent && params.newsTitle && params.newsSubtitle && params.newsType && params.newsAuthor && params.newsOrigin && params.newsTag) {
+                    $.post(postString, params, function (result) {
+                        if(result.code == 0) {
+                            IOT.tips(result.msg, 'success', 1000)
+                        } else {
+                            IOT.tips(result.msg, 'error', 1000)
+                        }
+                    });
+                } else {
+                    IOT.tips('所有内容均不能未空', 'warning', 1000)
+                }
             })
        },
 
@@ -67,7 +93,7 @@ $(function () {
                height           :   "auto",                 // 宽度
                itemWidth        :   "140px",                 // 文件项的宽度
                itemHeight       :   "115px",                 // 文件项的高度
-               url              :   "/upload/about",            // 上传文件的路径
+               url              :   "/upload/news",            // 上传文件的路径
                fileType         :   ["jpg","png"],// 上传文件的类型
                fileSize         :   51200000,                // 上传文件的大小
                multiple         :   true,                    // 是否可以多个文件上传
@@ -81,11 +107,12 @@ $(function () {
                    var response = $.parseJSON(response);
                    if (response.code == 0) {
                        IOT.tips('图片上传成功', 'success', 800);
+                       var imgUrl = response.imgPath[0].replace('public', '');
+                       $("#uploadInf").append("<p class='response-url'>上传成功，文件地址是：" + imgUrl + "</p>");
+                       $('.response-img').html('图片地址：' + imgUrl)
                    } else {
                        IOT.tips('图片上传失败', 'error', 800);
                    }
-                   var imgUrl = response.imgPath[0].replace('public', '');
-                   $("#uploadInf").append("<p>上传成功，文件地址是：" + imgUrl + "</p>");
                },
                onFailure: function(file, response){          // 文件上传失败的回调方法
                    IOT.tips('图片上传失败', 'error', 800);

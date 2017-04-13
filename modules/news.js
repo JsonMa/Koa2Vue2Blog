@@ -58,16 +58,16 @@ export default class {
 		// });
         this.News =  mongoose.model('news', newsSchema);
 	}
-	saveNews() {
+	saveNews(newsInfo) {
 		return new Promise((resolve, reject) => {
-				var newsInfo = {
-					title: '伊尔流体成功进入中石化',
-					subTitle: '重庆伊尔流体设备制造有限公司坐落于西部唯一的年轻直辖市--重庆，是一家集生产、研发、销售为一体，并通过ISO9001认证的立卧式石油化工泵制造厂家。',
-					content: '重庆伊尔流体设备制造有限公司坐落于西部唯一的年轻直辖市--重庆，是一家集生产、研发、销售为一体，并通过ISO9001认证的立卧式石油化工泵制造厂家。我们不是什么都做的企业，我们只专业研发制造：各种立卧式化工流程泵、小流量高扬程皮托管泵（又名旋转喷射泵、旋壳泵）、无泄漏磁力泵以及机械密封。 公司历时5年研发了最新一代石油化工流程泵（严格执行API610“第十一版”标准），最新一代小流量高扬程皮托管泵，最新一代磁力泵以及机械密封',
-					author: '重庆伊尔流体',
-					origin: '重庆伊尔流体设备制造有限公司',
-                    tags: '中石化'
-				};
+				// var newsInfo = {
+				// 	title: '伊尔流体成功进入中石化',
+				// 	subTitle: '重庆伊尔流体设备制造有限公司坐落于西部唯一的年轻直辖市--重庆，是一家集生产、研发、销售为一体，并通过ISO9001认证的立卧式石油化工泵制造厂家。',
+				// 	content: '重庆伊尔流体设备制造有限公司坐落于西部唯一的年轻直辖市--重庆，是一家集生产、研发、销售为一体，并通过ISO9001认证的立卧式石油化工泵制造厂家。我们不是什么都做的企业，我们只专业研发制造：各种立卧式化工流程泵、小流量高扬程皮托管泵（又名旋转喷射泵、旋壳泵）、无泄漏磁力泵以及机械密封。 公司历时5年研发了最新一代石油化工流程泵（严格执行API610“第十一版”标准），最新一代小流量高扬程皮托管泵，最新一代磁力泵以及机械密封',
+				// 	author: '重庆伊尔流体',
+				// 	origin: '重庆伊尔流体设备制造有限公司',
+                 //    tags: '中石化'
+				// };
                 let News = this.News;
 				let addNews = new News(newsInfo);
                     addNews.save(err => {
@@ -205,8 +205,19 @@ export default class {
         })
     }
 
-    // 修改特定的荣誉资质
+    // 修改特定的新闻
     changeNewsValue(params) {
+        console.log(params);
+        // var newsInfo = {
+        //     content: requestBody.newsContent,  // 获取markdown的值
+        //     title: requestBody.newsTitle,
+        //     subTitle: requestBody.newsSubtitle,
+        //     newsType: requestBody.newsType,
+        //     author: requestBody.newsAuthor,
+        //     origin: requestBody.newsOrigin,
+        //     tags: requestBody.newsTag,
+        //     _id: requestBody.id
+        // };
         return new Promise((resolve, reject) => {
             if (params && typeof params == "object") {
                 this.News.findById(params._id, function (err, doc) {
@@ -214,13 +225,14 @@ export default class {
                         reject({ status: false, msg: '数据库查询错误'})
                     }
                     let date = new Date();
-                    let imgUrlString = doc.imgUrl;
-                    let isSame = doc.imgUrl == params.imgUrl? true: false;
-                    let oldPath = imgUrlString.replace('..', 'public');
                     doc.lastEditTime = date;
-                    doc.name = params.name; // 设置名称
-                    doc.imgUrl = params.imgUrl; // 设置图片地址
-                    doc.Summary = params.Summary; // 设置图片简介
+                    doc.content = params.content; // 修改内容
+                    doc.title = params.title; // 修改标题
+                    doc.subTitle = params.subTitle; // 修改副标题
+                    doc.newsType = params.newsType; // 修改新闻类型
+                    doc.author = params.author; // 修改新闻作者
+                    doc.origin = params.origin; // 修改新闻来源
+                    doc.tags = params.tags; // 修改新闻标签
                     doc.save(err => {
                         if(err) {
                             reject({ status: false, msg: '状态修改失败'})

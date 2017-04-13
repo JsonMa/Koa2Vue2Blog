@@ -18,7 +18,7 @@ block content
             h1
                 | 新闻资讯
                 small 新闻中心
-            a(href="../admin/news_add").add-news.btn.btn-primary 新增新闻
+            a(href="../admin/news_add?page=#{pageNum}").add-news.btn.btn-primary 新增新闻
         // Main content
         section.content
             .row
@@ -47,7 +47,7 @@ block content
                                             td #{index}
                                             td.honorName #{newsData[i].title}
                                             td.author #{newsData[i].author}
-                                            -if(newsData[i].newsType == "cpmpany")
+                                            -if(newsData[i].newsType == "company")
                                                 td.type 公司新闻
                                             -else
                                                 td.type 行业新闻
@@ -63,10 +63,9 @@ block content
                                                 //    span
                                                 a(id="#{newsData[i]._id}" href="../admin/news_detail?id=#{newsData[i]._id}&page=#{pageNum}").btn.btn-primary.btn-margin
                                                     span 编辑
-                                                a(id="#{newsData[i]._id}" imgUrl = "#{newsData[i].imgUrl}").btn.btn-default.btn-margin.btn-delete
+                                                a(id="#{newsData[i]._id}" imgUrl="#{newsData[i].imgUrl}").btn.btn-default.btn-margin.btn-delete
                                                     span 删除
                         include ../../front_end_jade/front_end_paging.jade
-
 // 引入私有的js
 block js
     script(src='/plugins/zyupload/zyupload.basic-1.0.0.js')

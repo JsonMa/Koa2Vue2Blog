@@ -45,9 +45,30 @@ export default class extends controller {
             await ctx.render('./back_end_jade/back_end_news/news')
         });
 
-        // 新闻详情
+        // 新增新闻
         this.router.get('/admin/news_add', async(ctx, next) => {
             ctx.state.nav = 'news';
+            ctx.state.pageNum = ctx.request.query.page;
+
+            // 判断是否是debug
+            var debug = ctx.request.query._d;
+            if (debug == 1) {
+                ctx.body = ctx.state;
+                return false;
+            }
+            await ctx.render('./back_end_jade/back_end_news/news_edit')
+        });
+
+        // 编辑新闻
+        this.router.get('/admin/news_detail', async(ctx, next) => {
+            let newsId = ctx.request.query.id;
+            let pageNum = ctx.request.query.page || 1;
+            let news = await this.DBModule.News.findNews({_id: newsId}); // 获取荣誉资质总条数
+            if (news.status) {
+                ctx.state.newsData = news.data[0]; // 获取第一个元素
+                ctx.state.pageNum = pageNum;
+                ctx.state.nav = 'news';
+            }
 
             // 判断是否是debug
             var debug = ctx.request.query._d;
@@ -80,25 +101,20 @@ export default class extends controller {
         });
 
         // 删除指定的新闻
-        this.router.post('/honor/delete', async(ctx, next) => {
-            let honorId = ctx.request.body.id;
-            let imgUrl = ctx.request.body.imgUrl;
-            let deleteHonor = await this.DBModule.Honor.deleteHonor({_id: honorId}); // 获取荣誉资质总条数
-            let deleteImg = await this.api.removeFiles(imgUrl);
-            if (deleteHonor.status && deleteImg.status) {
+        this.router.post('/news/delete', async(ctx, next) => {
+            let newsId = ctx.request.body.id;
+            // let imgUrl = ctx.request.body.imgUrl; // 暂时不删除新闻图片
+            let deleteNews = await this.DBModule.News.deleteNews({_id: newsId}); // 获取荣誉资质总条数
+            // let deleteImg = await this.api.removeFiles(imgUrl); // 暂时不删除图片
+            if (deleteNews.status) {
                 ctx.body = {
                     "code": 0,
-                    "msg": deleteHonor.msg
-                };
-            } else if (!deleteImg) {
-                ctx.body = {
-                    "code": 200,
-                    "msg": "图片删除失败"
+                    "msg": deleteNews.msg
                 };
             } else {
                 ctx.body = {
                     "code": 200,
-                    "msg": deleteHonor.msg
+                    "msg": deleteNews.msg
                 };
             }
         });
@@ -111,7 +127,7 @@ export default class extends controller {
                 ctx.body = { code: 500, msg: "上传失败" };
                 return false;
             }
-            let reNameResult = await this.api.renameFiles([requestBody], "public/uploads/temporary/");
+            let reNameResult = await this.api.renameFiles([requestBody], "public/images/front_end/news/");
             var resultsPath = reNameResult.resultsPath;
             if (reNameResult.status) {
                 ctx.body = { code: 0, imgPath: resultsPath };
@@ -124,24 +140,16 @@ export default class extends controller {
         this.router.post('/news/add', async (ctx, next) => {
             var requestBody = ctx.request.body;
             if (requestBody) {
-                var honorInfo = {
-                    name: requestBody.name, // 图片名称
-                    imgUrl: requestBody.imgUrl, // 荣誉资质图片地址
-                    Summary: requestBody.imgDes // 图片概述
+                var newsInfo = {
+                    content: requestBody.newsContent,  // 获取markdown的值
+                    title: requestBody.newsTitle,
+                    subTitle: requestBody.newsSubtitle,
+                    newsType: requestBody.newsType,
+                    author: requestBody.newsAuthor,
+                    origin: requestBody.newsOrigin,
+                    tags: requestBody.newsTag
                 };
-
-                // 判断图片路径是否有更新
-                if(honorInfo.imgUrl.indexOf('uploads/temporary') != -1) {
-                    let savePath = honorInfo.imgUrl.split('/')[3];
-                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
-                    let newPath = "public/images/front_end/about/honor/" + savePath;
-                    let renameResult = await this.api.moveFiles(oldPath, newPath);
-                    if (renameResult.status) {
-                        honorInfo.imgUrl = renameResult.resultsPath;
-                    }
-                }
-
-                let result = await this.DBModule.Honor.saveHonor(honorInfo);
+                let result = await this.DBModule.News.saveNews(newsInfo);
                 if(result.status) {
                     ctx.body = { code: 0, msg: result.msg };
                 } else {
@@ -157,25 +165,28 @@ export default class extends controller {
             // console.log(ctx.request.body);
             var requestBody = ctx.request.body;
             if (requestBody) {
-                let honorInfo = {
-                    name: requestBody.name, // 图片名称
-                    imgUrl: requestBody.imgUrl, // 荣誉资质图片地址
-                    Summary: requestBody.imgDes, // 图片概述
-                    _id: requestBody.id // 图片概述
+                var newsInfo = {
+                    content: requestBody.newsContent,  // 获取markdown的值
+                    title: requestBody.newsTitle,
+                    subTitle: requestBody.newsSubtitle,
+                    newsType: requestBody.newsType,
+                    author: requestBody.newsAuthor,
+                    origin: requestBody.newsOrigin,
+                    tags: requestBody.newsTag,
+                    _id: requestBody.id
                 };
-                console.log(honorInfo.imgUrl.indexOf('uploads/temporary'));
 
                 // 判断图片路径是否有更新
-                if(honorInfo.imgUrl.indexOf('uploads/temporary') != -1) {
-                    let savePath = honorInfo.imgUrl.split('/')[3];
-                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
-                    let newPath = "public/images/front_end/about/honor/" + savePath;
-                    let renameResult = await this.api.moveFiles(oldPath, newPath);
-                    if (renameResult.status) {
-                        honorInfo.imgUrl = renameResult.resultsPath;
-                    }
-                }
-                let result = await this.DBModule.Honor.changeHonrValue(honorInfo);
+                // if(honorInfo.imgUrl.indexOf('uploads/temporary') != -1) {
+                //     let savePath = honorInfo.imgUrl.split('/')[3];
+                //     let oldPath = 'public\\uploads\\temporary\\' + savePath;
+                //     let newPath = "public/images/front_end/about/honor/" + savePath;
+                //     let renameResult = await this.api.moveFiles(oldPath, newPath);
+                //     if (renameResult.status) {
+                //         honorInfo.imgUrl = renameResult.resultsPath;
+                //     }
+                // }
+                let result = await this.DBModule.News.changeNewsValue(newsInfo);
                 if(result.status) {
                     ctx.body = { code: 0, msg: result.msg };
                 } else {

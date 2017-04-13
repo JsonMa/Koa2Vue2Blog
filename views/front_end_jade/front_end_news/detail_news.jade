@@ -28,8 +28,8 @@ block content
                                 span #{nowNews.data[0].formatCreatedTime}
                         .news-abstract
                             p #{nowNews.data[0].subTitle}
-                        .news-content
-                            p #{nowNews.data[0].content}
+                        -var content = nowNews.data[0].content
+                        .news-content !{content}
                     .detail-bottom
                         .news-from 文章来源：
                             span.news-from-value #{nowNews.data[0].origin}
@@ -63,7 +63,3 @@ block content
                             li
                                 a(href="../news/detail?id=#{hotRecommend[i]._id}").title #{hotRecommend[i].title}
                                 span.title-date #{hotRecommend[i].formatCreatedTime}
-
-// 引入私有的js
-block js
-    script(src='/js/front_end/front_end_news/news.js')

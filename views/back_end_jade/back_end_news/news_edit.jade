@@ -65,15 +65,11 @@ block content
                                                 textarea#newsContent.form-control(rows='3' value="#{newsData.content}" placeholder="请输入新闻内容") #{newsData.content}
                                             .form-group(style="text-align:right")
                                                 span(mode="edit" id="#{newsData._id}").btn.btn-primary.btn-save 保存修改
-                                        .honor-back(style="text-align: right")
-                                            a(href="../admin/index?page=#{pageNum}")
-                                                << 返回列表
                                     -else
                                         form
                                             .form-group
                                                 label(for='newsTitle') 新闻标题：
                                                 input#newsTitle.form-control(type='text', placeholder='请输入新闻标题')
-                                                input#newsId.form-control(type='hidden')
                                             .form-group
                                                 label(for='newsSubtitle') 新闻摘要：
                                                 textarea#newsSubtitle.form-control(rows='2' placeholder="请输入新闻摘要")

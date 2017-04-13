@@ -156,7 +156,7 @@ export default class {
         if ( !params.showAll) {
             condition.hidden = false
         }
-        if ( params.newsType ) {
+        if ( params.pumpType ) {
             condition.pumpType = params.pumpType
         }
         if(params) {
@@ -196,7 +196,7 @@ export default class {
         })
     }
 
-    // 修改特定的新闻状态
+    // 修改特定的泵状态
     changePumpStatus(params) {
         return new Promise((resolve, reject) => {
             if (params && typeof params == "object") {
@@ -214,6 +214,23 @@ export default class {
                             resolve({ status: true, msg: '状态修改成功'})
                         }
                     });
+                })
+            } else {
+                reject({ status: false, msg: '参数错误'})
+            }
+        })
+    }
+
+    // 删除指定的泵
+    deletePump(params) {
+        return new Promise((resolve, reject) => {
+            if (params && typeof params == "object") {
+                this.Pump.remove({_id: params._id}, function (err, doc) {
+                    if (err) {
+                        reject({ status: false, msg: '数据库查询错误'})
+                    } else {
+                        resolve({ status: true, msg: '泵删除成功'})
+                    }
                 })
             } else {
                 reject({ status: false, msg: '参数错误'})

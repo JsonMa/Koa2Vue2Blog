@@ -1,0 +1,109 @@
+// 继承模板
+extends ../back_end_layout
+block title
+    title 重庆伊尔流体后台管理系统
+
+// 引入私有的css
+block css
+    link(rel='stylesheet' href="../css/back_end/product.css")
+    link(rel='stylesheet', href='/plugins/zyupload/skins/zyupload-1.0.0.css')
+block content
+    // 引入共有的aside
+    include ../back_end_aside.jade
+
+    // Content Wrapper. Contains page content
+    .content-wrapper
+        // Content Header (Page header)
+        section.content-header
+            h1
+                | 产品中心
+                -if(pumpData)
+                    small 泵类产品管理
+                -else
+                    small 密封产品管理
+            a(href="../admin/product_add?page=#{pageNum}&series=#{nav}" series="#{nav}").add-product.btn.btn-primary.pull-right 新增产品
+        // Main content
+        section.content
+            .row
+                .col-xs-12
+                    .box.table-container
+                        .box-header
+                            h3.box-title 产品列表
+                                small  Product List
+                        .box-body
+                            table#example.table.table-bordered.table-hover(style="text-align: center")
+                                -if(pumpData)
+                                    thead
+                                        tr
+                                            th ID
+                                            th 产品名称
+                                            th 安全等级
+                                            th 产品类型
+                                            th 图片地址
+                                            th 创建时间
+                                            th 状态
+                                            th 操作
+                                    tbody
+                                        -var baseIndex = (pageNum - 1) * pageSize;
+                                        -for (var i = 0; i < pumpData.length; i++)
+                                            tr
+                                                -var index = baseIndex + i + 1;
+                                                td #{index}
+                                                td.productName #{pumpData[i].name}
+                                                td.author #{pumpData[i].safeStage}
+                                                -if(pumpData[i].pumpType == "pitot")
+                                                    td.type 皮托管泵
+                                                -else if(pumpData[i].pumpType == "chemical")
+                                                    td.type 化工泵
+                                                -else if(pumpData[i].pumpType == "magnetic")
+                                                    td.type 磁力泵
+                                                -else
+                                                    td.type --
+                                                td.img-detail(imgUrl="#{pumpData[i].imgUrl}") 查看图片
+                                                td.product-CteateTime #{pumpData[i].createdTimeDetail}
+                                                td
+                                                    -if(pumpData[i].hidden)
+                                                        i(status="false" series="#{nav}" id="#{pumpData[i]._id}").fa.fa-play.button-switch-hide.item-switch
+                                                    -else
+                                                        i(status="true" series="#{nav}" id="#{pumpData[i]._id}").fa.fa-stop.button-switch-show.item-switch
+                                                td
+                                                    a(id="#{pumpData[i]._id}" series="#{nav}" href="../admin/news_detail?id=#{pumpData[i]._id}&page=#{pageNum}").btn.btn-primary.btn-margin
+                                                        span 编辑
+                                                    a(id="#{pumpData[i]._id}" series="#{nav}" imgUrl="#{pumpData[i].imgUrl}").btn.btn-default.btn-margin.btn-delete
+                                                        span 删除
+                                -else if(sealData)
+                                    thead
+                                        tr
+                                            th ID
+                                            th 产品名称
+                                            th 产品图
+                                            th 结构图图
+                                            th 创建时间
+                                            th 状态
+                                            th 操作
+                                    tbody
+                                        -var baseIndex = (pageNum - 1) * pageSize;
+                                        -for (var i = 0; i < sealData.length; i++)
+                                            tr
+                                                -var index = baseIndex + i + 1;
+                                                td #{index}
+                                                td.productName #{sealData[i].name}
+                                                td.img-detail(imgUrl="#{sealData[i].imgUrl}") 查看图片
+                                                td.img-detail(imgUrl="#{sealData[i].imgStructureUrl}") 查看图片
+                                                td.productCteateTime #{sealData[i].createdTimeDetail}
+                                                td
+                                                    -if(sealData[i].hidden)
+                                                        i(status="false" series="#{nav}" id="#{sealData[i]._id}").fa.fa-play.button-switch-hide.item-switch
+                                                    -else
+                                                        i(status="true" series="#{nav}" id="#{sealData[i]._id}").fa.fa-stop.button-switch-show.item-switch
+                                                td
+                                                    a(id="#{sealData[i]._id}" series="#{nav}" href="../admin/news_detail?id=#{sealData[i]._id}&page=#{pageNum}").btn.btn-primary.btn-margin
+                                                        span 编辑
+                                                    a(id="#{sealData[i]._id}" series="#{nav}" imgUrl="#{sealData[i].imgUrl}" imgStructUrl="#{sealData[i].imgStructureUrl}").btn.btn-default.btn-margin.btn-delete
+                                                        span 删除
+                        include ../../front_end_jade/front_end_paging.jade
+// 引入私有的js
+block js
+    script(src='/plugins/zyupload/zyupload.basic-1.0.0.js')
+    script(src='/js/back_end/back_end_product/product.js')
+

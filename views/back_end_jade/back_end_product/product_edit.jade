@@ -1,0 +1,190 @@
+// 集成模板
+extends ../back_end_layout
+block title
+    title 重庆伊尔流体后台管理系统
+
+// 引入私有的css
+block css
+    link(rel='stylesheet' href="../css/back_end/product.css")
+    link(rel='stylesheet', href='/plugins/zyupload/skins/zyupload-1.0.0.css')
+block content
+    // 引入共有的aside
+    include ../back_end_aside.jade
+
+    // Content Wrapper. Contains page content
+    .content-wrapper
+        // Content Header (Page header)
+        section.content-header
+            h1
+                | 产品中心
+                -if(nav == 'pump')
+                    small 泵类产量
+                -else
+                    small 密封产品
+        // Main content
+        section.content
+            .row
+                .col-md-12
+                    .box.table-container
+                        .box-header
+                            h3.box-title 产品详情
+                                small  Product detail
+                            .product-back(style="text-align: right")
+                                a(href="../admin/product?page=#{pageNum}&series=#{nav}" style="font-size: 12px; margin-right: 20px") << 返回列表
+                        .box-body
+                            .row
+                                .col-md-6.col-md-offset-3
+                                    -if(nav == 'pump')
+                                        form
+                                            .h4 泵相关信息
+                                            .form-group.row
+                                                label.col-md-2(for='pumpName') 泵名称：
+                                                .col-md-10
+                                                    input#pumpName.form-control(type='text', placeholder='请输入泵名称')
+                                            .form-group.row
+                                                label.col-md-2(for='safeStage') 安全等级：
+                                                .col-md-10
+                                                    input#safeStage.form-control(type='text', placeholder='请输入泵安全等级')
+                                            .form-group.row
+                                                label.col-md-2(for='area') 应用范围：
+                                                .col-md-10
+                                                    textarea#area.form-control(rows='3' placeholder="请输入应用范围")
+                                            .form-group.row
+                                                label.col-md-2(for='pumpType') 泵类型：
+                                                .col-md-10
+                                                    select#pumpType.form-control
+                                                        option(value="pitot") 皮托管泵
+                                                        option(value="magnetic") 磁力泵
+                                                        option(value="chemical") 化工泵
+                                            .form-group
+                                                label(for='newsContent') 泵图片：
+                                                span.upload-img(style="margin-bottom: 5px; color: #3c8dbc; cursor: pointer; float: right") 上传图片
+                                                p.response-img(style="magin-left: 5px")
+                                            .h4 泵等级参数
+                                            .form-group.row
+                                                label.col-md-2(for='safe') 安全等级：
+                                                .col-md-10
+                                                    input#safe.form-control(type='text', placeholder='请输入泵安全等级')
+                                            .form-group.row
+                                                label.col-md-2(for='manufacture') 制造等级：
+                                                .col-md-10
+                                                    input#manufacture.form-control(type='text', placeholder='请输入泵制造等级')
+                                            .form-group.row
+                                                label.col-md-2(for='warranty') 质保等级：
+                                                .col-md-10
+                                                    input#warranty.form-control(type='text', placeholder='请输入泵质保等级')
+                                            .form-group.row
+                                                label.col-md-2(for='antiSeismic') 抗震等级：
+                                                .col-md-10
+                                                    input#antiSeismic.form-control(type='text', placeholder='请输入泵抗震等级')
+                                            .form-group.row
+                                                label.col-md-2(for='clean') 清洁等级：
+                                                .col-md-10
+                                                    input#clean.form-control(type='text', placeholder='请输入泵清洁等级')
+                                            .h4 泵基本参数
+                                            .form-group.row
+                                                label.col-md-2(for='structure') 结构：
+                                                .col-md-10
+                                                    input#structure.form-control(type='text', placeholder='请输入泵结构')
+                                            .form-group.row
+                                                label.col-md-2(for='standard') 标准：
+                                                .col-md-10
+                                                    input#standard.form-control(type='text', placeholder='请输入泵标准')
+                                            .form-group.row
+                                                label.col-md-2(for='flow') 流量：
+                                                .col-md-10
+                                                    input#flow.form-control(type='text', placeholder='请输入泵流量')
+                                            .form-group.row
+                                                label.col-md-2(for='high') 扬程：
+                                                .col-md-10
+                                                    input#high.form-control(type='text', placeholder='请输入泵扬程')
+                                            .form-group.row
+                                                label.col-md-2(for='temperature') 温度：
+                                                .col-md-10
+                                                    input#temperature.form-control(type='text', placeholder='请输入泵温度')
+                                            .form-group.row
+                                                label.col-md-2(for='pressure') 压力：
+                                                .col-md-10
+                                                    input#pressure.form-control(type='text', placeholder='请输入泵压力')
+                                            .form-group(style="text-align:right")
+                                                span(mode="create").btn.btn-primary.btn-save 保存泵
+                                    -else
+                                        form
+                                            .h4 泵相关信息
+                                            .form-group.row
+                                                label.col-md-2(for='pumpName') 泵名称：
+                                                .col-md-10
+                                                    input#pumpName.form-control(type='text', placeholder='请输入泵名称')
+                                            .form-group.row
+                                                label.col-md-2(for='safeStage') 安全等级：
+                                                .col-md-10
+                                                    input#safeStage.form-control(type='text', placeholder='请输入泵安全等级')
+                                            .form-group.row
+                                                label.col-md-2(for='area') 应用范围：
+                                                .col-md-10
+                                                    textarea#area.form-control(rows='3' placeholder="请输入应用范围")
+                                            .form-group.row
+                                                label.col-md-2(for='pumpType') 泵类型：
+                                                .col-md-10
+                                                    select#pumpType.form-control
+                                                        option(value="pitot") 皮托管泵
+                                                        option(value="magnetic") 磁力泵
+                                                        option(value="chemical") 化工泵
+                                            .form-group
+                                                label(for='newsContent') 泵图片：
+                                                span.upload-img(style="margin-bottom: 5px; color: #3c8dbc; cursor: pointer; float: right") 上传图片
+                                                p.response-img(style="magin-left: 5px")
+                                            .h4 泵等级参数
+                                            .form-group.row
+                                                label.col-md-2(for='safe') 安全等级：
+                                                .col-md-10
+                                                    input#safe.form-control(type='text', placeholder='请输入泵安全等级')
+                                            .form-group.row
+                                                label.col-md-2(for='manufacture') 制造等级：
+                                                .col-md-10
+                                                    input#manufacture.form-control(type='text', placeholder='请输入泵制造等级')
+                                            .form-group.row
+                                                label.col-md-2(for='warranty') 质保等级：
+                                                .col-md-10
+                                                    input#warranty.form-control(type='text', placeholder='请输入泵质保等级')
+                                            .form-group.row
+                                                label.col-md-2(for='antiSeismic') 抗震等级：
+                                                .col-md-10
+                                                    input#antiSeismic.form-control(type='text', placeholder='请输入泵抗震等级')
+                                            .form-group.row
+                                                label.col-md-2(for='clean') 清洁等级：
+                                                .col-md-10
+                                                    input#clean.form-control(type='text', placeholder='请输入泵清洁等级')
+                                            .h4 泵基本参数
+                                            .form-group.row
+                                                label.col-md-2(for='structure') 结构：
+                                                .col-md-10
+                                                    input#structure.form-control(type='text', placeholder='请输入泵结构')
+                                            .form-group.row
+                                                label.col-md-2(for='standard') 标准：
+                                                .col-md-10
+                                                    input#standard.form-control(type='text', placeholder='请输入泵标准')
+                                            .form-group.row
+                                                label.col-md-2(for='flow') 流量：
+                                                .col-md-10
+                                                    input#flow.form-control(type='text', placeholder='请输入泵流量')
+                                            .form-group.row
+                                                label.col-md-2(for='high') 扬程：
+                                                .col-md-10
+                                                    input#high.form-control(type='text', placeholder='请输入泵扬程')
+                                            .form-group.row
+                                                label.col-md-2(for='temperature') 温度：
+                                                .col-md-10
+                                                    input#temperature.form-control(type='text', placeholder='请输入泵温度')
+                                            .form-group.row
+                                                label.col-md-2(for='pressure') 压力：
+                                                .col-md-10
+                                                    input#pressure.form-control(type='text', placeholder='请输入泵压力')
+                                            .form-group(style="text-align:right")
+                                                span(mode="create").btn.btn-primary.btn-save 保存泵
+// 引入私有的js
+block js
+    script(src='/plugins/zyupload/zyupload.basic-1.0.0.js')
+    script(src='/js/back_end/back_end_news/news_detail.js')
+
+

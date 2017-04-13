@@ -185,12 +185,12 @@ export default class extends controller {
                 };
             } else if (!deleteImg) {
                 ctx.body = {
-                    "code": 200,
+                    "code": 0,
                     "msg": "图片删除失败"
                 };
             } else {
                 ctx.body = {
-                    "code": 200,
+                    "code": 500,
                     "msg": deleteHonor.msg
                 };
             }

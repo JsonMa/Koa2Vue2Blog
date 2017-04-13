@@ -152,7 +152,8 @@ export function removeFiles(filePath) {
         try {
             fs.unlink(filePath, (err) => {
                 if(err){
-                    reject({ status: false });
+                    resolve({ status: false });
+                    return false
                 } else {
                     resolve({ status: true });
                 }

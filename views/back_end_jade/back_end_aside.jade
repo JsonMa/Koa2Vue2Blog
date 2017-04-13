@@ -101,21 +101,48 @@ aside.main-sidebar
                             a(href='/admin/news')
                                 i.fa.fa-circle-o
                                 | 新闻管理
-            li.treeview
-                a(href='#')
-                    i.fa.fa-th
-                    span 产品中心
-                    span.pull-right-container
-                        i.fa.fa-angle-left.pull-fright
-                ul.treeview-menu
-                    li
-                        a(href='/admin/product?type=pump')
-                            i.fa.fa-circle-o
-                            | 泵类产品管理
-                    li
-                        a(href='/admin/product?type=seal')
-                            i.fa.fa-circle-o
-                            | 机械密封产品管理
+            -if(nav == 'pump' || nav == 'seal')
+                li.treeview
+                    a(href='#')
+                        i.fa.fa-th
+                        span 产品中心
+                        span.pull-right-container
+                            i.fa.fa-angle-left.pull-fright
+                    ul.treeview-menu
+                        -if (nav && nav == 'pump')
+                            li.active
+                                a(href='/admin/product?series=pump')
+                                    i.fa.fa-circle-o
+                                    | 泵类产品管理
+                            li
+                                a(href='/admin/product?series=seal')
+                                    i.fa.fa-circle-o
+                                    | 密封产品管理
+                        -else
+                            li
+                                a(href='/admin/product?series=pump')
+                                    i.fa.fa-circle-o
+                                    | 泵类产品管理
+                            li.active
+                                a(href='/admin/product?series=seal')
+                                    i.fa.fa-circle-o
+                                    | 密封产品管理
+            -else
+                li.treeview
+                    a(href='#')
+                        i.fa.fa-th
+                        span 产品中心
+                        span.pull-right-container
+                            i.fa.fa-angle-left.pull-fright
+                    ul.treeview-menu
+                        li
+                            a(href='/admin/product?series=pump')
+                                i.fa.fa-circle-o
+                                | 泵类产品管理
+                        li
+                            a(href='/admin/product?series=seal')
+                                i.fa.fa-circle-o
+                                | 密封产品管理
             li.treeview
                 a(href='#')
                     i.fa.fa-phone

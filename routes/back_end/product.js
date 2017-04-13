@@ -65,7 +65,8 @@ export default class extends controller {
 
         // 新增产品
         this.router.get('/admin/product_add', async(ctx, next) => {
-            ctx.state.nav = 'news';
+            let series = ctx.request.query.series;
+            ctx.state.nav = series;
             ctx.state.pageNum = ctx.request.query.page;
 
             // 判断是否是debug
@@ -74,10 +75,10 @@ export default class extends controller {
                 ctx.body = ctx.state;
                 return false;
             }
-            await ctx.render('./back_end_jade/back_end_news/news_edit')
+            await ctx.render('./back_end_jade/back_end_product/product_edit')
         });
 
-        // 编辑产品
+        // 修改产品
         this.router.get('/admin/product_detail', async(ctx, next) => {
             let newsId = ctx.request.query.id;
             let pageNum = ctx.request.query.page || 1;
@@ -106,9 +107,9 @@ export default class extends controller {
             let series = ctx.request.body.series;
             let status = ctx.request.body.status == 'false'? false: true;
             if (series == 'pump') {
-                var changeStatus = await this.DBModule.Pump.changePumpStatus({_id: productId, hidden: status}); // 修改泵类产品状态
+                var changeStatus = await this.DBModule.Pumps.changePumpStatus({_id: productId, hidden: status}); // 修改泵类产品状态
             } else {
-                var changeStatus = await this.DBModule.Seal.changeSealStatus({_id: productId, hidden: status}); // 修改密封产品状态
+                var changeStatus = await this.DBModule.Seals.changeSealStatus({_id: productId, hidden: status}); // 修改密封产品状态
             }
             if (changeStatus.status) {
                 ctx.body = {
@@ -123,27 +124,46 @@ export default class extends controller {
             }
         });
 
-        // 删除指定的新闻
-        this.router.post('/news/delete', async(ctx, next) => {
-            let newsId = ctx.request.body.id;
-            // let imgUrl = ctx.request.body.imgUrl; // 暂时不删除新闻图片
-            let deleteNews = await this.DBModule.News.deleteNews({_id: newsId}); // 获取荣誉资质总条数
-            // let deleteImg = await this.api.removeFiles(imgUrl); // 暂时不删除图片
-            if (deleteNews.status) {
+        // 删除指定的产品
+        this.router.post('/product/delete', async(ctx, next) => {
+            let productId = ctx.request.body.id,
+                series = ctx.request.body.series,
+                imgUrl = ctx.request.body.imgUrl, // 产品图
+                imgStructUrl = ctx.request.body.imgStructUrl; // 产品结构图
+            console.log(imgUrl);
+            if(series == 'pump') {
+                var deleteProduct = await this.DBModule.Pumps.deletePump({_id: productId});
+                var deleteImg = await this.api.removeFiles(imgUrl);
+            } else {
+                var deleteProduct = await this.DBModule.Seals.deleteSeal({_id: productId});
+                var deleteImg = await this.api.removeFiles(imgUrl);
+                var deleteStructImg = await this.api.removeFiles(imgStructUrl);
+            }
+            if (deleteProduct.status && deleteImg.status) {
                 ctx.body = {
                     "code": 0,
-                    "msg": deleteNews.msg
+                    "msg": deleteProduct.msg
+                };
+            } else if (!deleteImg.status) {
+                ctx.body = {
+                    "code": 0,
+                    "msg": "产品图删除失败"
+                };
+            } else if (!deleteStructImg.status) {
+                ctx.body = {
+                    "code": 0,
+                    "msg": "结构图删除失败"
                 };
             } else {
                 ctx.body = {
-                    "code": 200,
-                    "msg": deleteNews.msg
+                    "code": 500,
+                    "msg": deleteProduct.msg
                 };
             }
         });
 
         // 通用图片上传
-        this.router.post('/upload/news',upload.single('file'), async (ctx, next) => {
+        this.router.post('/upload/product',upload.single('file'), async (ctx, next) => {
             var requestBody = ctx.req.file;
 
             if (this._.isEmpty(requestBody)) {
@@ -160,7 +180,7 @@ export default class extends controller {
         });
 
         // 新增新闻
-        this.router.post('/news/add', async (ctx, next) => {
+        this.router.post('/product/add', async (ctx, next) => {
             var requestBody = ctx.request.body;
             if (requestBody) {
                 var newsInfo = {
@@ -184,7 +204,7 @@ export default class extends controller {
         });
 
         // 修改新闻
-        this.router.post('/news/edit', async (ctx, next) => {
+        this.router.post('/product/edit', async (ctx, next) => {
             var requestBody = ctx.request.body;
             if (requestBody) {
                 var newsInfo = {

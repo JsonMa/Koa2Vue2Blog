@@ -142,7 +142,7 @@ export default class {
             if ( !params.showAll) {
                 condition.hidden = false
             }
-            if ( params.newsType ) {
+            if ( params.sealType ) {
                 condition.sealType = params.sealType
             }
             return new Promise((resolve, reject) => {
@@ -199,6 +199,23 @@ export default class {
                             resolve({ status: true, msg: '状态修改成功'})
                         }
                     });
+                })
+            } else {
+                reject({ status: false, msg: '参数错误'})
+            }
+        })
+    }
+
+    // 删除指定的密封
+    deleteSeal(params) {
+        return new Promise((resolve, reject) => {
+            if (params && typeof params == "object") {
+                this.Seal.remove({_id: params._id}, function (err, doc) {
+                    if (err) {
+                        reject({ status: false, msg: '数据库查询错误'})
+                    } else {
+                        resolve({ status: true, msg: '密封删除成功'})
+                    }
                 })
             } else {
                 reject({ status: false, msg: '参数错误'})

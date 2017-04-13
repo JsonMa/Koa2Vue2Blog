@@ -11,7 +11,7 @@ export default class extends controller {
             let queryParams = {
                 pageNum: pageNum, // 当前页数
                 pageSize: 2, // 每页显示数量
-                newsType: 'company' // 新闻类型
+                showAll: true // 新闻类型
             };
             let sealQueryParams = {
                 pageNum: pageNum, // 当前页数

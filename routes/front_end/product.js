@@ -12,11 +12,12 @@ export default class extends controller {
             let queryParams = {
                 pageNum: pageNum, // 当前页数
                 pageSize: 5, // 每页显示数量
-                pumpType: series // 泵类型
+                pumpType: series, // 泵类型
+                showAll: false
             }; // 数据库查询参数
             
             ctx.state = {}; // 返回的数据
-            let totalPumps = await this.DBModule.Pumps.findTotalPump({pumpType: queryParams.pumpType}); // 获取泵总条数
+            let totalPumps = await this.DBModule.Pumps.findTotalPump({pumpType: queryParams.pumpType, hidden: false}); // 获取泵总条数
             let total = totalPumps.count; // 泵总条数
             let result = await this.DBModule.Pumps.findPumpList(queryParams); // 当前查询条件下的新闻数据
             let isFirstPage = queryParams.pageNum - 1 == 0; //　是否第一页
@@ -53,11 +54,12 @@ export default class extends controller {
             let queryParams = {
                 pageNum: pageNum, // 当前页数
                 pageSize: 12, // 每页显示数量
-                sealType: 'common' // 密封类型
+                sealType: 'common',
+                showAll: false// 密封类型
             }; // 数据库查询参数
 
             ctx.state = {}; // 返回的数据初始化
-            let totalNews = await this.DBModule.Seals.findTotalSeal({sealType: 'common'}); // 获取industry新闻总条数
+            let totalNews = await this.DBModule.Seals.findTotalSeal({sealType: 'common', hidden: false}); // 获取industry新闻总条数
             let total = totalNews.count; // 新闻总条数
             let result = await this.DBModule.Seals.findSealList(queryParams); // 当前查询条件下的新闻数据
             let isFirstPage = queryParams.pageNum - 1 == 0; //　是否第一页

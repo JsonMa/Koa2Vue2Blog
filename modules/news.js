@@ -207,17 +207,6 @@ export default class {
 
     // 修改特定的新闻
     changeNewsValue(params) {
-        console.log(params);
-        // var newsInfo = {
-        //     content: requestBody.newsContent,  // 获取markdown的值
-        //     title: requestBody.newsTitle,
-        //     subTitle: requestBody.newsSubtitle,
-        //     newsType: requestBody.newsType,
-        //     author: requestBody.newsAuthor,
-        //     origin: requestBody.newsOrigin,
-        //     tags: requestBody.newsTag,
-        //     _id: requestBody.id
-        // };
         return new Promise((resolve, reject) => {
             if (params && typeof params == "object") {
                 this.News.findById(params._id, function (err, doc) {

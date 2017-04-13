@@ -49,8 +49,14 @@ export default class {
         pumpSchema.virtual('formatCreatedTime').get(function () {
             return moment(this.createTime).format('YYYY-MM-DD');
         }); // 设置虚拟时间属性
+        pumpSchema.virtual('createdTimeDetail').get(function () {
+            return moment(this.createTime).format('YYYY-MM-DD HH:MM:SS');
+        }); // 设置虚拟时间属性
         pumpSchema.virtual('formatUpdateTime').get(function () {
             return moment(this.updatedAt).format('YYYY-MM-DD');
+        }); // 设置虚拟时间属性
+        pumpSchema.virtual('updateTimeDetail').get(function () {
+            return moment(this.lastEditTime).format('YYYY-MM-DD HH:MM:SS');
         }); // 设置虚拟时间属性
         this.Pump =  mongoose.model('pump', pumpSchema);
     }
@@ -146,9 +152,16 @@ export default class {
 
     // 查询新闻列表
     findPumpList(params) {
+        let condition = {};
+        if ( !params.showAll) {
+            condition.hidden = false
+        }
+        if ( params.newsType ) {
+            condition.pumpType = params.pumpType
+        }
         if(params) {
             return new Promise((resolve, reject) => {
-                this.Pump.find({pumpType: params.pumpType})
+                this.Pump.find(condition)
                     .skip((params.pageNum - 1) * params.pageSize)
                     .limit(params.pageSize)
                     .exec(function (err, res){
@@ -179,6 +192,31 @@ export default class {
                 })
             } else {
                 reject({ status: false, msg: '非法的查询参数'})
+            }
+        })
+    }
+
+    // 修改特定的新闻状态
+    changePumpStatus(params) {
+        return new Promise((resolve, reject) => {
+            if (params && typeof params == "object") {
+                this.Pump.findById(params._id, function (err, doc) {
+                    if (err) {
+                        console.log(err);
+                        reject({ status: false, msg: '数据库查询错误'})
+                    }
+                    doc.hidden = params.hidden;
+                    doc.save(err => {
+                        if(err) {
+                            console.log(err);
+                            reject({ status: false, msg: '状态修改失败'})
+                        } else {
+                            resolve({ status: true, msg: '状态修改成功'})
+                        }
+                    });
+                })
+            } else {
+                reject({ status: false, msg: '参数错误'})
             }
         })
     }

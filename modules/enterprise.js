@@ -195,7 +195,6 @@ export default class {
                         if(err) {
                             reject({ status: false, msg: '状态修改失败'})
                         } else {
-                            console.log(oldPath);
                             if (!isSame) {
                                 try
                                 {

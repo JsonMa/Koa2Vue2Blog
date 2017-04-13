@@ -187,20 +187,6 @@ export default class {
                         if(err) {
                             reject({ status: false, msg: '状态修改失败'})
                         } else {
-                            // console.log(oldPath);
-                            // if (!isSame) {
-                            //     try {
-                            //         fs.unlink(oldPath, function (err) {
-                            //             if(err){
-                            //                 console.log(err);
-                            //                 return;
-                            //             }
-                            //         });
-                            //     }
-                            //     catch(err) {
-                            //         console.log('旧图片删除失败');
-                            //     }
-                            // }
                             resolve({ status: true, msg: '状态修改成功'})
                         }
                     });

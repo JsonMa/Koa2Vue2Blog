@@ -97,7 +97,7 @@ app.use(async(ctx, next) => {
         let queryParams = {
             pageNum: 1, // 当前页数
             pageSize: 5, // 每页显示数量
-            newsType: 'company' // 新闻类型
+            showAll: true // 新闻类型
         };
         if(_.isEmpty(ctx.session.recommend)) {
             var recommend = await api.hotRecommend(DBModule, queryParams);

@@ -13,7 +13,6 @@ export default class extends controller {
 		// 公司新闻路由
 		this.router.get('/news/company', async(ctx, next) => {
 			let pageNum = ctx.query.page ? parseInt(ctx.query.page) : 1; // 获取页数
-            // console.log(ctx.query.page);
 			let queryParams = {
 				pageNum: pageNum, // 当前页数
 				pageSize: 8, // 每页显示数量
@@ -53,7 +52,6 @@ export default class extends controller {
 		// 行业新闻路由
 		this.router.get('/news/industry', async(ctx, next) => {
             let pageNum = ctx.query.page ? parseInt(ctx.query.page) : 1; // 获取页数
-            // console.log(ctx.query.page);
             let queryParams = {
                 pageNum: pageNum, // 当前页数
                 pageSize: 2, // 每页显示数量
@@ -96,9 +94,7 @@ export default class extends controller {
 			let newsId = ctx.query.id; // 获取新闻的ID
 			// await this.DBModule.News.saveNews(); // 获取当前新闻md
             let nowNews = await this.DBModule.News.findNews(newsId); // 获取当前新闻
-            console.log(nowNews.data[0]);
             nowNews.data[0].content = md.render(nowNews.data[0].content );
-            console.log(nowNews.data[0].content);
             ctx.state.nowNews = nowNews;
 			ctx.state.nextNews = await this.DBModule.News.findNewsNext(newsId); // 获取后一条新闻
 			ctx.state.lastNews = await this.DBModule.News.findNewsPrevious(newsId); // 获取前一条新闻

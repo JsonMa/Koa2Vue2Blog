@@ -48,7 +48,6 @@ export default class extends controller {
                 magneticData: magneticResult.data, // 磁力泵数据
                 requestUrl: '../index?page=',
             };
-            // console.log(recommend);
             ctx.state = responseData;
 
             // 热点推荐

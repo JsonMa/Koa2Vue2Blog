@@ -199,8 +199,6 @@ export default class extends controller {
         // index-通用图片上传
         this.router.post('/upload/about',upload.single('file'), async (ctx, next) => {
             var requestBody = ctx.req.file;
-
-            // console.log(ctx.request);
             if (this._.isEmpty(requestBody)) {
                 ctx.body = { code: 500, msg: "上传失败" };
                 return false;
@@ -249,7 +247,6 @@ export default class extends controller {
 
         // index-修改荣誉资质
         this.router.post('/honor/edit', async (ctx, next) => {
-            // console.log(ctx.request.body);
             var requestBody = ctx.request.body;
             if (requestBody) {
                 let honorInfo = {
@@ -258,7 +255,6 @@ export default class extends controller {
                     Summary: requestBody.imgDes, // 图片概述
                     _id: requestBody.id // 图片概述
                 };
-                console.log(honorInfo.imgUrl.indexOf('uploads/temporary'));
                 
                 // 判断图片路径是否有更新
                 if(honorInfo.imgUrl.indexOf('uploads/temporary') != -1) {
@@ -325,7 +321,6 @@ export default class extends controller {
 
         // enterprise-荣誉资质图片上传
         this.router.post('/enterprise/add', async (ctx, next) => {
-            // console.log(ctx.request.body);
             var requestBody = ctx.request.body;
             if (requestBody) {
                 var enterpriseInfo = {

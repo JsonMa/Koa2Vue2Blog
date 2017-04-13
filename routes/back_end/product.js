@@ -1,5 +1,5 @@
 /**
- * Created by Mahao on 2017/4/12.
+ * Created by Mahao on 2017/4/13.
  */
 import controller from '../tools/controllers'
 import multer from 'koa-multer';
@@ -7,33 +7,51 @@ const upload = multer({ dest: 'public/uploads/' });
 
 export default class extends controller {
     renders() {
-        
-        // 新闻管理
-        this.router.get('/admin/news', async(ctx, next) => {
-            let pageNum = ctx.query.page ? parseInt(ctx.query.page) : 1; // 获取页数
+
+        // 产品管理
+        this.router.get('/admin/product', async(ctx, next) => {
+            let pageNum = ctx.query.page? parseInt(ctx.query.page) : 1; // 获取页数
+            let series = ctx.query.series? ctx.query.series: 'pump'; // 获取页数
             let queryParams = {
                 pageNum: pageNum, // 当前页数
                 pageSize: 12, // 每页显示数量
                 showAll: true
             }; // 数据库查询参数
-
-
             ctx.state = {}; // 返回的数据初始化
-            let totalHonor = await this.DBModule.News.findTotalNews({}); // 获取新闻总数
-            let total = totalHonor.count; // 新闻总条数
-            let result = await this.DBModule.News.findNewsList(queryParams); // 当前查询条件下的新闻
-            let isFirstPage = queryParams.pageNum - 1 == 0; //　是否第一页
-            let isLastPage = ((queryParams.pageNum - 1) * queryParams.pageSize + result.data.length) == total; // 是否最后一页
-            let responseData = {
-                pageNum: queryParams.pageNum,
-                pageSize: queryParams.pageSize,
-                isFirstPage: isFirstPage,
-                isLastPage: isLastPage,
-                total: total,
-                newsData: result.data,
-                nav: 'news',
-                requestUrl: '../admin/news?page='
-            };
+
+            if(series == 'pump') {
+                let totalPump = await this.DBModule.Pumps.findTotalPump({}); // 获取泵产品总数
+                let total = totalPump.count; // 泵产品总数总条数
+                let result = await this.DBModule.Pumps.findPumpList(queryParams); // 当前查询条件下的泵
+                let isFirstPage = queryParams.pageNum - 1 == 0; //　是否第一页
+                let isLastPage = ((queryParams.pageNum - 1) * queryParams.pageSize + result.data.length) == total; // 是否最后一页
+                var responseData = {
+                    pageNum: queryParams.pageNum,
+                    pageSize: queryParams.pageSize,
+                    isFirstPage: isFirstPage,
+                    isLastPage: isLastPage,
+                    total: total,
+                    pumpData: result.data,
+                    nav: 'pump',
+                    requestUrl: '../admin/product?series=' + series +'&page='
+                };
+            } else if(series == 'seal') {
+                let totalSeal = await this.DBModule.Seals.findTotalSeal({}); // 获取新闻总数
+                let total = totalSeal.count; // 新闻总条数
+                let result = await this.DBModule.Seals.findSealList(queryParams); // 当前查询条件下的新闻
+                let isFirstPage = queryParams.pageNum - 1 == 0; //　是否第一页
+                let isLastPage = ((queryParams.pageNum - 1) * queryParams.pageSize + result.data.length) == total; // 是否最后一页
+                var responseData = {
+                    pageNum: queryParams.pageNum,
+                    pageSize: queryParams.pageSize,
+                    isFirstPage: isFirstPage,
+                    isLastPage: isLastPage,
+                    total: total,
+                    sealData: result.data,
+                    nav: 'seal',
+                    requestUrl: '../admin/product?series=' + series +'&page='
+                };
+            }
             ctx.state = responseData;
 
             // 判断是否是debug
@@ -42,11 +60,11 @@ export default class extends controller {
                 ctx.body = ctx.state;
                 return false;
             }
-            await ctx.render('./back_end_jade/back_end_news/news')
+            await ctx.render('./back_end_jade/back_end_product/product')
         });
 
-        // 新增新闻
-        this.router.get('/admin/news_add', async(ctx, next) => {
+        // 新增产品
+        this.router.get('/admin/product_add', async(ctx, next) => {
             ctx.state.nav = 'news';
             ctx.state.pageNum = ctx.request.query.page;
 
@@ -59,8 +77,8 @@ export default class extends controller {
             await ctx.render('./back_end_jade/back_end_news/news_edit')
         });
 
-        // 编辑新闻
-        this.router.get('/admin/news_detail', async(ctx, next) => {
+        // 编辑产品
+        this.router.get('/admin/product_detail', async(ctx, next) => {
             let newsId = ctx.request.query.id;
             let pageNum = ctx.request.query.page || 1;
             let news = await this.DBModule.News.findNews({_id: newsId}); // 获取荣誉资质总条数
@@ -82,20 +100,25 @@ export default class extends controller {
 
     actions() {
 
-        // 新闻修改状态
-        this.router.post('/news/status', async(ctx, next) => {
-            let newsId = ctx.request.body.id;
+        // 修改产品状态
+        this.router.post('/product/status', async(ctx, next) => {
+            let productId = ctx.request.body.id;
+            let series = ctx.request.body.series;
             let status = ctx.request.body.status == 'false'? false: true;
-            let changeNewsStatus = await this.DBModule.News.changeNewsStatus({_id: newsId, hidden: status}); // 获取荣誉资质总条数
-            if (changeNewsStatus.status) {
+            if (series == 'pump') {
+                var changeStatus = await this.DBModule.Pump.changePumpStatus({_id: productId, hidden: status}); // 修改泵类产品状态
+            } else {
+                var changeStatus = await this.DBModule.Seal.changeSealStatus({_id: productId, hidden: status}); // 修改密封产品状态
+            }
+            if (changeStatus.status) {
                 ctx.body = {
                     "code": 0,
-                    "msg": changeNewsStatus.msg
+                    "msg": changeStatus.msg
                 };
             } else {
                 ctx.body = {
                     "code": 200,
-                    "msg": changeNewsStatus.msg
+                    "msg": changeStatus.msg
                 };
             }
         });
@@ -194,11 +217,6 @@ export default class extends controller {
             } else {
                 ctx.body = { code: 500, msg: '参数错误' };
             }
-        });
-
-        // 修改新闻
-        this.router.post('/admin/test', async (ctx, next) => {
-            ctx.body = { code: 500, msg: '参数错误' };
         });
     }
 }

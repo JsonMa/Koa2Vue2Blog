@@ -50,7 +50,6 @@ export default class extends controller {
         // 产品中心--密封
         this.router.get('/product/seals', async(ctx, next) => {
             let pageNum = ctx.query.page ? parseInt(ctx.query.page) : 1; // 获取页数
-            // console.log(ctx.query.page);
             let queryParams = {
                 pageNum: pageNum, // 当前页数
                 pageSize: 12, // 每页显示数量

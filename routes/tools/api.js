@@ -96,7 +96,7 @@ export function  IDToString(data){
 // 热门推荐
 export function hotRecommend(db, params) {
     return new Promise ((resolve, reject) => {
-        console.log('in');
+        // console.log('in');
         this.DBModule = db;
         let response = this.DBModule.News.findNewsList(params); // 当前查询条件下的新闻数据
         response.then(function (result) {
@@ -110,22 +110,6 @@ export function hotRecommend(db, params) {
             }
         );
     });
-    // return async(ctx, next) => {
-    //     if(_.isEmpty(ctx.session.recommend)){
-    //         console.log('未包含热门推荐');
-    //         let queryParams = {
-    //             pageNum: 1, // 当前页数
-    //             pageSize: 5, // 每页显示数量
-    //             newsType: 'company' // 新闻类型
-    //         };
-    //         let recommend = await this.DBModule.News.findNewsList(queryParams);
-    //         console.log(recommend);
-    //         ctx.session.recommend = recommend;
-    //     } else{
-    //         console.log('已包含热门推荐');
-    //         await next();
-    //     }
-    // }
 }
 
 //重命名文件（数组）

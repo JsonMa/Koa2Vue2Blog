@@ -111,24 +111,27 @@ block content
                         ul#magnetic
                             -for(var i = 0; i < magneticData.length; i++)
                                 li
-                                    a(href="../product/detail?page=1&id=#{magneticData[i]._id}&type=seals&series=magnetic")
-                                        img(src='#{magneticData[i].imgUrl}', alt='#{magneticData[i].name}', style='height:160px;')
+                                    a(href="../product/detail?page=1&id=#{magneticData[i]._id}&type=pumps&series=magnetic")
+                                        -var mamagneticUrl = magneticData[i].imgUrl.replace('public', '..');
+                                        img(src='#{mamagneticUrl}', alt='#{magneticData[i].name}', style='height:160px;')
                                     span #{magneticData[i].name}
                 .chemical-container.content-container
                     -if(chemicalData && chemicalData[0])
                         ul#chemical
                             -for(var i = 0; i < chemicalData.length; i++)
                                 li
-                                    a(href="../product/detail?page=1&id=#{chemicalData[i]._id}&type=seals&series=chemical")
-                                        img(src='#{chemicalData[i].imgUrl}', alt='#{chemicalData[i].name}', style='height:160px;')
+                                    a(href="../product/detail?page=1&id=#{chemicalData[i]._id}&type=pumps&series=chemical")
+                                        -var chemicalUrl = chemicalData[i].imgUrl.replace('public', '..');
+                                        img(src='#{chemicalUrl}', alt='#{chemicalData[i].name}', style='height:160px;')
                                     span #{chemicalData[i].name}
                 .pitot-container.content-container
                     -if(pitotData && pitotData[0])
                         ul#pitot
                             -for(var i = 0; i < pitotData.length; i++)
                                 li
-                                    a(href="../product/detail?page=1&id=#{pitotData[i]._id}&type=seals&series=pitot")
-                                        img(src='#{pitotData[i].imgUrl}', alt='#{pitotData[i].name}', style='height:160px;')
+                                    a(href="../product/detail?page=1&id=#{pitotData[i]._id}&type=pumps&series=pitot")
+                                        -var pitotUrl = pitotData[i].imgUrl.replace('public', '..');
+                                        img(src='#{pitotUrl}', alt='#{pitotData[i].name}', style='height:160px;')
                                     span #{pitotData[i].name}
                 .seal-container.content-container
                     -if(sealData && sealData[0])
@@ -136,7 +139,8 @@ block content
                             -for(var i = 0; i < sealData.length; i++)
                                 li
                                     a(href="../product/detail?page=1&id=#{sealData[i]._id}&type=seals&series=seal")
-                                        img(src='#{sealData[i].imgUrl}', alt='#{sealData[i].name}', style='height:160px;')
+                                        -var sealUrl = sealData[i].imgUrl.replace('public', '..');
+                                        img(src='#{sealUrl}', alt='#{sealData[i].name}', style='height:160px;')
                                     span #{sealData[i].name}
             .product-content-more
                 a(href="../product/pumps?series=magnetic")

@@ -35,7 +35,7 @@ export default class {
             } // 是否隐藏
         },{
             versionKey: false, // 是否禁用字段“__v”，表示是否是通过save创建的
-            timestamps: { createdAt: 'createTime' }
+            timestamps: true
         });
         sealSchema.virtual('formatCreatedTime').get(function () {
             return moment(this.createTime).format('YYYY-MM-DD');
@@ -44,7 +44,7 @@ export default class {
             return moment(this.createTime).format('YYYY-MM-DD HH:MM:SS');
         }); // 设置虚拟时间属性
         sealSchema.virtual('formatUpdateTime').get(function () {
-            return moment(this.updatedAt).format('YYYY-MM-DD');
+            return moment(this.lastEditTime).format('YYYY-MM-DD');
         }); // 设置虚拟时间属性
         sealSchema.virtual('updateTimeDetail').get(function () {
             return moment(this.lastEditTime).format('YYYY-MM-DD HH:MM:SS');
@@ -217,6 +217,23 @@ export default class {
                         resolve({ status: true, msg: '密封删除成功'})
                     }
                 })
+            } else {
+                reject({ status: false, msg: '参数错误'})
+            }
+        })
+    }
+
+    // 修改指定的密封
+    changeSealValue(id, sealInfo) {
+        return new Promise((resolve, reject) => {
+            if (id && sealInfo && typeof sealInfo == "object") {
+                this.Seal.findByIdAndUpdate(id, sealInfo, function (err, doc) {
+                    if (err) {
+                        reject({ status: false, msg: '密封信息修改失败'})
+                    } else {
+                        resolve({ status: true, msg: '密封信息修改成功'})
+                    }
+                });
             } else {
                 reject({ status: false, msg: '参数错误'})
             }

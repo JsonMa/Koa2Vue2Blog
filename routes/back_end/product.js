@@ -140,7 +140,6 @@ export default class extends controller {
                 series = ctx.request.body.series,
                 imgUrl = ctx.request.body.imgUrl, // 产品图
                 imgStructUrl = ctx.request.body.imgStructUrl; // 产品结构图
-            console.log(imgUrl);
             if(series == 'pump') {
                 var deleteProduct = await this.DBModule.Pumps.deletePump({_id: productId});
                 var deleteImg = await this.api.removeFiles(imgUrl);
@@ -253,8 +252,28 @@ export default class extends controller {
                         temperature: requestBody.temperature, // 温度
                         pressure: requestBody.pressure // 压力
                     }, // 密封使用参数
-                    sealType: requestBody.sealType, // 泵类型
+                    sealType: requestBody.sealType // 泵类型
                 };
+
+                // 判断图片路径是否有更新
+                if(sealInfo.imgUrl.indexOf('uploads/temporary') != -1) {
+                    let savePath = sealInfo.imgUrl.split('/')[3];
+                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
+                    let newPath = "public/images/front_end/product/seal/" + savePath;
+                    let renameResult = await this.api.moveFiles(oldPath, newPath);
+                    if (renameResult.status) {
+                        sealInfo.imgUrl = renameResult.resultsPath;
+                    }
+                }
+                if(sealInfo.imgStructureUrl.indexOf('uploads/temporary') != -1) {
+                    let savePath = sealInfo.imgStructureUrl.split('/')[3];
+                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
+                    let newPath = "public/images/front_end/product/seal/" + savePath;
+                    let renameResult = await this.api.moveFiles(oldPath, newPath);
+                    if (renameResult.status) {
+                        sealInfo.imgStructureUrl = renameResult.resultsPath;
+                    }
+                }
                 let result = await this.DBModule.Seals.saveSeal(sealInfo);
                 if(result.status) {
                     ctx.body = { code: 0, msg: result.msg };
@@ -291,6 +310,7 @@ export default class extends controller {
                         antiSeismic: requestBody.antiSeismic,
                         clean: requestBody.clean
                     }, // 设备分级
+                    lastEditTime: new Date(),
                     pumpType: requestBody.pumpType,
                     area: requestBody.area, // 使用范围
                     Summary: requestBody.Summary // 产品概述
@@ -307,6 +327,59 @@ export default class extends controller {
                     }
                 }
                 let result = await this.DBModule.Pumps.changePumpValue(pumpId,pumpInfo);
+                if(result.status) {
+                    ctx.body = { code: 0, msg: result.msg };
+                } else {
+                    ctx.body = { code: 500, msg: result.msg };
+                }
+            } else {
+                ctx.body = { code: 500, msg: '参数错误' };
+            }
+        });
+
+        // 修改密封类产品
+        this.router.get('/product/edit_seal', async (ctx, next) => {
+            var requestBody = ctx.query;
+            // ctx.body = { code: 0, msg: '上传成功', data: requestBody};
+            if (requestBody) {
+                var sealId = requestBody._id;
+                var sealInfo = {
+                    name: requestBody.name, // 密封名称
+                    imgUrl: requestBody.imgUrl, // 密封缩略图
+                    imgStructureUrl: requestBody.imgStructureUrl, // 密封结构图
+                    standards: requestBody.standards, // 产品执行标准
+                    features: requestBody.features, // 产品特点
+                    lastEditTime: new Date(),
+                    params: {
+                        speed: requestBody.speed, // 转速
+                        shaft: requestBody.shaft, // 轴径
+                        temperature: requestBody.temperature, // 温度
+                        pressure: requestBody.pressure // 压力
+                    } // 密封使用参数
+                };
+
+                // 判断图片路径是否有更新
+                if(sealInfo.imgUrl.indexOf('uploads/temporary') != -1) {
+                    let savePath = sealInfo.imgUrl.split('/')[3];
+                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
+                    let newPath = "public/images/front_end/product/seal/" + savePath;
+                    let renameResult = await this.api.moveFiles(oldPath, newPath);
+                    if (renameResult.status) {
+                        sealInfo.imgUrl = renameResult.resultsPath;
+                    }
+                }
+                if(sealInfo.imgStructureUrl.indexOf('uploads/temporary') != -1) {
+                    let savePath = sealInfo.imgStructureUrl.split('/')[3];
+                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
+                    let newPath = "public/images/front_end/product/seal/" + savePath;
+                    let renameResult = await this.api.moveFiles(oldPath, newPath);
+                    if (renameResult.status) {
+                        sealInfo.imgStructureUrl = renameResult.resultsPath;
+                    }
+                }
+
+                // 更改数据库内容
+                let result = await this.DBModule.Seals.changeSealValue(sealId,sealInfo);
                 if(result.status) {
                     ctx.body = { code: 0, msg: result.msg };
                 } else {

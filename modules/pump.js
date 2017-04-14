@@ -249,22 +249,6 @@ export default class {
                         resolve({ status: true, msg: '泵信息修改成功'})
                     }
                 });
-                    // let date = new Date();
-                    // doc.lastEditTime = date;
-                    // doc.content = params.content; // 修改内容
-                    // doc.title = params.title; // 修改标题
-                    // doc.subTitle = params.subTitle; // 修改副标题
-                    // doc.newsType = params.newsType; // 修改新闻类型
-                    // doc.author = params.author; // 修改新闻作者
-                    // doc.origin = params.origin; // 修改新闻来源
-                    // doc.tags = params.tags; // 修改新闻标签
-                    // doc.save(err => {
-                    //     if(err) {
-                    //         reject({ status: false, msg: '状态修改失败'})
-                    //     } else {
-                    //         resolve({ status: true, msg: '状态修改成功'})
-                    //     }
-                    // });
             } else {
                 reject({ status: false, msg: '参数错误'})
             }

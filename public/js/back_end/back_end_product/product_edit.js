@@ -157,9 +157,14 @@ $(function () {
                         return false
                     } else {
                         if(series == 'pump') {
-                            var url = "/product/edit_pump"
+                            var url = "/product/edit_pump";
                         } else {
-                            var url = "/product/edit_seal"
+                            var url = "/product/edit_seal";
+                            var imgStructureUrl = $('#product-struct-img').val();
+                            if(!imgStructureUrl) {
+                                IOT.tips('请上传产品结构图图片', 'error', 1000);
+                                return false
+                            }
                         }
                         var getData = $('.product-form-edit').serialize();
                         $.ajax({

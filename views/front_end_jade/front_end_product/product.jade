@@ -70,7 +70,7 @@ block content
                                             .product-content-left
                                                 a(href="../product/detail?page=#{pageNum}&id=#{seal._id}&type=seals&series=#{series}")
                                                     -var imgUrl = seal.imgUrl.replace('public', '..');
-                                                    img(src="#{imgUrl}" alt="#{seal.name}")
+                                                    img(src="#{imgUrl}" alt="#{seal.name}" style="width:230px; height:200px")
                                             .product-content-right
                                                 a.product-name(href="../product/detail?page=#{pageNum}&id=#{seal._id}&type=seals&series=#{series}") #{seal.name}
                                                 //p 转速：#{seal.params.speed}
@@ -107,4 +107,4 @@ block content
 
 // 引入私有的js
 block js
-    script(src='/js/front_end/front_end_product/pump.js')
+    //script(src='/js/front_end/front_end_product/pump.js')

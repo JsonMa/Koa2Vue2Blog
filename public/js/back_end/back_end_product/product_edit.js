@@ -8,7 +8,7 @@ $(function () {
         },
         bindEvent: function () {
 
-            // 上传图片
+            // 上传产品图片
             $('.upload-img').click(function () {
                 var $this = $(this),
                     series =$this.attr('series'),
@@ -49,7 +49,62 @@ $(function () {
                     } //取消按钮的回调
                 });
                 dialog.open(function (){
-                    productEdit.imageUploader(url)
+                    productEdit.imageUploader(url, function (response) {
+                        var res = $.parseJSON(response);
+                        $('.response-img').empty();
+                        $("<img src='"+ res.imgPath[0].replace('public', '..') +"' style='border: 1px solid #eee; max-width: 400px; max-height: 300px'/>").appendTo($('.response-img'));
+                        $('#product-img').val(res.imgPath[0]);
+                    })
+                })
+            });
+
+            // 上传结构图片
+            $('.upload-struct-img').click(function () {
+                var $this = $(this),
+                    series =$this.attr('series'),
+                    url = '';
+                if(series == 'pump') {
+                    url = "/upload/product?series=pump"
+                } else {
+                    url = "/upload/product?series=seal"
+                }
+                var dialog = new IOT.Dialog({
+                    title: '产品结构图上传', //标题
+                    content: '' +
+                    '<div class="row">' +
+                    '<form class="col-md-offset-1 col-md-10">'+
+                    '<div class="form-group">'+
+                    '<label for="fileInput" class="control-label">上传图片：(宽、高比例为1.5:1，参考值为：700像素x469像素)</label>'+
+                    '<div class="control-label">'+
+                    '<div id="zyupload" class="zyupload"></div>  '+
+                    '</div>'+
+                    '</div>'+
+                    // '<button type="submit" id = "honorSubmit" class="btn btn-default" style="display: none"></button>'+
+                    '</form>' +
+                    '</div>', //内容
+                    beforeClose: function () {
+                        return false
+                    }, //调用close方法时执行的callback，如果此callback返回false则会阻止窗口的关闭
+                    showClose: true, //是否显示右上角关闭按钮
+                    className: '', //自定义弹出框类名
+                    cache: false, //是否缓存。若为false则close的时候会remove掉对话框对应的dom元素
+                    showOk: false, //显示确定按钮
+                    okText: '取消', //确定按钮的文字
+                    okCallback: function(){
+                    }, //确定按钮的回调
+                    showCancel: true, //是否显示取消按钮
+                    cancelText: '保存', //取消按钮的文字
+                    cancelCallback: function(){
+                        dialog.close();
+                    } //取消按钮的回调
+                });
+                dialog.open(function (){
+                    productEdit.imageUploader(url, function(response){
+                        var res = $.parseJSON(response);
+                        $('.response-struct-img').empty();
+                        $("<img src='"+ res.imgPath[0].replace('public', '..') +"' style='border: 1px solid #eee; max-width: 400px; max-height: 300px'/>").appendTo($('.response-struct-img'));
+                        $('#product-struct-img').val(res.imgPath[0]);
+                    })
                 })
             });
 
@@ -133,7 +188,7 @@ $(function () {
         },
         
         // 图片上传
-        imageUploader: function (url) {
+        imageUploader: function (url, callback) {
 
             // 初始化插件
             $("#zyupload").zyUpload({
@@ -157,10 +212,9 @@ $(function () {
                 },
                 onSuccess: function(file, response){          // 文件上传成功的回调方法
                     IOT.tips('图片上传成功', 'success', 800);
-                    var res = $.parseJSON(response);
-                    $('.response-img').empty();
-                    $("<img src='"+ res.imgPath[0].replace('public', '..') +"' style='border: 1px solid #eee; max-width: 400px; max-height: 300px'/>").appendTo($('.response-img'));
-                    $('#product-img').val(res.imgPath[0]);
+                    if(callback && typeof callback == "function") {
+                        callback(response)
+                    }
                 },
                 onFailure: function(file, response){          // 文件上传失败的回调方法
                     IOT.tips('图片上传失败', 'error', 800);

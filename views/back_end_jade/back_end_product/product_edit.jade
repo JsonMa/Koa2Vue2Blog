@@ -196,7 +196,7 @@ block content
                                                     input#pressure.form-control(type='text', placeholder='请输入泵压力' name="pressure" required="true" data-parsley-trigger="change" data-parsley-error-message="泵压力为必填项")
                                             .form-group(style="text-align:right")
                                                 button(mode="create" type="submit").btn.btn-primary.btn-save 保存泵
-                                    -else
+                                    -else if(nav == 'seal' && sealData)
                                         form
                                             .h4 泵相关信息
                                             .form-group.row
@@ -219,7 +219,7 @@ block content
                                                         option(value="magnetic") 磁力泵
                                                         option(value="chemical") 化工泵
                                             .form-group
-                                                label(for='newsContent') 泵图片：
+                                                label(for='') 泵图片：
                                                 span.upload-img(style="margin-bottom: 5px; color: #3c8dbc; cursor: pointer; float: right" series="#{nav}") 上传图片
                                                 .col-md-10.response-img
                                             .h4 泵等级参数
@@ -270,6 +270,51 @@ block content
                                                     input#pressure.form-control(type='text', placeholder='请输入泵压力')
                                             .form-group(style="text-align:right")
                                                 span(mode="create").btn.btn-primary.btn-save 保存泵
+                                    -else
+                                        form.product-form(data-parsley-validate="validate" series="#{nav}")
+                                            .h4 密封相关信息
+                                            .form-group.row
+                                                label.col-md-2(for='pumpName') 密封名称：
+                                                .col-md-10
+                                                    input#pumpName.form-control(type='text', placeholder='请输入密封名称' name="name" required="true" data-parsley-trigger="change" data-parsley-length="[2, 20]" data-parsley-error-message="密封名称在2-20个字之间")
+                                            .form-group.row
+                                                label.col-md-2(for='features') 产品特点：
+                                                .col-md-10
+                                                    textarea#features.form-control(rows='3' placeholder="请输入产品特点" name="features" required="true" data-parsley-trigger="change" data-parsley-minlength="10" data-parsley-error-message="产品特点必填，且长度至少为10个字")
+                                            .form-group.row
+                                                label.col-md-2(for='standards') 密封执行标准：
+                                                .col-md-10
+                                                    input#standards.form-control(type='text', placeholder='请输入密封执行标准' name="standards" required="true" data-parsley-trigger="change" data-parsley-error-message="密封执行标准为必填项")
+                                            .form-group
+                                                label() 密封产品图：
+                                                span.upload-img(style="margin-bottom: 5px; color: #3c8dbc; cursor: pointer; float: right" series="#{nav}") 上传产品图片
+                                                input#product-img.form-control(type='hidden' name="imgUrl")
+                                                .response-img.col-md-10.col-md-offset-2.
+                                            form-group
+                                                label() 密封结构图：
+                                                span.upload-struct-img(style="margin-bottom: 5px; color: #3c8dbc; cursor: pointer; float: right" series="#{nav}") 上传结构图片
+                                                input#product-struct-img.form-control(type='hidden' name="imgStructureUrl")
+                                                .response-struct-img.col-md-10.col-md-offset-2
+                                            .h4 密封基本参数
+                                            .form-group.row
+                                                label.col-md-2(for='speed') 转速：
+                                                .col-md-10
+                                                    input#speed.form-control(type='text', placeholder='请输入密封转速' name="speed" required="true" data-parsley-trigger="change" data-parsley-error-message="密封转速为必填项")
+                                            .form-group.row
+                                                label.col-md-2(for='shaft') 轴径：
+                                                .col-md-10
+                                                    input#shaft.form-control(type='text', placeholder='请输入密封轴径' name="shaft" required="true" data-parsley-trigger="change" data-parsley-error-message="密封轴径为必填项")
+                                            .form-group.row
+                                                label.col-md-2(for='temperature') 温度：
+                                                .col-md-10
+                                                    input#temperature.form-control(type='text', placeholder='请输入密封温度' name="temperature" required="true" data-parsley-trigger="change" data-parsley-error-message="密封温度为必填项")
+                                            .form-group.row
+                                                label.col-md-2(for='pressure') 压力：
+                                                .col-md-10
+                                                    input#pressure.form-control(type='text', placeholder='请输入密封压力' name="pressure" required="true" data-parsley-trigger="change" data-parsley-error-message="密封压力为必填项")
+                                            .form-group(style="text-align:right")
+                                                button(mode="create" type="submit").btn.btn-primary.btn-save 保存密封
+
 // 引入私有的js
 block js
     script(src='/plugins/zyupload/zyupload.basic-1.0.0.js')

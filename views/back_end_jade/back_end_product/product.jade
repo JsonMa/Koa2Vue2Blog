@@ -79,6 +79,7 @@ block content
                                             th 产品图
                                             th 结构图图
                                             th 创建时间
+                                            th 修改时间
                                             th 状态
                                             th 操作
                                     tbody
@@ -91,13 +92,14 @@ block content
                                                 td.img-detail(imgUrl="#{sealData[i].imgUrl}") 查看图片
                                                 td.img-detail(imgUrl="#{sealData[i].imgStructureUrl}") 查看图片
                                                 td.productCteateTime #{sealData[i].createdTimeDetail}
+                                                td.productUpdateTime #{sealData[i].updateTimeDetail}
                                                 td
                                                     -if(sealData[i].hidden)
                                                         i(status="false" series="#{nav}" id="#{sealData[i]._id}").fa.fa-play.button-switch-hide.item-switch
                                                     -else
                                                         i(status="true" series="#{nav}" id="#{sealData[i]._id}").fa.fa-stop.button-switch-show.item-switch
                                                 td
-                                                    a(id="#{sealData[i]._id}" series="#{nav}" href="../admin/news_detail?id=#{sealData[i]._id}&page=#{pageNum}").btn.btn-primary.btn-margin
+                                                    a(id="#{sealData[i]._id}" series="#{nav}" href="../admin/product_edit?id=#{sealData[i]._id}&page=#{pageNum}&series=#{nav}").btn.btn-primary.btn-margin
                                                         span 编辑
                                                     a(id="#{sealData[i]._id}" series="#{nav}" imgUrl="#{sealData[i].imgUrl}" imgStructUrl="#{sealData[i].imgStructureUrl}").btn.btn-default.btn-margin.btn-delete
                                                         span 删除

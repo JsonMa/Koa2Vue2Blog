@@ -64,8 +64,9 @@ block content
                                 p 轴径： #{sealProduct.data[0].params.shaft}
                             .seal-standard
                                 h4 执行标准
-                                -for (var i = 0; i < sealProduct.data[0].standards.length; i++)
-                                    p #{sealProduct.data[0].standards[i]}
+                                -var standards = sealProduct.data[0].standards.split('，')
+                                -for (var i = 0; i < standards.length; i++)
+                                    p #{standards[i]}
                             .seal-features
                                 h4 产品特点
                                 p #{sealProduct.data[0].features}

@@ -50,7 +50,8 @@ block content
                                             - var pump = pumpData[index];
                                             .product-content-left
                                                 a(href="../product/detail?page=#{pageNum}&id=#{pump._id}&type=pumps&series=#{series}")
-                                                    img(src="#{pump.imgUrl}" alt="#{pump.name}")
+                                                    -var imgUrl = pump.imgUrl.replace('public', '..');
+                                                    img(src="#{imgUrl}" alt="#{pump.name}")
                                             .product-content-right
                                                 a.product-name(href="../product/detail?page=#{pageNum}&id=#{pump._id}&type=pumps&series=#{series}") #{pump.name}#{pump.safeStage}
                                                 p 结构：#{pump.params.structure}
@@ -68,7 +69,8 @@ block content
                                             - var seal = sealData[index];
                                             .product-content-left
                                                 a(href="../product/detail?page=#{pageNum}&id=#{seal._id}&type=seals&series=#{series}")
-                                                    img(src="#{seal.imgUrl}" alt="#{seal.name}")
+                                                    -var imgUrl = seal.imgUrl.replace('public', '..');
+                                                    img(src="#{imgUrl}" alt="#{seal.name}")
                                             .product-content-right
                                                 a.product-name(href="../product/detail?page=#{pageNum}&id=#{seal._id}&type=seals&series=#{series}") #{seal.name}
                                                 //p 转速：#{seal.params.speed}

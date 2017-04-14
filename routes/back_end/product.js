@@ -79,14 +79,24 @@ export default class extends controller {
         });
 
         // 修改产品
-        this.router.get('/admin/product_detail', async(ctx, next) => {
+        this.router.get('/admin/product_edit', async(ctx, next) => {
             let newsId = ctx.request.query.id;
+            let series = ctx.request.query.series;
             let pageNum = ctx.request.query.page || 1;
-            let news = await this.DBModule.News.findNews({_id: newsId}); // 获取荣誉资质总条数
-            if (news.status) {
-                ctx.state.newsData = news.data[0]; // 获取第一个元素
-                ctx.state.pageNum = pageNum;
-                ctx.state.nav = 'news';
+            if(series == 'pump') {
+                let product = await this.DBModule.Pumps.findPump({_id: newsId}); // 获取荣誉资质总条数
+                if (product.status) {
+                    ctx.state.pumpData = product.data[0]; // 获取第一个元素
+                    ctx.state.pageNum = pageNum;
+                    ctx.state.nav = series;
+                }
+            } else {
+                let product = await this.DBModule.Seals.findSeal({_id: newsId}); // 获取荣誉资质总条数
+                if (product.status) {
+                    ctx.state.sealData = product.data[0]; // 获取第一个元素
+                    ctx.state.pageNum = pageNum;
+                    ctx.state.nav = series;
+                }
             }
 
             // 判断是否是debug
@@ -95,7 +105,7 @@ export default class extends controller {
                 ctx.body = ctx.state;
                 return false;
             }
-            await ctx.render('./back_end_jade/back_end_news/news_edit')
+            await ctx.render('./back_end_jade/back_end_product/product_edit')
         });
     }
 
@@ -165,12 +175,11 @@ export default class extends controller {
         // 通用图片上传
         this.router.post('/upload/product',upload.single('file'), async (ctx, next) => {
             var requestBody = ctx.req.file;
-
             if (this._.isEmpty(requestBody)) {
                 ctx.body = { code: 500, msg: "上传失败" };
                 return false;
             }
-            let reNameResult = await this.api.renameFiles([requestBody], "public/images/front_end/news/");
+            let reNameResult = await this.api.renameFiles([requestBody], "public/uploads/temporary/");
             var resultsPath = reNameResult.resultsPath;
             if (reNameResult.status) {
                 ctx.body = { code: 0, imgPath: resultsPath };
@@ -179,20 +188,45 @@ export default class extends controller {
             }
         });
 
-        // 新增新闻
-        this.router.post('/product/add', async (ctx, next) => {
-            var requestBody = ctx.request.body;
+        // 新增泵类产品
+        this.router.get('/product/add_pump', async (ctx, next) => {
+            var requestBody = ctx.query;
             if (requestBody) {
-                var newsInfo = {
-                    content: requestBody.newsContent,  // 获取markdown的值
-                    title: requestBody.newsTitle,
-                    subTitle: requestBody.newsSubtitle,
-                    newsType: requestBody.newsType,
-                    author: requestBody.newsAuthor,
-                    origin: requestBody.newsOrigin,
-                    tags: requestBody.newsTag
+                var pumpInfo = {
+                    name: requestBody.name, // 泵名称
+                    safeStage: requestBody.safeStage, // 安全等级
+                    imgUrl: requestBody.imgUrl, // 泵图片地址
+                    params: {
+                        structure: requestBody.structure,
+                        standard: requestBody.standard,
+                        flow: requestBody.flow,
+                        high: requestBody.high,
+                        temperature: requestBody.temperature,
+                        pressure: requestBody.pressure
+                    }, // 泵参数
+                    stage: {
+                        safe: requestBody.safe,
+                        manufacture: requestBody.manufacture,
+                        warranty: requestBody.warranty,
+                        antiSeismic: requestBody.antiSeismic,
+                        clean: requestBody.clean
+                    }, // 设备分级
+                    pumpType: requestBody.pumpType,
+                    area: requestBody.area, // 使用范围
+                    Summary: requestBody.Summary // 产品概述
                 };
-                let result = await this.DBModule.News.saveNews(newsInfo);
+
+                // 判断图片路径是否有更新
+                if(pumpInfo.imgUrl.indexOf('uploads/temporary') != -1) {
+                    let savePath = pumpInfo.imgUrl.split('/')[3];
+                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
+                    let newPath = "public/images/front_end/product/pump/" + savePath;
+                    let renameResult = await this.api.moveFiles(oldPath, newPath);
+                    if (renameResult.status) {
+                        pumpInfo.imgUrl = renameResult.resultsPath;
+                    }
+                }
+                let result = await this.DBModule.Pumps.savePump(pumpInfo);
                 if(result.status) {
                     ctx.body = { code: 0, msg: result.msg };
                 } else {
@@ -203,32 +237,76 @@ export default class extends controller {
             }
         });
 
-        // 修改新闻
-        this.router.post('/product/edit', async (ctx, next) => {
-            var requestBody = ctx.request.body;
+        // 新增密封类产品
+        this.router.get('/product/add_seal', async (ctx, next) => {
+            var requestBody = ctx.query;
             if (requestBody) {
-                var newsInfo = {
-                    content: requestBody.newsContent,  // 获取markdown的值
-                    title: requestBody.newsTitle,
-                    subTitle: requestBody.newsSubtitle,
-                    newsType: requestBody.newsType,
-                    author: requestBody.newsAuthor,
-                    origin: requestBody.newsOrigin,
-                    tags: requestBody.newsTag,
-                    _id: requestBody.id
+                var sealInfo = {
+                    name: requestBody.name, // 密封名称
+                    imgUrl: requestBody.imgUrl, // 密封缩略图
+                    imgStructureUrl: requestBody.imgStructureUrl, // 密封结构图
+                    standards: requestBody.standards, // 产品执行标准
+                    features: requestBody.features, // 产品特点
+                    params: {
+                        speed: requestBody.speed, // 转速
+                        shaft: requestBody.shaft, // 轴径
+                        temperature: requestBody.temperature, // 温度
+                        pressure: requestBody.pressure // 压力
+                    }, // 密封使用参数
+                    sealType: requestBody.sealType, // 泵类型
+                };
+                let result = await this.DBModule.Seals.saveSeal(sealInfo);
+                if(result.status) {
+                    ctx.body = { code: 0, msg: result.msg };
+                } else {
+                    ctx.body = { code: 500, msg: result.msg };
+                }
+            } else {
+                ctx.body = { code: 500, msg: '参数错误' };
+            }
+        });
+
+        // 修改泵类产品
+        this.router.get('/product/edit_pump', async (ctx, next) => {
+            var requestBody = ctx.query;
+            // ctx.body = { code: 0, msg: '上传成功', data: requestBody};
+            if (requestBody) {
+                var pumpId = requestBody._id;
+                var pumpInfo = {
+                    name: requestBody.name, // 泵名称
+                    safeStage: requestBody.safeStage, // 安全等级
+                    imgUrl: requestBody.imgUrl, // 泵图片地址
+                    params: {
+                        structure: requestBody.structure,
+                        standard: requestBody.standard,
+                        flow: requestBody.flow,
+                        high: requestBody.high,
+                        temperature: requestBody.temperature,
+                        pressure: requestBody.pressure
+                    }, // 泵参数
+                    stage: {
+                        safe: requestBody.safe,
+                        manufacture: requestBody.manufacture,
+                        warranty: requestBody.warranty,
+                        antiSeismic: requestBody.antiSeismic,
+                        clean: requestBody.clean
+                    }, // 设备分级
+                    pumpType: requestBody.pumpType,
+                    area: requestBody.area, // 使用范围
+                    Summary: requestBody.Summary // 产品概述
                 };
 
                 // 判断图片路径是否有更新
-                // if(honorInfo.imgUrl.indexOf('uploads/temporary') != -1) {
-                //     let savePath = honorInfo.imgUrl.split('/')[3];
-                //     let oldPath = 'public\\uploads\\temporary\\' + savePath;
-                //     let newPath = "public/images/front_end/about/honor/" + savePath;
-                //     let renameResult = await this.api.moveFiles(oldPath, newPath);
-                //     if (renameResult.status) {
-                //         honorInfo.imgUrl = renameResult.resultsPath;
-                //     }
-                // }
-                let result = await this.DBModule.News.changeNewsValue(newsInfo);
+                if(pumpInfo.imgUrl.indexOf('uploads/temporary') != -1) {
+                    let savePath = pumpInfo.imgUrl.split('/')[3];
+                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
+                    let newPath = "public/images/front_end/product/pump/" + savePath;
+                    let renameResult = await this.api.moveFiles(oldPath, newPath);
+                    if (renameResult.status) {
+                        pumpInfo.imgUrl = renameResult.resultsPath;
+                    }
+                }
+                let result = await this.DBModule.Pumps.changePumpValue(pumpId,pumpInfo);
                 if(result.status) {
                     ctx.body = { code: 0, msg: result.msg };
                 } else {

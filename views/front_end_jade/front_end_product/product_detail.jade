@@ -24,7 +24,8 @@ block content
                             .product-title
                                 h4 #{pumpProduct.data[0].name}
                                 .img-container
-                                    img(src="#{pumpProduct.data[0].imgUrl}" alt="#{pumpProduct.data[0].name}")
+                                    -var imgUrl = pumpProduct.data[0].imgUrl.replace('public', '..');
+                                    img(src="#{imgUrl}" alt="#{pumpProduct.data[0].name}")
                             .product-params
                                 h4 产品参数
                                 p 结构： #{pumpProduct.data[0].params.structure}
@@ -53,7 +54,8 @@ block content
                             .seal-title
                                 h4 #{sealProduct.data[0].name}
                                 .img-container
-                                    img(src="#{sealProduct.data[0].imgStructureUrl}")
+                                    -var imgStructureUrl = sealProduct.data[0].imgStructureUrl.replace('public', '..');
+                                    img(src="#{imgStructureUrl}")
                             .seal-params
                                 h4 使用参数
                                 p 压力： #{sealProduct.data[0].params.pressure}

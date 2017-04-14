@@ -60,32 +60,32 @@ export default class {
         }); // 设置虚拟时间属性
         this.Pump =  mongoose.model('pump', pumpSchema);
     }
-    savePump() {
+    savePump(pumpinfo) {
         return new Promise((resolve, reject) => {
-                var pumpInfo = {
-                    name: '余热排出泵', // 泵名称
-                    safeStage: '核安全二级', // 安全等级
-                    imgUrl: '../images/front_end/product/pump_pitot_01.jpg', // 泵图片地址
-                    params: {
-                        structure: '立式结构',
-                        standard: 'RCC-M《压水堆核岛机械设备设计和建造规则》',
-                        flow: '120m3/h，910m3/h，1475m3/h',
-                        high: '95m，77m，≈43m',
-                        temperature: '200℃',
-                        pressure: '10.0 MPa'
-                    }, // 泵参数
-                    stage: {
-                        safe: '2',
-                        manufacture: '2',
-                        warranty: 'Q1',
-                        antiSeismic: '1A',
-                        clean: 'A22'
-                    }, // 设备分级
-                    area: '用于600MWe, 900MWe, 1000MWe 压水堆核电站余热排出系统，在反应堆停运过程中，余热排出泵使反应堆冷却剂在RRA热交换器和反应堆压力容器之间循环以保证电厂进入冷停堆状态。', // 使用范围
-                    Summary: '核安全二级余热排出泵是按照RCC-M《压水堆核岛机械设备设计和建造规则》，结合我公司多年积累的泵制造经验设计制造的。该泵为卧式单级单吸悬臂式结构。可以满足冷热冲击和杂质运行等特殊工况。并满足地震下完整性和可运行性。', // 产品概述
-                };
+                // var pumpInfo = {
+                //     name: '余热排出泵', // 泵名称
+                //     safeStage: '核安全二级', // 安全等级
+                //     imgUrl: '../images/front_end/product/pump_pitot_01.jpg', // 泵图片地址
+                //     params: {
+                //         structure: '立式结构',
+                //         standard: 'RCC-M《压水堆核岛机械设备设计和建造规则》',
+                //         flow: '120m3/h，910m3/h，1475m3/h',
+                //         high: '95m，77m，≈43m',
+                //         temperature: '200℃',
+                //         pressure: '10.0 MPa'
+                //     }, // 泵参数
+                //     stage: {
+                //         safe: '2',
+                //         manufacture: '2',
+                //         warranty: 'Q1',
+                //         antiSeismic: '1A',
+                //         clean: 'A22'
+                //     }, // 设备分级
+                //     area: '用于600MWe, 900MWe, 1000MWe 压水堆核电站余热排出系统，在反应堆停运过程中，余热排出泵使反应堆冷却剂在RRA热交换器和反应堆压力容器之间循环以保证电厂进入冷停堆状态。', // 使用范围
+                //     Summary: '核安全二级余热排出泵是按照RCC-M《压水堆核岛机械设备设计和建造规则》，结合我公司多年积累的泵制造经验设计制造的。该泵为卧式单级单吸悬臂式结构。可以满足冷热冲击和杂质运行等特殊工况。并满足地震下完整性和可运行性。', // 产品概述
+                // };
                 let Pump = this.Pump;
-                let addPump = new Pump(pumpInfo);
+                let addPump = new Pump(pumpinfo);
                     addPump.save(err => {
                     if (err) {
                         reject({status: false, msg: err})
@@ -232,6 +232,39 @@ export default class {
                         resolve({ status: true, msg: '泵删除成功'})
                     }
                 })
+            } else {
+                reject({ status: false, msg: '参数错误'})
+            }
+        })
+    }
+
+    // 修改指定的泵
+    changePumpValue(id, pumpInfo) {
+        return new Promise((resolve, reject) => {
+            if (id && pumpInfo && typeof pumpInfo == "object") {
+                this.Pump.findByIdAndUpdate(id, pumpInfo, function (err, doc) {
+                    if (err) {
+                        reject({ status: false, msg: '泵信息修改失败'})
+                    } else {
+                        resolve({ status: true, msg: '泵信息修改成功'})
+                    }
+                });
+                    // let date = new Date();
+                    // doc.lastEditTime = date;
+                    // doc.content = params.content; // 修改内容
+                    // doc.title = params.title; // 修改标题
+                    // doc.subTitle = params.subTitle; // 修改副标题
+                    // doc.newsType = params.newsType; // 修改新闻类型
+                    // doc.author = params.author; // 修改新闻作者
+                    // doc.origin = params.origin; // 修改新闻来源
+                    // doc.tags = params.tags; // 修改新闻标签
+                    // doc.save(err => {
+                    //     if(err) {
+                    //         reject({ status: false, msg: '状态修改失败'})
+                    //     } else {
+                    //         resolve({ status: true, msg: '状态修改成功'})
+                    //     }
+                    // });
             } else {
                 reject({ status: false, msg: '参数错误'})
             }

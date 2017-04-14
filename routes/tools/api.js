@@ -139,6 +139,7 @@ export function moveFiles(oldPath, newPath) {
             if (err) {
                 console.log(err);
                 reject({ status: false });
+                return 
             } else {
                 resolve({ status: true, resultsPath: newPath });
             }

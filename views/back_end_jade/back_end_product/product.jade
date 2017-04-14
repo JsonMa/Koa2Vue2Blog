@@ -67,7 +67,7 @@ block content
                                                     -else
                                                         i(status="true" series="#{nav}" id="#{pumpData[i]._id}").fa.fa-stop.button-switch-show.item-switch
                                                 td
-                                                    a(id="#{pumpData[i]._id}" series="#{nav}" href="../admin/news_detail?id=#{pumpData[i]._id}&page=#{pageNum}").btn.btn-primary.btn-margin
+                                                    a(id="#{pumpData[i]._id}" series="#{nav}" href="../admin/product_edit?id=#{pumpData[i]._id}&page=#{pageNum}&series=#{nav}").btn.btn-primary.btn-margin
                                                         span 编辑
                                                     a(id="#{pumpData[i]._id}" series="#{nav}" imgUrl="#{pumpData[i].imgUrl}").btn.btn-default.btn-margin.btn-delete
                                                         span 删除

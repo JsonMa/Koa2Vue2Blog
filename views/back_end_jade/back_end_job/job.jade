@@ -1,0 +1,66 @@
+// 继承模板
+extends ../back_end_layout
+block title
+    title 重庆伊尔流体后台管理系统
+
+// 引入私有的css
+block css
+    link(rel='stylesheet' href="../css/back_end/news.css")
+block content
+    // 引入共有的aside
+    include ../back_end_aside.jade
+
+    // Content Wrapper. Contains page content
+    .content-wrapper
+        section.content-header
+            h1
+                | 加入我们
+                small 招聘岗位
+            a(href="../admin/job_add?page=#{pageNum}").add-news.btn.btn-primary 新增岗位
+        // Main content
+        section.content
+            .row
+                .col-xs-12
+                    .box.table-container
+                        .box-header
+                            h3.box-title 招聘岗位
+                                small  岗位列表
+                        .box-body
+                            table#example.table.table-bordered.table-hover(style="text-align: center")
+                                thead
+                                    tr
+                                        th 序号
+                                        th 岗位名称
+                                        th 岗位描述
+                                        th 岗位要求
+                                        th 岗位发布者
+                                        th 发布时间
+                                        th 工作状态
+                                        th 操作
+                                tbody
+                                    -var baseIndex = (pageNum - 1) * pageSize;
+                                    -for (var i = 0; i < jobData.length; i++)
+                                        tr
+                                            -var index = baseIndex + i + 1;
+                                            td #{index}
+                                            td.jobName #{jobData[i].jobName}
+                                            td.jobDescribe(des="#{jobData[i].jobDescribe}" style="color: #3c8dbc; cursor: pointer") 查看岗位描述
+                                            td.jobDemand(demand="#{jobData[i].jobDemand}" style="color: #3c8dbc; cursor: pointer") 查看岗位要求
+                                            td.jobCteateTime #{jobData[i].author}
+                                            td.jobCteateTime #{jobData[i].createdTimeDetail}
+                                            td
+                                                -if(jobData[i].hidden)
+                                                    i(status="false" id="#{jobData[i]._id}").fa.fa-play.button-switch-hide.item-switch
+                                                -else
+                                                    i(status="true" id="#{jobData[i]._id}").fa.fa-stop.button-switch-show.item-switch
+                                            td
+                                                a(id="#{jobData[i]._id}" href="../admin/job_edit?id=#{jobData[i]._id}&page=#{pageNum}").btn.btn-primary.btn-margin.btn-edit
+                                                    span 编辑
+                                                a(id="#{jobData[i]._id}").btn.btn-default.btn-margin.btn-delete
+                                                    span 删除
+                        include ../../front_end_jade/front_end_paging.jade
+// 引入私有的js
+block js
+    script(src='/plugins/zyupload/zyupload.basic-1.0.0.js')
+    script(src='/js/back_end/back_end_contact/contact.js')
+

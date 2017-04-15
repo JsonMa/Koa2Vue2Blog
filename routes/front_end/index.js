@@ -262,11 +262,42 @@ export default class extends controller {
 
 		// 加入我们路由
 		this.router.get('/join', async(ctx, next) => {
-			ctx.state = {};
+            let pageNum = ctx.query.page ? parseInt(ctx.query.page) : 1; // 获取页数
+            let queryParams = {
+                pageNum: pageNum, // 当前页数
+                pageSize: 9, // 每页显示数量
+                showAll: false
+            }; // 数据库查询参数
+
+            ctx.state = {}; // 返回的数据初始化
+            let result = await this.DBModule.Job.findJobList(queryParams); // 当前查询条件下的企业风采
+
+            // 数据处理
+            let jobData = {};
+            for(let i = 0; i < result.data.length; i++) {
+                let jobType = result.data[i].jobType;
+                if(!jobData[jobType]) {
+                    jobData[jobType] = [result.data[i]]
+                } else {
+                    jobData[jobType].push(result.data[i])
+                }
+            }
+            let responseData = {
+                jobData: jobData,
+            };
+            ctx.state = responseData;
+            // let saveResult = await this.DBModule.Job.saveJob(); // 保存工作
 
             // 热点推荐
             let recommend = ctx.session.recommend || '';
             ctx.state.hotRecommend = recommend;
+
+            // 判断是否是debug
+            var debug = ctx.request.query._d;
+            if (debug == 1) {
+                ctx.body = ctx.state;
+                return false;
+            }
 			await ctx.render('./front_end_jade/front_end_joinus/join')
 		})
 	}

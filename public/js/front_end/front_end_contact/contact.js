@@ -34,12 +34,29 @@ $(function () {
                    return true;// 检验通过
                }
            });
-           $('#contact_form').parsley().on('field:validated', function() {
-               var ok = $('.parsley-error').length === 0;
-           }).on('form:submit', function() {
-               alert('111');
-                   return false; // Don't submit form for this demo
+           $('#contact_form').parsley().on('form:submit', function() {
+               var formData = $('#contact_form').serialize();
+               $.ajax({
+                   type: "GET",
+                   url: "/contact/add",
+                   data: formData,
+                   dataType: "json",
+                   success: function(response){
+                       if(response.code == 0) {
+                           IOT.tips('留言提交成功，我们将尽快与您取得联系！', 'success', 1500);
+                           setTimeout(function () {
+                               window.location.reload()
+                           }, 1500)
+                       } else {
+                           IOT.tips(response.msg, 'error', 1000)
+                       }
+                   },
+                   error: function (err) {
+                       console.log(err)
+                   }
                });
+               return false; // Don't submit form for this demo
+           });
        }
    };
    Contact.init();

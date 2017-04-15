@@ -1,0 +1,59 @@
+// 继承模板
+extends ../back_end_layout
+block title
+    title 重庆伊尔流体后台管理系统
+
+// 引入私有的css
+block css
+    //link(rel='stylesheet' href="../css/back_end/news.css")
+block content
+    // 引入共有的aside
+    include ../back_end_aside.jade
+
+    // Content Wrapper. Contains page content
+    .content-wrapper
+        // Content Header (Page header)
+        section.content-header
+            h1
+                | 联系我们
+                small 留言信息
+            //a(href="../admin/news_add?page=#{pageNum}").add-news.btn.btn-primary 新增新闻
+        // Main content
+        section.content
+            .row
+                .col-xs-12
+                    .box.table-container
+                        .box-header
+                            h3.box-title 联系我们
+                                small  留言列表
+                        .box-body
+                            table#example.table.table-bordered.table-hover(style="text-align: center")
+                                thead
+                                    tr
+                                        th ID
+                                        th 留言者姓名
+                                        th 留言者电话
+                                        th 留言者邮箱
+                                        th 留言时间
+                                        th 留言内容
+                                        th 操作
+                                tbody
+                                    -var baseIndex = (pageNum - 1) * pageSize;
+                                    -for (var i = 0; i < contactData.length; i++)
+                                        tr
+                                            -var index = baseIndex + i + 1;
+                                            td #{index}
+                                            td.phone #{contactData[i].phone}
+                                            td.phone #{contactData[i].phone}
+                                            td.email #{contactData[i].email}
+                                            td.newsCteateTime #{contactData[i].createdTimeDetail}
+                                            td(contact="#{contactData[i].content}" style="cursor:pointer; color: #3c8dbc").contact-content 留言详情
+                                            td
+                                                a(id="#{contactData[i]._id}").btn.btn-default.btn-margin.btn-delete
+                                                    span 删除
+                        include ../../front_end_jade/front_end_paging.jade
+// 引入私有的js
+block js
+    script(src='/plugins/zyupload/zyupload.basic-1.0.0.js')
+    script(src='/js/back_end/back_end_contact/contact.js')
+

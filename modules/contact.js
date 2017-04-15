@@ -6,17 +6,10 @@ export default class {
         this._ = _;
         let Schema = mongoose.Schema;
         var contactSchema =  new Schema({
-            name: String, // 密封名称
-            imgUrl: String, // 密封缩略图
-            imgStructureUrl: String, // 密封结构图
-            standards: String, // 产品执行标准
-            features: String, // 产品特点
-            params: {
-                speed: String, // 转速
-                shaft: String, // 轴径
-                temperature: String, // 温度
-                pressure: String // 压力
-            }, // 密封使用参数
+            name: String, // 留言人名称
+            phone: String, // 留言人电话
+            email: String, // 电子邮件
+            content: String, // 留言内容
             createTime: {
                 type: Date,
                 default: Date.now
@@ -24,11 +17,7 @@ export default class {
             lastEditTime: {
                 type: Date,
                 default: Date.now
-            }, // 修改时间
-            hidden: {
-                type: Boolean,
-                default: false
-            } // 是否隐藏
+            } // 修改时间
         },{
             versionKey: false, // 是否禁用字段“__v”，表示是否是通过save创建的
             timestamps: true
@@ -39,25 +28,18 @@ export default class {
         contactSchema.virtual('createdTimeDetail').get(function () {
             return moment(this.createTime).format('YYYY-MM-DD HH:MM:SS');
         }); // 设置虚拟时间属性
+        contactSchema.virtual('createdTimeDetail').get(function () {
+            return moment(this.createTime).format('YYYY-MM-DD HH:MM:SS');
+        }); // 设置虚拟时间属性
         this.Contact =  mongoose.model('contact', contactSchema);
     }
     saveContact(contactInfo) {
         return new Promise((resolve, reject) => {
-                // var sealInfo = {
-                //     name: 'H75VA4-S', // 密封名称
-                //     imgUrl: '../images/front_end/product/seal/product_slider_02.jpg', // 密封缩略图
-                //     imgStructureUrl: '../images/front_end/product/seal/seal_structure_01.png', // 密封结构图
-                //     standards: [
-                //         'API 682 / ISO 21049',
-                //         'API 682 4th ed. Cat. 2/3 - 1CW-FL'
-                //     ], // 产品执行标准
-                //     features: '适用温度-200℃～+450℃ ;适用密封腔压力≤7.5Mpa（内压≤1.5MPa）;适用转速V≤25 m/s ;按密封腔温度和介质的腐蚀性可选用波纹管材料为 17-4PH、AM350、Inconel-718、HC-276、TA2（均系进口材料）;采用进口优质碳石墨 。', // 产品特点
-                //     params: {
-                //         speed: '≤3600r/min', // 转速
-                //         shaft: '18~125mm', // 轴径
-                //         temperature: '-40~260℃', // 温度
-                //         pressure: '0~2MPa' // 压力
-                //     }, // 密封使用参数
+                // var contactInfo = {
+                //     name: '周强', // 留言人名称
+                //     phone: '13896120332', // 留言人电话
+                //     email: 'mahao-0321@hotmail.com', // 电子邮件
+                //     content: '这是什么啊啊啊啊啊啊啊', // 留言内容
                 // };
                 let Contact = this.Contact;
                 let addContact = new Contact(contactInfo);
@@ -65,7 +47,7 @@ export default class {
                     if (err) {
                         reject({status: false, msg: err})
                     }  else {
-                        resolve({status: true, msg: '产品保存成功'})
+                        resolve({status: true, msg: '留言保存成功'})
                     }
                 })
             }
@@ -129,12 +111,6 @@ export default class {
     findContactList(params) {
         if(params) {
             let condition = {};
-            if ( !params.showAll) {
-                condition.hidden = false
-            }
-            if ( params.contactType ) {
-                condition.contactType = params.contactType
-            }
             return new Promise((resolve, reject) => {
                 this.Contact.find(condition)
                     .skip((params.pageNum - 1) * params.pageSize)

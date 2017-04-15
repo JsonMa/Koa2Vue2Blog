@@ -6,6 +6,8 @@ block title
 // 引入私有的css
 block css
     link(rel='stylesheet', href='/css/front_end/front_end_contact/contact.css')
+    link(rel='stylesheet', href='/plugins/parsley/parsley.css')
+    link(rel='stylesheet', href='/plugins/common/common.css')
 
 block content
     .banner-container
@@ -40,24 +42,21 @@ block content
                                 span 地址：重庆市北碚区童家溪镇同兴北路198号
                     .detail-bottom
                         p.detail-bottom-title 请告诉我们您的需求
-                        from#contact_form(data-parsley-validate="validate")
-                            ul
+                        form#contact_form(data-parsley-validate="validate")
+                            ul.contact-container
                                 li
                                     label 您的姓名：
-                                        //span.must  *
-                                        input.form-control.required(type="text" name="guestName" data-parsley-user data-parsley-trigger="change" data-parsley-user-message="无效的用户名")
+                                        input.form-control.required(type="text" name="name" data-parsley-length="[2, 20]" data-parsley-user data-parsley-trigger="change" data-parsley-user-message="名称长度至少为2个字" data-parsley-error-message="名称长度至少为2个字")
                                 li
                                     label 联系电话：
-                                        input.required(type="text" name="guestPhone" data-parsley-phone data-parsley-trigger="change" data-parsley-phone-message="无效的手机号码")
-                                    //span.must  *
+                                        input.required(type="text" name="phone" data-parsley-phone data-parsley-trigger="change" data-parsley-phone-message="无效的手机号码")
                                 li
                                     label 电子邮件：
-                                        input(type="text" name="guestMail" data-parsley-email data-parsley-trigger="change" data-parsley-email-message="请输入正确的邮箱格式")
+                                        input(type="text" name="email" data-parsley-email data-parsley-trigger="change" data-parsley-email-message="请输入正确的邮箱格式")
                                 li
                                     span 您的留言：
-                                    textarea(rows="10" cols="55" name="guestMessage")
-                            input.validate.required(type="submit" value="提交留言")
-                            a.btn(type="submit") 提交留言
+                                    textarea(rows="10" cols="55" name="content" data-parsley-trigger="change" data-parsley-minlength="10"  data-parsley-error-message="留言内容太短，需至少应包含10个字")
+                            button.btn(type="submit") 提交留言
             .content-detail-right
                 .about-nav
                     h4  栏目列表
@@ -75,5 +74,6 @@ block content
 // 引入私有的js
 block js
     script(src='/plugins/parsley/parsley.js')
+    script(src='/plugins/common/common.js')
     script(src='/js/front_end/front_end_contact/contact.js')
 

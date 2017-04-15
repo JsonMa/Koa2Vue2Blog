@@ -252,6 +252,7 @@ export default class extends controller {
 		// 联系我们路由
 		this.router.get('/contact', async(ctx, next) => {
 			ctx.state = {};
+            // let saveResult = await this.DBModule.Contact.saveContact(); // 保存留言
 
             // 热点推荐
             let recommend = ctx.session.recommend || '';

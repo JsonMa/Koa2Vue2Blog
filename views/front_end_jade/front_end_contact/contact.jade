@@ -46,16 +46,16 @@ block content
                             ul.contact-container
                                 li
                                     label 您的姓名：
-                                        input.form-control.required(type="text" name="name" data-parsley-length="[2, 20]" data-parsley-user data-parsley-trigger="change" data-parsley-user-message="名称长度至少为2个字" data-parsley-error-message="名称长度至少为2个字")
+                                        input.form-control.required(type="text" name="name" data-parsley-length="[2, 20]" data-parsley-user data-parsley-trigger="change" data-parsley-user-message="名称长度至少为2个字" data-parsley-error-message="名称长度至少为2个字" required="")
                                 li
                                     label 联系电话：
-                                        input.required(type="text" name="phone" data-parsley-phone data-parsley-trigger="change" data-parsley-phone-message="无效的手机号码")
+                                        input.required(type="text" name="phone" data-parsley-phone data-parsley-trigger="change" data-parsley-phone-message="无效的手机号码" required="" data-parsley-error-message="手机号码为必填项")
                                 li
                                     label 电子邮件：
-                                        input(type="text" name="email" data-parsley-email data-parsley-trigger="change" data-parsley-email-message="请输入正确的邮箱格式")
+                                        input(type="text" name="email" data-parsley-email data-parsley-trigger="change" data-parsley-email-message="请输入正确的邮箱格式" required="" data-parsley-error-message="邮箱地址为必填项")
                                 li
                                     span 您的留言：
-                                    textarea(rows="10" cols="55" name="content" data-parsley-trigger="change" data-parsley-minlength="10"  data-parsley-error-message="留言内容太短，需至少应包含10个字")
+                                    textarea(rows="10" cols="55" name="content" data-parsley-trigger="change" data-parsley-minlength="10"  data-parsley-error-message="留言内容太短，需至少应包含10个字" required="")
                             button.btn(type="submit") 提交留言
             .content-detail-right
                 .about-nav

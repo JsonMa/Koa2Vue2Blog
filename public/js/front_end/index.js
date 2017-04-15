@@ -69,6 +69,18 @@ $(function () {
                 $present.clone().prependTo($active);
                 $present.remove();
             });
+
+            // hover效果
+			$('.abstract-item').mouseenter(function () {
+				$(this).find('.abstract-item-top').addClass('move-bottom');
+				$(this).find('.abstract-item-middle').addClass('move-top');
+				$(this).find('.abstract-item-bottom').addClass('move-top');
+
+            }).mouseleave(function () {
+                $(this).find('.abstract-item-top').removeClass('move-bottom');
+                $(this).find('.abstract-item-middle').removeClass('move-top');
+                $(this).find('.abstract-item-bottom').removeClass('move-top');
+            })
         }
     };
 

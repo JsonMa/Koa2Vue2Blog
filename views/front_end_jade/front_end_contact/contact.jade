@@ -10,7 +10,7 @@ block css
     link(rel='stylesheet', href='/plugins/common/common.css')
 
 block content
-    .banner-container
+    .banner-container#dituContent
     .content-container
         .content-title
             h3.title 联系我们   CONTACT
@@ -75,5 +75,6 @@ block content
 block js
     script(src='/plugins/parsley/parsley.js')
     script(src='/plugins/common/common.js')
+    script(type='text/javascript', src='http://api.map.baidu.com/api?key=&v=1.1&services=true')
     script(src='/js/front_end/front_end_contact/contact.js')
 

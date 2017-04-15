@@ -14,5 +14,6 @@ export default class {
 		this.Enterprise = new (require('./enterprise.js'))(mongoose, _, moment); // 企业概况模块
 		this.Honor = new (require('./honor.js'))(mongoose, _, moment); // 荣誉资质模块
 		this.Contact = new (require('./contact.js'))(mongoose, _, moment); // 留言模块
+		this.Job = new (require('./job.js'))(mongoose, _, moment); // 工作岗位模块
 	}
 }

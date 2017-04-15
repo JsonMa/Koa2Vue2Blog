@@ -143,25 +143,51 @@ aside.main-sidebar
                             a(href='/admin/product?series=seal')
                                 i.fa.fa-circle-o
                                 | 密封产品管理
-            li.treeview
-                a(href='#')
-                    i.fa.fa-phone
-                    span 联系我们
-                    span.pull-right-container
-                        i.fa.fa-angle-left.pull-right
-                ul.treeview-menu
-                    li
-                        a(href='/admin/contact')
-                            i.fa.fa-circle-o
-                            | 信息管理
-            li.treeview
-                a(href='#')
-                    i.fa.fa-users
-                    span 加入我们
-                    span.pull-right-container
-                        i.fa.fa-angle-left.pull-right
-                ul.treeview-menu
-                    li
-                        a(href='/admin/join')
-                            i.fa.fa-circle-o
-                            | 招聘管理
+            -if(nav == 'contact')
+                li.treeview
+                    a(href='#')
+                        i.fa.fa-phone
+                        span 联系我们
+                        span.pull-right-container
+                            i.fa.fa-angle-left.pull-right
+                    ul.treeview-menu
+                        li.active
+                            a(href='/admin/contact')
+                                i.fa.fa-circle-o
+                                | 留言管理
+            -else
+                li.treeview
+                    a(href='#')
+                        i.fa.fa-phone
+                        span 联系我们
+                        span.pull-right-container
+                            i.fa.fa-angle-left.pull-right
+                    ul.treeview-menu
+                        li
+                            a(href='/admin/contact')
+                                i.fa.fa-circle-o
+                                | 信息管理
+            -if(nav == 'join')
+                li.treeview
+                    a(href='#')
+                        i.fa.fa-users
+                        span 加入我们
+                        span.pull-right-container
+                            i.fa.fa-angle-left.pull-right
+                    ul.treeview-menu
+                        li.active
+                            a(href='/admin/join')
+                                i.fa.fa-circle-o
+                                | 招聘管理
+            -else
+                li.treeview
+                    a(href='#')
+                        i.fa.fa-users
+                        span 加入我们
+                        span.pull-right-container
+                            i.fa.fa-angle-left.pull-right
+                    ul.treeview-menu
+                        li
+                            a(href='/admin/join')
+                                i.fa.fa-circle-o
+                                | 招聘管理

@@ -62,6 +62,8 @@ block content
                                                 input#newsOrigin.form-control(type='text', placeholder='请输入新闻来源' value="#{newsData.origin}")
                                             .form-group
                                                 label(for='newsContent') 新闻内容：
+                                                span.upload-img(style="margin-bottom: 5px; color: #3c8dbc; cursor: pointer; float: right") 上传图片
+                                                p.response-img(style="magin-left: 5px")
                                                 textarea#newsContent.form-control(rows='3' value="#{newsData.content}" placeholder="请输入新闻内容") #{newsData.content}
                                             .form-group(style="text-align:right")
                                                 span(mode="edit" id="#{newsData._id}").btn.btn-primary.btn-save 保存修改

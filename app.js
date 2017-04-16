@@ -38,8 +38,8 @@ app.use(views(__dirname + '/views', {
 // koa2-cookie-session
 app.use(session({
     key: "yir-session",   //default "koa:sid"
-    expires: 5/(24*60*60), //default 7 day 除以24*60 得到分钟
-    // expires: 7, //default 7 day 除以24*60 得到分钟
+    // expires: 15/(24*60*60), //default 7 day 除以24*60*60 得到秒
+    expires: 30/(24*60), //default 7 day 除以24*60*60 得到秒
     path:"/" // 允许所有路径访问cookie
 }));
 

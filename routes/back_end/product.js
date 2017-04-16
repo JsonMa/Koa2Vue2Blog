@@ -9,7 +9,7 @@ export default class extends controller {
     renders() {
 
         // 产品管理
-        this.router.get('/admin/product', async(ctx, next) => {
+        this.router.get('/admin/product', this.api.isLogin(), async(ctx, next) => {
             let pageNum = ctx.query.page? parseInt(ctx.query.page) : 1; // 获取页数
             let series = ctx.query.series? ctx.query.series: 'pump'; // 获取页数
             let queryParams = {
@@ -64,7 +64,7 @@ export default class extends controller {
         });
 
         // 新增产品
-        this.router.get('/admin/product_add', async(ctx, next) => {
+        this.router.get('/admin/product_add', this.api.isLogin(), async(ctx, next) => {
             let series = ctx.request.query.series;
             ctx.state.nav = series;
             ctx.state.pageNum = ctx.request.query.page;
@@ -79,7 +79,7 @@ export default class extends controller {
         });
 
         // 修改产品
-        this.router.get('/admin/product_edit', async(ctx, next) => {
+        this.router.get('/admin/product_edit', this.api.isLogin(), async(ctx, next) => {
             let newsId = ctx.request.query.id;
             let series = ctx.request.query.series;
             let pageNum = ctx.request.query.page || 1;
@@ -112,7 +112,7 @@ export default class extends controller {
     actions() {
 
         // 修改产品状态
-        this.router.post('/product/status', async(ctx, next) => {
+        this.router.post('/product/status', this.api.isLogin(), async(ctx, next) => {
             let productId = ctx.request.body.id;
             let series = ctx.request.body.series;
             let status = ctx.request.body.status == 'false'? false: true;
@@ -135,7 +135,7 @@ export default class extends controller {
         });
 
         // 删除指定的产品
-        this.router.post('/product/delete', async(ctx, next) => {
+        this.router.post('/product/delete', this.api.isLogin(), async(ctx, next) => {
             let productId = ctx.request.body.id,
                 series = ctx.request.body.series,
                 imgUrl = ctx.request.body.imgUrl, // 产品图
@@ -172,7 +172,7 @@ export default class extends controller {
         });
 
         // 通用图片上传
-        this.router.post('/upload/product',upload.single('file'), async (ctx, next) => {
+        this.router.post('/upload/product',this.api.isLogin(), upload.single('file'), async (ctx, next) => {
             var requestBody = ctx.req.file;
             if (this._.isEmpty(requestBody)) {
                 ctx.body = { code: 500, msg: "上传失败" };
@@ -188,7 +188,7 @@ export default class extends controller {
         });
 
         // 新增泵类产品
-        this.router.get('/product/add_pump', async (ctx, next) => {
+        this.router.get('/product/add_pump', this.api.isLogin(), async (ctx, next) => {
             var requestBody = ctx.query;
             if (requestBody) {
                 var pumpInfo = {
@@ -237,7 +237,7 @@ export default class extends controller {
         });
 
         // 新增密封类产品
-        this.router.get('/product/add_seal', async (ctx, next) => {
+        this.router.get('/product/add_seal', this.api.isLogin(), async (ctx, next) => {
             var requestBody = ctx.query;
             if (requestBody) {
                 var sealInfo = {
@@ -286,7 +286,7 @@ export default class extends controller {
         });
 
         // 修改泵类产品
-        this.router.get('/product/edit_pump', async (ctx, next) => {
+        this.router.get('/product/edit_pump', this.api.isLogin(), async (ctx, next) => {
             var requestBody = ctx.query;
             // ctx.body = { code: 0, msg: '上传成功', data: requestBody};
             if (requestBody) {
@@ -338,7 +338,7 @@ export default class extends controller {
         });
 
         // 修改密封类产品
-        this.router.get('/product/edit_seal', async (ctx, next) => {
+        this.router.get('/product/edit_seal', this.api.isLogin(), async (ctx, next) => {
             var requestBody = ctx.query;
             // ctx.body = { code: 0, msg: '上传成功', data: requestBody};
             if (requestBody) {

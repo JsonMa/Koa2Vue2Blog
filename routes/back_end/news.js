@@ -9,7 +9,7 @@ export default class extends controller {
     renders() {
         
         // 新闻管理
-        this.router.get('/admin/news', async(ctx, next) => {
+        this.router.get('/admin/news', this.api.isLogin(), async(ctx, next) => {
             let pageNum = ctx.query.page ? parseInt(ctx.query.page) : 1; // 获取页数
             let queryParams = {
                 pageNum: pageNum, // 当前页数
@@ -46,7 +46,7 @@ export default class extends controller {
         });
 
         // 新增新闻
-        this.router.get('/admin/news_add', async(ctx, next) => {
+        this.router.get('/admin/news_add', this.api.isLogin(), async(ctx, next) => {
             ctx.state.nav = 'news';
             ctx.state.pageNum = ctx.request.query.page;
 
@@ -60,7 +60,7 @@ export default class extends controller {
         });
 
         // 编辑新闻
-        this.router.get('/admin/news_detail', async(ctx, next) => {
+        this.router.get('/admin/news_detail', this.api.isLogin(), async(ctx, next) => {
             let newsId = ctx.request.query.id;
             let pageNum = ctx.request.query.page || 1;
             let news = await this.DBModule.News.findNews({_id: newsId}); // 获取荣誉资质总条数
@@ -83,7 +83,7 @@ export default class extends controller {
     actions() {
 
         // 新闻修改状态
-        this.router.post('/news/status', async(ctx, next) => {
+        this.router.post('/news/status', this.api.isLogin(), async(ctx, next) => {
             let newsId = ctx.request.body.id;
             let status = ctx.request.body.status == 'false'? false: true;
             let changeNewsStatus = await this.DBModule.News.changeNewsStatus({_id: newsId, hidden: status}); // 获取荣誉资质总条数
@@ -101,7 +101,7 @@ export default class extends controller {
         });
 
         // 删除指定的新闻
-        this.router.post('/news/delete', async(ctx, next) => {
+        this.router.post('/news/delete', this.api.isLogin(), async(ctx, next) => {
             let newsId = ctx.request.body.id;
             // let imgUrl = ctx.request.body.imgUrl; // 暂时不删除新闻图片
             let deleteNews = await this.DBModule.News.deleteNews({_id: newsId}); // 获取荣誉资质总条数
@@ -120,7 +120,7 @@ export default class extends controller {
         });
 
         // 通用图片上传
-        this.router.post('/upload/news',upload.single('file'), async (ctx, next) => {
+        this.router.post('/upload/news',this.api.isLogin(), upload.single('file'), async (ctx, next) => {
             var requestBody = ctx.req.file;
 
             if (this._.isEmpty(requestBody)) {
@@ -137,7 +137,7 @@ export default class extends controller {
         });
 
         // 新增新闻
-        this.router.post('/news/add', async (ctx, next) => {
+        this.router.post('/news/add', this.api.isLogin(), async (ctx, next) => {
             var requestBody = ctx.request.body;
             if (requestBody) {
                 var newsInfo = {
@@ -161,7 +161,7 @@ export default class extends controller {
         });
 
         // 修改新闻
-        this.router.post('/news/edit', async (ctx, next) => {
+        this.router.post('/news/edit', this.api.isLogin(), async (ctx, next) => {
             var requestBody = ctx.request.body;
             if (requestBody) {
                 var newsInfo = {
@@ -197,7 +197,7 @@ export default class extends controller {
         });
 
         // 修改新闻
-        this.router.post('/admin/test', async (ctx, next) => {
+        this.router.post('/admin/test', this.api.isLogin(), async (ctx, next) => {
             ctx.body = { code: 500, msg: '参数错误' };
         });
     }

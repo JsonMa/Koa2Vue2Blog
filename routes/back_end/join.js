@@ -9,7 +9,7 @@ export default class extends controller {
     renders() {
 
         // 加入我们
-        this.router.get('/admin/join', async(ctx, next) => {
+        this.router.get('/admin/join', this.api.isLogin(), async(ctx, next) => {
             let pageNum = ctx.query.page ? parseInt(ctx.query.page) : 1; // 获取页数
             let queryParams = {
                 pageNum: pageNum, // 当前页数
@@ -46,7 +46,7 @@ export default class extends controller {
         });
 
         // 新增工作岗位
-        this.router.get('/admin/job_add', async(ctx, next) => {
+        this.router.get('/admin/job_add', this.api.isLogin(), async(ctx, next) => {
             ctx.state.nav = 'join';
             ctx.state.pageNum = ctx.request.query.page;
 
@@ -60,7 +60,7 @@ export default class extends controller {
         });
 
         // 编辑工作岗位
-        this.router.get('/admin/job_edit', async(ctx, next) => {
+        this.router.get('/admin/job_edit', this.api.isLogin(), async(ctx, next) => {
             let jobId = ctx.request.query.id;
             let pageNum = ctx.request.query.page || 1;
             let news = await this.DBModule.Job.findJob({_id: jobId}); // 获取荣誉资质总条数
@@ -83,7 +83,7 @@ export default class extends controller {
     actions() {
 
         // 修改工作岗位状态
-        this.router.post('/job/status', async(ctx, next) => {
+        this.router.post('/job/status', this.api.isLogin(), async(ctx, next) => {
             let jobId = ctx.request.body.id;
             let status = ctx.request.body.status == 'false'? false: true;
             let changeJobStatus = await this.DBModule.Job.changeJobStatus({_id: jobId, hidden: status}); // 获取荣誉资质总条数
@@ -101,7 +101,7 @@ export default class extends controller {
         });
 
         // 删除指定的工作岗位
-        this.router.post('/job/delete', async(ctx, next) => {
+        this.router.post('/job/delete', this.api.isLogin(), async(ctx, next) => {
             let jobId = ctx.request.body.id;
             let deleteJob = await this.DBModule.Job.deleteJob({_id: jobId}); // 删除置顶的工作岗位
             if (deleteJob.status) {
@@ -118,7 +118,7 @@ export default class extends controller {
         });
 
         // 新增工作岗位
-        this.router.post('/job/add', async (ctx, next) => {
+        this.router.post('/job/add', this.api.isLogin(), async (ctx, next) => {
             var requestBody = ctx.request.body;
             if (requestBody) {
                 var jobInfo = {
@@ -139,7 +139,7 @@ export default class extends controller {
         });
 
         // 修改工作岗位
-        this.router.post('/job/edit', async (ctx, next) => {
+        this.router.post('/job/edit', this.api.isLogin(), async (ctx, next) => {
             var requestBody = ctx.request.body;
             if (requestBody) {
                 var jobInfo = {

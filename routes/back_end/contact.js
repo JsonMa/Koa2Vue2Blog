@@ -9,7 +9,7 @@ export default class extends controller {
     renders() {
 
         // 联系我们
-        this.router.get('/admin/contact', async(ctx, next) => {
+        this.router.get('/admin/contact',this.api.isLogin(),  async(ctx, next) => {
             let pageNum = ctx.query.page ? parseInt(ctx.query.page) : 1; // 获取页数
             let queryParams = {
                 pageNum: pageNum, // 当前页数
@@ -49,7 +49,7 @@ export default class extends controller {
     actions() {
 
         // 删除指定的新闻
-        this.router.post('/contact/delete', async(ctx, next) => {
+        this.router.post('/contact/delete',this.api.isLogin(), async(ctx, next) => {
             let contactId = ctx.request.body.id;
             let deleteNews = await this.DBModule.Contact.deleteContact({_id: contactId}); // 删除置顶的留言
             if (deleteNews.status) {
@@ -66,7 +66,7 @@ export default class extends controller {
         });
 
         // 新增留言
-        this.router.get('/contact/add', async (ctx, next) => {
+        this.router.get('/contact/add', this.api.isLogin(), async (ctx, next) => {
             var requestBody = ctx.query;
             if (requestBody) {
                 var contactInfo = {

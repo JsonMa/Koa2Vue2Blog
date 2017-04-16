@@ -26,7 +26,7 @@ export function  isLogin(){
         if(_.isEmpty(ctx.session.user)){
             console.log('未登录');
             if(ctx.request.method.toLowerCase() == 'get'){
-                ctx.redirect('/login' + '?from=' + ctx.request.url);
+                ctx.redirect('/admin/login' + '?from=' + ctx.request.url);
             }
             else{
                 ctx.body = {

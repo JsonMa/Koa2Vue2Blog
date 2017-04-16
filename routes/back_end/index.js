@@ -14,6 +14,22 @@ export default class extends controller {
 
             // 判断是否是debug
             var debug = ctx.request.query._d;
+            ctx.state.requestUrl = ctx.query.from || '/admin/index';
+            if (debug == 1) {
+                ctx.body = ctx.state;
+                return false;
+            }
+            await ctx.render('./back_end_jade/login')
+        });
+
+        // 登录
+        this.router.get('/admin/logout', async(ctx, next) => {
+
+            ctx.session = null;
+
+            // 判断是否是debug
+            var debug = ctx.request.query._d;
+            ctx.state.requestUrl = ctx.query.from || '/admin/index';
             if (debug == 1) {
                 ctx.body = ctx.state;
                 return false;
@@ -22,7 +38,7 @@ export default class extends controller {
         });
 
         // 后台管理-首页
-        this.router.get('/admin/index', async(ctx, next) => {
+        this.router.get('/admin/index',this.api.isLogin(), async(ctx, next) => {
             let pageNum = ctx.query.page ? parseInt(ctx.query.page) : 1; // 获取页数
             let queryParams = {
                 pageNum: pageNum, // 当前页数
@@ -58,7 +74,7 @@ export default class extends controller {
         });
 
         // honor 详情
-        this.router.get('/admin/honor_detail', async(ctx, next) => {
+        this.router.get('/admin/honor_detail',this.api.isLogin(), async(ctx, next) => {
             let honorId = ctx.request.query.id;
             let pageNum = ctx.request.query.page || 1;
             let honor = await this.DBModule.Honor.findHonor({_id: honorId}); // 获取荣誉资质总条数
@@ -77,7 +93,7 @@ export default class extends controller {
         });
 
         // enterprise
-        this.router.get('/admin/enterprise', async(ctx, next) => {
+        this.router.get('/admin/enterprise',this.api.isLogin(), async(ctx, next) => {
             let pageNum = ctx.query.page ? parseInt(ctx.query.page) : 1; // 获取页数
             let queryParams = {
                 pageNum: pageNum, // 当前页数
@@ -114,7 +130,7 @@ export default class extends controller {
         });
 
         // enterprise 详情
-        this.router.get('/admin/enterprise_detail', async(ctx, next) => {
+        this.router.get('/admin/enterprise_detail',this.api.isLogin(), async(ctx, next) => {
             let enterpriseId = ctx.request.query.id;
             let pageNum = ctx.request.query.page || 1;
             let enterprise = await this.DBModule.Enterprise.findEnterprise({_id: enterpriseId});
@@ -148,14 +164,14 @@ export default class extends controller {
                 }
             } else {
                 ctx.body = {
-                    "code": 200,
+                    "code": 500,
                     "msg": "账号或密码错误"
                 }
             }
         });
 
         // index-修改状态
-        this.router.post('/honor/status', async(ctx, next) => {
+        this.router.post('/honor/status',this.api.isLogin(), async(ctx, next) => {
             let honorId = ctx.request.body.id;
             let status = ctx.request.body.status == 'false'? false: true;
             let changeHonrStatus = await this.DBModule.Honor.changeHonrStatus({_id: honorId, hidden: status}); // 获取荣誉资质总条数
@@ -173,7 +189,7 @@ export default class extends controller {
         });
 
         // index-删除特定的荣誉资质
-        this.router.post('/honor/delete', async(ctx, next) => {
+        this.router.post('/honor/delete', this.api.isLogin(), async(ctx, next) => {
             let honorId = ctx.request.body.id;
             let imgUrl = ctx.request.body.imgUrl;
             let deleteHonor = await this.DBModule.Honor.deleteHonor({_id: honorId}); // 获取荣誉资质总条数
@@ -197,7 +213,7 @@ export default class extends controller {
         });
 
         // index-通用图片上传
-        this.router.post('/upload/about',upload.single('file'), async (ctx, next) => {
+        this.router.post('/upload/about',this.api.isLogin(), upload.single('file'), async (ctx, next) => {
             var requestBody = ctx.req.file;
             if (this._.isEmpty(requestBody)) {
                 ctx.body = { code: 500, msg: "上传失败" };
@@ -214,7 +230,7 @@ export default class extends controller {
         });
 
         // index-荣誉资质图片上传
-        this.router.post('/honor/add', async (ctx, next) => {
+        this.router.post('/honor/add',this.api.isLogin(), async (ctx, next) => {
             var requestBody = ctx.request.body;
             if (requestBody) {
                 var honorInfo = {
@@ -246,7 +262,7 @@ export default class extends controller {
         });
 
         // index-修改荣誉资质
-        this.router.post('/honor/edit', async (ctx, next) => {
+        this.router.post('/honor/edit',this.api.isLogin(), async (ctx, next) => {
             var requestBody = ctx.request.body;
             if (requestBody) {
                 let honorInfo = {
@@ -283,7 +299,7 @@ export default class extends controller {
          * */
 
         // enterprise-修改状态
-        this.router.post('/enterprise/status', async(ctx, next) => {
+        this.router.post('/enterprise/status', this.api.isLogin(),async(ctx, next) => {
             let honorId = ctx.request.body.id;
             let status = ctx.request.body.status == 'false'? false: true;
             let changeEnterpriseStatus = await this.DBModule.Enterprise.changeEnterpriseStatus({_id: honorId, hidden: status}); // 获取荣誉资质总条数
@@ -301,7 +317,7 @@ export default class extends controller {
         });
 
         // enterprise-删除特定的荣誉资质
-        this.router.post('/enterprise/delete', async(ctx, next) => {
+        this.router.post('/enterprise/delete',this.api.isLogin(), async(ctx, next) => {
             let enterpriseId = ctx.request.body.id;
             let imgUrl = ctx.request.body.imgUrl;
             var deleteEnterprise = await this.DBModule.Enterprise.deleteEnterprise({_id: enterpriseId}); // 获取荣誉资质总条数
@@ -320,7 +336,7 @@ export default class extends controller {
         });
 
         // enterprise-荣誉资质图片上传
-        this.router.post('/enterprise/add', async (ctx, next) => {
+        this.router.post('/enterprise/add',this.api.isLogin(), async (ctx, next) => {
             var requestBody = ctx.request.body;
             if (requestBody) {
                 var enterpriseInfo = {
@@ -352,7 +368,7 @@ export default class extends controller {
         });
 
         // enterprise-修改荣誉资质
-        this.router.post('/enterprise/edit', async (ctx, next) => {
+        this.router.post('/enterprise/edit',this.api.isLogin(), async (ctx, next) => {
             var requestBody = ctx.request.body;
             if (requestBody) {
                 let enterpriseInfo = {

@@ -6,17 +6,13 @@ $(function(){
     // 登录
     $('#login').on('submit', function(e){
         e.preventDefault();
-        var $form = $(this),
-            form = $form.attr("from-data");
+        var requestUrl = $("#requestUrl").val(),
+            $form = $(this);
         $.post("/admin/login", $form.serialize(), function(res){
             if(res.code == 0){
 
-                //处理成功时的响应
-                if(form) {
-                    location.href = form;
-                } else {
-                    location.href = '/admin/index';
-                }
+                IOT.tips('验证成功，页面即将跳转！', "success", 1000);
+                location.href = requestUrl;
             }else{
 
                 // 返回失败信息

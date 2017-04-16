@@ -34,6 +34,7 @@ block content
                                         th 岗位描述
                                         th 岗位要求
                                         th 岗位发布者
+                                        th 岗位部门
                                         th 发布时间
                                         th 工作状态
                                         th 操作
@@ -47,6 +48,14 @@ block content
                                             td.jobDescribe(des="#{jobData[i].jobDescribe}" style="color: #3c8dbc; cursor: pointer") 查看岗位描述
                                             td.jobDemand(demand="#{jobData[i].jobDemand}" style="color: #3c8dbc; cursor: pointer") 查看岗位要求
                                             td.jobCteateTime #{jobData[i].author}
+                                            -if(jobData[i].jobType == "research")
+                                                td.type 研发部
+                                            -else if(jobData[i].jobType == "marketing")
+                                                td.type 市场部
+                                            -else if(jobData[i].jobType == "production")
+                                                td.type 生产部
+                                            -else
+                                                td.type 其他
                                             td.jobCteateTime #{jobData[i].createdTimeDetail}
                                             td
                                                 -if(jobData[i].hidden)
@@ -62,5 +71,5 @@ block content
 // 引入私有的js
 block js
     script(src='/plugins/zyupload/zyupload.basic-1.0.0.js')
-    script(src='/js/back_end/back_end_contact/contact.js')
+    script(src='/js/back_end/back_end_job/job.js')
 

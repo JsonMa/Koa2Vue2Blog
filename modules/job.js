@@ -49,11 +49,11 @@ export default class {
     }
     saveJob(jobInfo) {
         return new Promise((resolve, reject) => {
-                var jobInfo = {
-                    jobName: '高级Android开发工程师', // 工作名称
-                    jobDescribe: '负责虎嗅PC端、H5和移动端（含前端和后端）的产品设计', // 工作描述
-                    jobDemand: '具备较强的数据分析、竞品分析、逻辑分析等能力' // 工作要求
-                };
+                // var jobInfo = {
+                //     jobName: '高级Android开发工程师', // 工作名称
+                //     jobDescribe: '负责虎嗅PC端、H5和移动端（含前端和后端）的产品设计', // 工作描述
+                //     jobDemand: '具备较强的数据分析、竞品分析、逻辑分析等能力' // 工作要求
+                // };
                 let Job = this.Job;
                 let addJob = new Job(jobInfo);
                 addJob.save(err => {
@@ -179,9 +179,9 @@ export default class {
                     doc.save(err => {
                         if(err) {
                             console.log(err);
-                            reject({ status: false, msg: '状态修改失败'})
+                            reject({ status: false, msg: '岗位状态修改失败'})
                         } else {
-                            resolve({ status: true, msg: '状态修改成功'})
+                            resolve({ status: true, msg: '岗位状态修改成功'})
                         }
                     });
                 })
@@ -201,18 +201,15 @@ export default class {
                     }
                     let date = new Date();
                     doc.lastEditTime = date;
-                    doc.content = params.content; // 修改内容
-                    doc.title = params.title; // 修改标题
-                    doc.subTitle = params.subTitle; // 修改副标题
-                    doc.jobType = params.jobType; // 修改工作类型
-                    doc.author = params.author; // 修改工作作者
-                    doc.origin = params.origin; // 修改工作来源
-                    doc.tags = params.tags; // 修改工作标签
+                    doc.jobDescribe = params.jobDescribe; // 修改岗位描述
+                    doc.jobDemand = params.jobDemand; // 修改岗位要求
+                    doc.jobName = params.jobName; // 修改岗位名称
+                    doc.jobType = params.jobType; // 修改岗位类型
                     doc.save(err => {
                         if(err) {
-                            reject({ status: false, msg: '状态修改失败'})
+                            reject({ status: false, msg: '岗位信息修改失败'})
                         } else {
-                            resolve({ status: true, msg: '状态修改成功'})
+                            resolve({ status: true, msg: '岗位信息修改成功'})
                         }
                     });
                 })
@@ -230,7 +227,7 @@ export default class {
                     if (err) {
                         reject({ status: false, msg: '数据库查询错误'})
                     } else {
-                        resolve({ status: true, msg: '工作删除成功'})
+                        resolve({ status: true, msg: '岗位删除成功'})
                     }
                 })
             } else {

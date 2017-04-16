@@ -1,0 +1,92 @@
+// 集成模板
+extends ../back_end_layout
+block title
+    title 重庆伊尔流体后台管理系统
+
+// 引入私有的css
+block css
+    link(rel='stylesheet' href="../css/back_end/news.css")
+    link(rel='stylesheet', href='/plugins/simplemde/simplemde.min.css')
+block content
+    // 引入共有的aside
+    include ../back_end_aside.jade
+
+    // Content Wrapper. Contains page content
+    .content-wrapper
+        // Content Header (Page header)
+        section.content-header
+            h1
+                | 加入我们
+                small Join Us
+            //button.add-honor.btn.btn-primary 新增
+        // Main content
+        section.content
+            .row
+                .col-md-12
+                    .box.table-container
+                        .box-header
+                            h3.box-title 岗位详情
+                                small  Job detail
+                            .honor-back(style="text-align: right")
+                                a(href="../admin/join?page=#{pageNum}" style="font-size: 12px; margin-right: 20px") << 返回列表
+                        .box-body
+                            .row
+                                .col-md-6.col-md-offset-3
+                                    -if (jobData)
+                                        form
+                                            .form-group
+                                                label(for='jobName') 岗位名称：
+                                                input#jobName.form-control(type='text', placeholder='请输入岗位名称' name="jobName" value="#{jobData.jobName}")
+                                            .form-group
+                                                label(for='jobType') 所属部门：
+                                                select#jobType.form-control(name="jobType")
+                                                    -if(jobData.jobType == "research")
+                                                        option(value="research" selected="selected") 研发部
+                                                    -else
+                                                        option(value="research") 研发部
+                                                    -if(jobData.jobType == "marketing")
+                                                        option(value="marketing" selected="selected") 市场部
+                                                    -else
+                                                        option(value="marketing") 市场部
+                                                    -if(jobData.jobType == "production")
+                                                        option(value="production" selected="selected") 生产部
+                                                    -else
+                                                        option(value="production" ) 生产部
+                                                    -if(jobData.jobType == "other")
+                                                        option(value="other" selected="selected") 其他
+                                                    -else
+                                                        option(value="other") 其他
+                                            .form-group
+                                                label(for='jobDescribe') 岗位描述：
+                                                textarea#jobDescribe.form-control(rows='8' placeholder="请输入岗位描述" name="jobDescribe" value="#{jobData.jobDescribe}") #{jobData.jobDescribe}
+                                            .form-group
+                                                label(for='jobDemand') 岗位要求：
+                                                textarea#jobDemand.form-control(rows='8' placeholder="请输入岗位要求" name="jobDemand" value="#{jobData.jobDemand}") #{jobData.jobDemand}
+                                            .form-group(style="text-align:right")
+                                                span(mode="edit" id="#{jobData._id}").btn.btn-primary.btn-save 保存修改
+                                    -else
+                                        form
+                                            .form-group
+                                                label(for='jobName') 岗位名称：
+                                                input#jobName.form-control(type='text', placeholder='请输入岗位名称' name="jobName")
+                                            .form-group
+                                                label(for='jobType') 所属部门：
+                                                select#jobType.form-control(name="jobType")
+                                                    option(value="research") 研发部
+                                                    option(value="marketing") 市场部
+                                                    option(value="production ") 生产部
+                                                    option(value="other") 其它
+                                            .form-group
+                                                label(for='jobDescribe') 岗位描述：
+                                                textarea#jobDescribe.form-control(rows='8' placeholder="请输入岗位描述" name="jobDescribe")
+                                            .form-group
+                                                label(for='jobDemand') 岗位要求：
+                                                textarea#jobDemand.form-control(rows='8' placeholder="请输入岗位要求" name="jobDemand")
+                                            .form-group(style="text-align:right")
+                                                span(mode="create").btn.btn-primary.btn-save 发布岗位
+// 引入私有的js
+block js
+    script(src='/plugins/simplemde/simplemde.min.js')
+    script(src='/js/back_end/back_end_job/job_edit.js')
+
+

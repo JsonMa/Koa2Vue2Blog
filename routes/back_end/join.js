@@ -46,8 +46,8 @@ export default class extends controller {
         });
 
         // 新增工作岗位
-        this.router.get('/admin/news_add', async(ctx, next) => {
-            ctx.state.nav = 'news';
+        this.router.get('/admin/job_add', async(ctx, next) => {
+            ctx.state.nav = 'join';
             ctx.state.pageNum = ctx.request.query.page;
 
             // 判断是否是debug
@@ -56,18 +56,18 @@ export default class extends controller {
                 ctx.body = ctx.state;
                 return false;
             }
-            await ctx.render('./back_end_jade/back_end_news/news_edit')
+            await ctx.render('./back_end_jade/back_end_job/job_edit')
         });
 
         // 编辑工作岗位
-        this.router.get('/admin/news_detail', async(ctx, next) => {
-            let newsId = ctx.request.query.id;
+        this.router.get('/admin/job_edit', async(ctx, next) => {
+            let jobId = ctx.request.query.id;
             let pageNum = ctx.request.query.page || 1;
-            let news = await this.DBModule.News.findNews({_id: newsId}); // 获取荣誉资质总条数
+            let news = await this.DBModule.Job.findJob({_id: jobId}); // 获取荣誉资质总条数
             if (news.status) {
-                ctx.state.newsData = news.data[0]; // 获取第一个元素
+                ctx.state.jobData = news.data[0]; // 获取第一个元素
                 ctx.state.pageNum = pageNum;
-                ctx.state.nav = 'news';
+                ctx.state.nav = 'join';
             }
 
             // 判断是否是debug
@@ -76,63 +76,58 @@ export default class extends controller {
                 ctx.body = ctx.state;
                 return false;
             }
-            await ctx.render('./back_end_jade/back_end_news/news_edit')
+            await ctx.render('./back_end_jade/back_end_job/job_edit')
         });
     }
 
     actions() {
 
         // 修改工作岗位状态
-        this.router.post('/news/status', async(ctx, next) => {
-            let newsId = ctx.request.body.id;
+        this.router.post('/job/status', async(ctx, next) => {
+            let jobId = ctx.request.body.id;
             let status = ctx.request.body.status == 'false'? false: true;
-            let changeNewsStatus = await this.DBModule.News.changeNewsStatus({_id: newsId, hidden: status}); // 获取荣誉资质总条数
-            if (changeNewsStatus.status) {
+            let changeJobStatus = await this.DBModule.Job.changeJobStatus({_id: jobId, hidden: status}); // 获取荣誉资质总条数
+            if (changeJobStatus.status) {
                 ctx.body = {
                     "code": 0,
-                    "msg": changeNewsStatus.msg
+                    "msg": changeJobStatus.msg
                 };
             } else {
                 ctx.body = {
-                    "code": 200,
-                    "msg": changeNewsStatus.msg
+                    "code": 500,
+                    "msg": changeJobStatus.msg
                 };
             }
         });
 
         // 删除指定的工作岗位
-        this.router.post('/news/delete', async(ctx, next) => {
-            let newsId = ctx.request.body.id;
-            // let imgUrl = ctx.request.body.imgUrl; // 暂时不删除新闻图片
-            let deleteNews = await this.DBModule.News.deleteNews({_id: newsId}); // 获取荣誉资质总条数
-            // let deleteImg = await this.api.removeFiles(imgUrl); // 暂时不删除图片
-            if (deleteNews.status) {
+        this.router.post('/job/delete', async(ctx, next) => {
+            let jobId = ctx.request.body.id;
+            let deleteJob = await this.DBModule.Job.deleteJob({_id: jobId}); // 删除置顶的工作岗位
+            if (deleteJob.status) {
                 ctx.body = {
                     "code": 0,
-                    "msg": deleteNews.msg
+                    "msg": deleteJob.msg
                 };
             } else {
                 ctx.body = {
-                    "code": 200,
-                    "msg": deleteNews.msg
+                    "code": 500,
+                    "msg": deleteJob.msg
                 };
             }
         });
 
         // 新增工作岗位
-        this.router.post('/news/add', async (ctx, next) => {
+        this.router.post('/job/add', async (ctx, next) => {
             var requestBody = ctx.request.body;
             if (requestBody) {
-                var newsInfo = {
-                    content: requestBody.newsContent,  // 获取markdown的值
-                    title: requestBody.newsTitle,
-                    subTitle: requestBody.newsSubtitle,
-                    newsType: requestBody.newsType,
-                    author: requestBody.newsAuthor,
-                    origin: requestBody.newsOrigin,
-                    tags: requestBody.newsTag
+                var jobInfo = {
+                    jobDescribe: requestBody.jobDescribe,  // 获取markdown的值
+                    jobDemand: requestBody.jobDemand,
+                    jobName: requestBody.jobName,
+                    jobType: requestBody.jobType,
                 };
-                let result = await this.DBModule.News.saveNews(newsInfo);
+                let result = await this.DBModule.Job.saveJob(jobInfo);
                 if(result.status) {
                     ctx.body = { code: 0, msg: result.msg };
                 } else {
@@ -144,20 +139,17 @@ export default class extends controller {
         });
 
         // 修改工作岗位
-        this.router.post('/news/edit', async (ctx, next) => {
+        this.router.post('/job/edit', async (ctx, next) => {
             var requestBody = ctx.request.body;
             if (requestBody) {
-                var newsInfo = {
-                    content: requestBody.newsContent,  // 获取markdown的值
-                    title: requestBody.newsTitle,
-                    subTitle: requestBody.newsSubtitle,
-                    newsType: requestBody.newsType,
-                    author: requestBody.newsAuthor,
-                    origin: requestBody.newsOrigin,
-                    tags: requestBody.newsTag,
+                var jobInfo = {
+                    jobDescribe: requestBody.jobDescribe,  // 获取markdown的值
+                    jobDemand: requestBody.jobDemand,
+                    jobName: requestBody.jobName,
+                    jobType: requestBody.jobType,
                     _id: requestBody.id
                 };
-                let result = await this.DBModule.News.changeNewsValue(newsInfo);
+                let result = await this.DBModule.Job.changeJobValue(jobInfo);
                 if(result.status) {
                     ctx.body = { code: 0, msg: result.msg };
                 } else {

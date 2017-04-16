@@ -2,6 +2,11 @@
  * Created by Mahao on 2016/12/9.
  */
 import controller from '../tools/controllers'
+const md = require('markdown-it')({
+    html: true,
+    linkify: true,
+    typographer: false
+}); // 引入markdown解析
 export default class extends controller {
 	renders() {
 
@@ -270,11 +275,13 @@ export default class extends controller {
             }; // 数据库查询参数
 
             ctx.state = {}; // 返回的数据初始化
-            let result = await this.DBModule.Job.findJobList(queryParams); // 当前查询条件下的企业风采
+            let result = await this.DBModule.Job.findJobList(queryParams);
 
             // 数据处理
             let jobData = {};
             for(let i = 0; i < result.data.length; i++) {
+                result.data[i].jobDescribe = md.render(result.data[i].jobDescribe);
+                result.data[i].jobDemand = md.render(result.data[i].jobDemand );
                 let jobType = result.data[i].jobType;
                 if(!jobData[jobType]) {
                     jobData[jobType] = [result.data[i]]

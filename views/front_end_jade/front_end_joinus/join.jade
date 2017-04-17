@@ -75,7 +75,7 @@ block content
                                                     .container(style="margin-left:24px;margin-top:10px") !{jobData.other[l].jobDescribe}
                                                 .job-requirement 职位要求：
                                                     .container(style="margin-left:24px;margin-top:10px") !{jobData.other[l].jobDemand}
-                        -else
+                        -if(!jobData.research && !jobData.marketing && !jobData.production && !jobData.other)
                             p.detail-bottom-title 暂无相关的岗位信息
             .content-detail-right
                 .about-nav

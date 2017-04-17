@@ -70,6 +70,14 @@ $(function () {
                 if(id) {
                     params.id = id
                 }
+                if(params.newsTitle.length > 30) {
+                    IOT.tips('新闻标题需要在30字内！', 'warning', 1500);
+                    return
+                }
+                if(params.newsSubtitle.length > 80) {
+                    IOT.tips('新闻摘要需要在80字内！', 'warning', 1500);
+                    return
+                }
                 if (params.newsContent && params.newsTitle && params.newsSubtitle && params.newsType && params.newsAuthor && params.newsOrigin && params.newsTag) {
                     $.post(postString, params, function (result) {
                         if(result.code == 0) {

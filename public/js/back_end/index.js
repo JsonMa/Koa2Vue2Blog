@@ -135,7 +135,7 @@ $(function () {
                     okText: '确定', //确定按钮的文字
                     okCallback: function(){
                     }, //确定按钮的回调
-                    showCancel: true, //是否显示取消按钮
+                    showCancel: false, //是否显示取消按钮
                     cancelText: '取消', //取消按钮的文字
                     cancelCallback: function(){
                         dialog.close()

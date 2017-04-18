@@ -35,6 +35,7 @@ app.use(views(__dirname + '/views', {
   extension: 'jade'
 }));
 
+
 // koa2-cookie-session
 app.use(session({
     key: "yir-session",   //default "koa:sid"

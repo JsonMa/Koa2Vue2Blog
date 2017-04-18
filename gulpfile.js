@@ -13,6 +13,10 @@ var gulp = require('gulp'),
         browsers: ["last 2 versions", "iOS >= 4", "ie > 8", "firefox >= 15"],
         cascade: true
     }),
+    concat = require('gulp-concat'), //- 多个文件合并为一个；
+    minifyCss = require('gulp-minify-css'), //- 压缩CSS为一行；
+    rev = require('gulp-rev'), //- 对文件名加MD5后缀
+    revCollector = require('gulp-rev-collector'),
     debug = require('gulp-debug'); // 改插件用于打印被编译的文件;
 const sourceMapPath = './maps';
 

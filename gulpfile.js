@@ -80,13 +80,8 @@ gulp.task('compile-less-product', function () {
 gulp.task("script",function(){
     gulp.src([ './public/js/**/*.js'])
         .pipe(uglify())
-        .pipe(rev())
         .pipe(debug({title: '压缩了文件:'}))
         .pipe(gulp.dest('./public/js/'))
-        .pipe(rev.manifest())
-        .pipe(debug({title: 'js文件加戳:'}))
-        .pipe(gulp.dest('./public/rev/jsrev'));
-    return gulp.start('rev')
 });
 
 // 压缩图片

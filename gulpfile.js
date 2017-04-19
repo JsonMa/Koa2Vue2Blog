@@ -56,7 +56,7 @@ gulp.task('compile-less-all', function () {
         }))
         .pipe(sourcemaps.write(sourceMapPath))
         .pipe(debug({title: '编译了文件:'}))
-        .pipe(gulp.dest('./public/css'));
+        .pipe(gulp.dest('./public/dist/css'));
 });
 
 // 生产环境编译所有的less
@@ -72,7 +72,7 @@ gulp.task('compile-less-product', function () {
         .pipe(gulp.dest('./public/css'))
         .pipe(rev.manifest())
         .pipe(debug({title: 'css文件加戳:'}))
-        .pipe(gulp.dest('./public/rev'));
+        .pipe(gulp.dest('./public/rev/cssrev'));
     return gulp.start('rev')
 });
 
@@ -82,10 +82,10 @@ gulp.task("script",function(){
         .pipe(uglify())
         .pipe(rev())
         .pipe(debug({title: '压缩了文件:'}))
-        .pipe(gulp.dest('./public/js/'))
+        .pipe(gulp.dest('./public/dist/js/'))
         .pipe(rev.manifest())
         .pipe(debug({title: 'js文件加戳:'}))
-        .pipe(gulp.dest('./public/rev'));
+        .pipe(gulp.dest('./public/rev/jsrev'));
     return gulp.start('rev')
 });
 
@@ -103,7 +103,7 @@ gulp.task('images', function () {
 
 // 文件替换
 gulp.task('rev', function() {
-    gulp.src(['./public/rev/*.json', './views/**/*.jade'])
+    gulp.src(['./public/rev/**/*.json', './views/**/*.jade'])
         .pipe(revCollector({
             replaceReved: true
         }))
@@ -121,4 +121,6 @@ gulp.task('default', function() {
 });
 
 // gulp 生产环境执行代码
-gulp.task('product', ['compile-less-product','script']);
+gulp.task('product', ['compile-less-product'], function () {
+    gulp.start('script');
+});

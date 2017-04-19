@@ -56,7 +56,7 @@ gulp.task('compile-less-all', function () {
         }))
         .pipe(sourcemaps.write(sourceMapPath))
         .pipe(debug({title: '编译了文件:'}))
-        .pipe(gulp.dest('./public/dist/css'));
+        .pipe(gulp.dest('./public/css'));
 });
 
 // 生产环境编译所有的less
@@ -82,7 +82,7 @@ gulp.task("script",function(){
         .pipe(uglify())
         .pipe(rev())
         .pipe(debug({title: '压缩了文件:'}))
-        .pipe(gulp.dest('./public/dist/js/'))
+        .pipe(gulp.dest('./public/js/'))
         .pipe(rev.manifest())
         .pipe(debug({title: 'js文件加戳:'}))
         .pipe(gulp.dest('./public/rev/jsrev'));

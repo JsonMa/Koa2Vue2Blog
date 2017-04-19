@@ -17,6 +17,9 @@ var gulp = require('gulp'),
     minifyCss = require('gulp-minify-css'), //- 压缩CSS为一行；
     rev = require('gulp-rev'), //- 对文件名加MD5后缀
     revCollector = require('gulp-rev-collector'),
+    uglify = require('gulp-uglify'),
+    imageMin = require('gulp-imagemin'),//压缩图片
+    pngquant = require('imagemin-pngquant'), // 深度压缩
     clean = require('gulp-clean'), // 文件夹清空
     debug = require('gulp-debug'); // 改插件用于打印被编译的文件;
 const sourceMapPath = './maps';
@@ -68,31 +71,43 @@ gulp.task('compile-less-product', function () {
         .pipe(debug({title: '编译了文件:'}))
         .pipe(gulp.dest('./public/css'))
         .pipe(rev.manifest())
-        .pipe(debug({title: '文件加戳:'}))
+        .pipe(debug({title: 'css文件加戳:'}))
         .pipe(gulp.dest('./public/rev'));
     return gulp.start('rev')
 });
 
-gulp.task('concat-common', function() {
-    gulp.src(['./public/less/front_end/front_end_common.less',
-        './public/less/front_end/front_end_footer.less',
-        './public/less/front_end/front_end_header.less',
-        './public/less/front_end/front_end_paging.less'])
-        .pipe(less())
-        .pipe(debug({title: '编译了文件:'}))
+//压缩js
+gulp.task("script",function(){
+    gulp.src([ './public/js/**/*.js'])
+        .pipe(uglify())
+        .pipe(rev())
+        .pipe(debug({title: '压缩了文件:'}))
+        .pipe(gulp.dest('./public/js/'))
         .pipe(rev.manifest())
-        .pipe(concat('common.min.css'))
-        .pipe(gulp.dest('./public/rev'))
-        .pipe(minifyCss())
-        .pipe(gulp.dest('./public/css'));
+        .pipe(debug({title: 'js文件加戳:'}))
+        .pipe(gulp.dest('./public/rev'));
+    return gulp.start('rev')
 });
 
+// 压缩图片
+gulp.task('images', function () {
+    gulp.src('./public/images/**/*.*')
+        .pipe(imageMin({
+            progressive: true,// 无损压缩JPG图片
+            svgoPlugins: [{removeViewBox: false}], // 不移除svg的viewbox属性
+            use: [pngquant()] // 使用pngquant插件进行深度压缩
+        }))
+        // .pipe(debug({title: '压缩了图片:'}))
+        .pipe(gulp.dest('./public/images/'))
+});
+
+// 文件替换
 gulp.task('rev', function() {
-    gulp.src(['./public/rev/*.json', './views/front_end_jade/**/*.jade'])
+    gulp.src(['./public/rev/*.json', './views/**/*.jade'])
         .pipe(revCollector({
             replaceReved: true
         }))
-        .pipe(gulp.dest('./views/front_end_jade/'));
+        .pipe(gulp.dest('./views/'));
 });
 
 
@@ -106,4 +121,4 @@ gulp.task('default', function() {
 });
 
 // gulp 生产环境执行代码
-gulp.task('product', ['compile-less-product']);
+gulp.task('product', ['compile-less-product','script']);

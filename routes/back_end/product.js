@@ -3,6 +3,7 @@
  */
 import controller from '../tools/controllers'
 import multer from 'koa-multer';
+import path from 'path';
 const upload = multer({ dest: 'public/uploads/' });
 
 export default class extends controller {

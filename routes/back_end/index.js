@@ -5,6 +5,7 @@ import controller from '../tools/controllers'
 import multer from 'koa-multer';
 const upload = multer({ dest: 'public/uploads/' });
 // import fs from 'fs';
+import path from 'path';
 
 export default class extends controller {
     renders() {
@@ -242,8 +243,9 @@ export default class extends controller {
                 // 判断图片路径是否有更新
                 if(honorInfo.imgUrl.indexOf('uploads/temporary') != -1) {
                     let savePath = honorInfo.imgUrl.split('/')[3];
-                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
-                    let newPath = "public/images/front_end/about/honor/" + savePath;
+                    let rootPath = process.cwd();
+                    let oldPath = path.join(rootPath, '\\public\\uploads\\temporary\\' )+ savePath;
+                    let newPath = path.join(rootPath, "/public/images/front_end/about/honor/") + savePath;
                     let renameResult = await this.api.moveFiles(oldPath, newPath);
                     if (renameResult.status) {
                         honorInfo.imgUrl = renameResult.resultsPath;
@@ -275,8 +277,8 @@ export default class extends controller {
                 // 判断图片路径是否有更新
                 if(honorInfo.imgUrl.indexOf('uploads/temporary') != -1) {
                     let savePath = honorInfo.imgUrl.split('/')[3];
-                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
-                    let newPath = "public/images/front_end/about/honor/" + savePath;
+                    let oldPath = process.cwd() + '\\public\\uploads\\temporary\\' + savePath;
+                    let newPath = process.cwd() + "/public/images/front_end/about/honor/" + savePath;
                     let renameResult = await this.api.moveFiles(oldPath, newPath);
                     if (renameResult.status) {
                         honorInfo.imgUrl = renameResult.resultsPath;

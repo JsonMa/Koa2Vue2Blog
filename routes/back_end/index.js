@@ -244,7 +244,7 @@ export default class extends controller {
                 if(honorInfo.imgUrl.indexOf('uploads/temporary') != -1) {
                     let savePath = honorInfo.imgUrl.split('/')[3];
                     let rootPath = process.cwd();
-                    let oldPath = path.join(rootPath, '\\public\\uploads\\temporary\\' )+ savePath;
+                    let oldPath = path.join(rootPath, '/public/uploads/temporary/' )+ savePath;
                     let newPath = path.join(rootPath, "/public/images/front_end/about/honor/") + savePath;
                     let renameResult = await this.api.moveFiles(oldPath, newPath);
                     if (renameResult.status) {

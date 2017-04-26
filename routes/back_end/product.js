@@ -3,6 +3,7 @@
  */
 import controller from '../tools/controllers'
 import multer from 'koa-multer';
+import path from 'path';
 const upload = multer({ dest: 'public/uploads/' });
 
 export default class extends controller {
@@ -218,7 +219,8 @@ export default class extends controller {
                 // 判断图片路径是否有更新
                 if(pumpInfo.imgUrl.indexOf('uploads/temporary') != -1) {
                     let savePath = pumpInfo.imgUrl.split('/')[3];
-                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
+                    let rootPath = process.cwd();
+                    let oldPath = path.join(rootPath, '/public/uploads/temporary/' ) + savePath;
                     let newPath = "public/images/front_end/product/pump/" + savePath;
                     let renameResult = await this.api.moveFiles(oldPath, newPath);
                     if (renameResult.status) {
@@ -258,7 +260,8 @@ export default class extends controller {
                 // 判断图片路径是否有更新
                 if(sealInfo.imgUrl.indexOf('uploads/temporary') != -1) {
                     let savePath = sealInfo.imgUrl.split('/')[3];
-                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
+                    let rootPath = process.cwd();
+                    let oldPath = path.join(rootPath, '/public/uploads/temporary/' ) + savePath;
                     let newPath = "public/images/front_end/product/seal/" + savePath;
                     let renameResult = await this.api.moveFiles(oldPath, newPath);
                     if (renameResult.status) {
@@ -267,7 +270,8 @@ export default class extends controller {
                 }
                 if(sealInfo.imgStructureUrl.indexOf('uploads/temporary') != -1) {
                     let savePath = sealInfo.imgStructureUrl.split('/')[3];
-                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
+                    let rootPath = process.cwd();
+                    let oldPath = path.join(rootPath, '/public/uploads/temporary/' ) + savePath;
                     let newPath = "public/images/front_end/product/seal/" + savePath;
                     let renameResult = await this.api.moveFiles(oldPath, newPath);
                     if (renameResult.status) {
@@ -319,7 +323,8 @@ export default class extends controller {
                 // 判断图片路径是否有更新
                 if(pumpInfo.imgUrl.indexOf('uploads/temporary') != -1) {
                     let savePath = pumpInfo.imgUrl.split('/')[3];
-                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
+                    let rootPath = process.cwd();
+                    let oldPath = path.join(rootPath, '/public/uploads/temporary/' ) + savePath;
                     let newPath = "public/images/front_end/product/pump/" + savePath;
                     let renameResult = await this.api.moveFiles(oldPath, newPath);
                     if (renameResult.status) {
@@ -361,7 +366,8 @@ export default class extends controller {
                 // 判断图片路径是否有更新
                 if(sealInfo.imgUrl.indexOf('uploads/temporary') != -1) {
                     let savePath = sealInfo.imgUrl.split('/')[3];
-                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
+                    let rootPath = process.cwd();
+                    let oldPath = path.join(rootPath, '/public/uploads/temporary/' ) + savePath;
                     let newPath = "public/images/front_end/product/seal/" + savePath;
                     let renameResult = await this.api.moveFiles(oldPath, newPath);
                     if (renameResult.status) {
@@ -370,7 +376,8 @@ export default class extends controller {
                 }
                 if(sealInfo.imgStructureUrl.indexOf('uploads/temporary') != -1) {
                     let savePath = sealInfo.imgStructureUrl.split('/')[3];
-                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
+                    let rootPath = process.cwd();
+                    let oldPath = path.join(rootPath, '/public/uploads/temporary/' ) + savePath;
                     let newPath = "public/images/front_end/product/seal/" + savePath;
                     let renameResult = await this.api.moveFiles(oldPath, newPath);
                     if (renameResult.status) {

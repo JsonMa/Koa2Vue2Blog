@@ -100,11 +100,9 @@ app.use(async(ctx, next) => {
             pageSize: 5, // 每页显示数量
             showAll: true // 新闻类型
         };
-        if(_.isEmpty(ctx.session.recommend)) {
-            var recommend = await api.hotRecommend(DBModule, queryParams);
-            if (recommend.status) {
-                ctx.session.recommend = recommend.data;
-            }
+        var recommend = await api.hotRecommend(DBModule, queryParams);
+        if (recommend.status) {
+            ctx.session.recommend = recommend.data;
         }
     }
     await next();

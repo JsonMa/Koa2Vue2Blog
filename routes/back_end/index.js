@@ -350,7 +350,8 @@ export default class extends controller {
                 // 判断图片路径是否有更新
                 if(enterpriseInfo.imgUrl.indexOf('uploads/temporary') != -1) {
                     let savePath = enterpriseInfo.imgUrl.split('/')[3];
-                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
+                    let rootPath = process.cwd();
+                    let oldPath = path.join(rootPath, '/public/uploads/temporary/' ) + savePath;
                     let newPath = "public/images/front_end/about/enterprise_image/" + savePath;
                     let renameResult = await this.api.moveFiles(oldPath, newPath);
                     if (renameResult.status) {
@@ -383,7 +384,8 @@ export default class extends controller {
                 // 判断图片路径是否有更新
                 if(enterpriseInfo.imgUrl.indexOf('uploads/temporary') != -1) {
                     let savePath = enterpriseInfo.imgUrl.split('/')[3];
-                    let oldPath = 'public\\uploads\\temporary\\' + savePath;
+                    let rootPath = process.cwd();
+                    let oldPath = path.join(rootPath, '/public/uploads/temporary/' ) + savePath;
                     let newPath = "public/images/front_end/about/enterprise_image/" + savePath;
                     let renameResult = await this.api.moveFiles(oldPath, newPath);
                     if (renameResult.status) {

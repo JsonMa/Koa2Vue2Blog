@@ -1,6 +1,22 @@
-.swiper-container {
-  height: 350px;
+//.swiper-container {
+//  min-height: 350px;
+//  width: 100%;
+//}
+.slider {
+  min-height: 350px;
   width: 100%;
+  text-align: center;
+  background: url('../../images/front_end/slider_01.jpg');
+  background-size: contain;
+  color: #fff;
+  vertical-align: middle;
+  ul {
+    padding-top: 3%;
+    line-height: 30px;
+  }
+  .flick-title {
+    font-size: 20px;
+  }
 }
 
 //摘要
@@ -196,13 +212,19 @@
       margin-top: 20px;
       a {
         padding: 8px 7px;
+        background-color: #333333;
         background: rgba(0, 0, 0, 0.6);
         color: #fff;
         display: inline-block;
         margin-left: 10px;
         cursor: pointer;
+        &:hover {
+          background-color: #428fcd;
+          background: rgba(24, 121, 198,0.8)
+        }
       }
       .active {
+        background-color: #428fcd;
         background: rgba(24, 121, 198,0.8)
       }
     }
@@ -213,6 +235,20 @@
       overflow: hidden;
       position: relative;
       li {
+        float: left;
+        list-style: none;
+        position: relative;
+        width: 240px;
+        margin-right: 10px;
+        margin-left: 10px;
+        text-align: center;
+        background-color: #fff;
+        a {
+          img {
+            max-width: 240px;
+            border: none;
+          }
+        }
         span {
           position: absolute;
           bottom: 0;
@@ -221,6 +257,7 @@
           display: block;
           text-align: center;
           //background: rgba(0, 122, 255, 0.8);
+          background-color: #999392;
           background: rgba(85, 75, 74, 0.6);
           padding: 10px 0;
           color: #fff;
@@ -278,16 +315,20 @@
         float: left;
         border-left: none;
         //background: url('../../images/front_end/background_product_1.jpg') no-repeat;
+        background-color: #333333;
         background: rgba(0,0,0,0.8);
+        text-align: center;
+        line-height: 145px;
         &:hover {
+          background-color: #131313;
           background: rgba(0,0,0,0.9);
         }
-        img {
-          margin-left: 50%;
-          margin-top: 27%;
-          transform: translate(-50%,-50%);
-          position: relative;
-        }
+        //img {
+        //  margin-left: 50%;
+        //  margin-top: 27%;
+        //  transform: translate(-50%,-50%);
+        //  position: relative;
+        //}
       }
       .customer-content-item:nth-child(1) {
         border-left: 1px solid silver;

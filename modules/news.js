@@ -146,6 +146,7 @@ export default class {
             }
 			return new Promise((resolve, reject) => {
                 this.News.find(condition)
+                    .sort({'createTime':-1})
                     .skip((params.pageNum - 1) * params.pageSize)
                     .limit(params.pageSize)
                     .exec(function (err, res){

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-var current_path = process.cwd();
+var currentPath = process.cwd()
 
-require('runkoa')(current_path + '/bin/www' )
+require('runkoa')(currentPath + '/bin/www')

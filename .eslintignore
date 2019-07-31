@@ -1,0 +1,5 @@
+coverage
+app/public
+config
+test
+node_modules

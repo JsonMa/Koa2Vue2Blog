@@ -1,0 +1,10 @@
+{
+  "extends": "eslint-config-standard",
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "no-fallthrough": 0
+  }
+}

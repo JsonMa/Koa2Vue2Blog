@@ -120,8 +120,7 @@ app.use(router.routes(), router.allowedMethods());
 
 // error handler
 app.on('error', (err, ctx) => {
-    console.log(err);
-    logger.error('server error', err, ctx);
+    console.log(err, ctx);
 });
 
 module.exports = app;

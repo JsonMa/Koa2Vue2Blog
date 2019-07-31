@@ -18,7 +18,7 @@ const _ = require("underscore"); // underscore
 require('dotenv').config(); // 加载环境变量
 const MONGO_HOST = process.env.BLOG_MONGO_HOST || 'localhost';
 const DBModule = new(require('./modules/modules.js'))(mongoose);
-mongoose.connect(`mongodb://${MONGO_HOST}/cqyir`); // 数据库链接
+mongoose.connect(`mongodb://cqyir:cqyir123456@${MONGO_HOST}/cqyir`); // 数据库链接
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {

@@ -1,14 +1,14 @@
 import session from "koa2-cookie-session"; // session
 import * as api from './routes/tools/api.js'; // api函数
 
-const fs = require ('fs');
+const fs = require('fs');
 const Koa = require('koa');
 const app = new Koa();
 const router = require('koa-router')();
 const views = require('koa-views');
 const co = require('co');
 const convert = require('koa-convert');
-const cookies = require( "cookies" );
+const cookies = require("cookies");
 const json = require('koa-json');
 const onerror = require('koa-onerror');
 const bodyParser = require('koa-bodyparser');
@@ -17,12 +17,12 @@ const mongoose = require('mongoose'); // mongoose
 const _ = require("underscore"); // underscore
 require('dotenv').config(); // 加载环境变量
 const MONGO_HOST = process.env.BLOG_MONGO_HOST || 'localhost';
-const DBModule = new (require('./modules/modules.js'))(mongoose);
-mongoose.connect(`mongodb://cqyir:cqyir123456@${MONGO_HOST}/cqyir`); // 数据库链接
+const DBModule = new(require('./modules/modules.js'))(mongoose);
+mongoose.connect(`mongodb://${MONGO_HOST}/cqyir`); // 数据库链接
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
-	process.env.NODE_ENV == 'development' && console.log("======> db connected")
+    process.env.NODE_ENV == 'development' && console.log("======> db connected")
 });
 
 // middlewares
@@ -32,29 +32,29 @@ app.use(convert(logger()));
 app.use(require('koa-static')(__dirname + '/public')); // 静态资源目录
 
 app.use(views(__dirname + '/views', {
-  extension: 'jade'
+    extension: 'jade'
 }));
 
 
 // koa2-cookie-session
 app.use(session({
-    key: "yir-session",   //default "koa:sid"
+    key: "yir-session", //default "koa:sid"
     // expires: 15/(24*60*60), //default 7 day 除以24*60*60 得到秒
-    expires: 30/(24*60), //default 7 day 除以24*60*60 得到秒
-    path:"/" // 允许所有路径访问cookie
+    expires: 30 / (24 * 60), //default 7 day 除以24*60*60 得到秒
+    path: "/" // 允许所有路径访问cookie
 }));
 
 // logger
 app.use(async (ctx, next) => {
-  const start = new Date();
-  await next();
-  const ms = new Date() - start;
-  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
+    const start = new Date();
+    await next();
+    const ms = new Date() - start;
+    console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
 
 // get error
 app.use(async (ctx, next) => {
-    try{
+    try {
 
         // 登录了之后将用户信息统一放入每一个返回的页面 得在next前面, url 也返回到页面
         // if(ctx.request.method.toLowerCase() == 'get' && ctx.session.user){
@@ -66,14 +66,13 @@ app.use(async (ctx, next) => {
         await next();
 
         // next 执行完后 请求状态发生改变，404 错误不会走catch，所以在try中处理404等错误 默认请求的状态是404
-        if (ctx.status.toString().substr(0,1) == 4) {
+        if (ctx.status.toString().substr(0, 1) == 4) {
             ctx.state = {
                 errorCode: ctx.status + ' 请求资源未找到'
             };
             await ctx.render('error');
         }
-    }
-    catch (err){
+    } catch (err) {
         console.log('ctx.err : ', err);
         if (ctx.request.method.toLowerCase() == 'post') {
             ctx.body = {
@@ -81,8 +80,7 @@ app.use(async (ctx, next) => {
                 status: 'failed',
                 errMsg: err.errMsg ? err.errMsg : 'server error'
             };
-        }
-        else{
+        } else {
             ctx.state = {
                 errorCode: '服务器内部错误！'
             };
@@ -93,8 +91,8 @@ app.use(async (ctx, next) => {
 });
 
 // hotRecommend
-app.use(async(ctx, next) => {
-    if(ctx.request.method.toLowerCase() == 'get'){
+app.use(async (ctx, next) => {
+    if (ctx.request.method.toLowerCase() == 'get') {
         let queryParams = {
             pageNum: 1, // 当前页数
             pageSize: 5, // 每页显示数量
@@ -111,19 +109,19 @@ app.use(async(ctx, next) => {
 // router
 let fontRouters = fs.readdirSync('./routes/front_end');
 fontRouters.forEach(name => {
-	name!= 'tools' && (new (require(`./routes/front_end/${name}`))(router, DBModule, app)).init();
+    name != 'tools' && (new(require(`./routes/front_end/${name}`))(router, DBModule, app)).init();
 });
 let backRouters = fs.readdirSync('./routes/back_end');
 backRouters.forEach(name => {
-	name!= 'tools' && (new (require(`./routes/back_end/${name}`))(router, DBModule, app)).init();
+    name != 'tools' && (new(require(`./routes/back_end/${name}`))(router, DBModule, app)).init();
 });
 
 app.use(router.routes(), router.allowedMethods());
 
 // error handler
 app.on('error', (err, ctx) => {
-  console.log(err);
-  logger.error('server error', err, ctx);
+    console.log(err);
+    logger.error('server error', err, ctx);
 });
 
 module.exports = app;

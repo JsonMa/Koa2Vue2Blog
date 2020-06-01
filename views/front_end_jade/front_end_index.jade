@@ -106,13 +106,22 @@ block content
         .product-content
             .product-content-title
                 h1.title 产品中心
-                a(href="../product/pumps?series=magnetic").product-more 更多产品>
+                a(href="../product/pumps?series=pitot").product-more 更多产品>
             .product-content-tab
-                a.magnetic.switch-tab.active 磁力泵系列
+                a.pitot.switch-tab.active 皮托管泵系列
+                a.magnetic.switch-tab 磁力泵系列
                 a.chemical.switch-tab 化工泵系列
-                a.pitot.switch-tab 皮托管泵系列
                 a.seal.switch-tab 机械密封系列
             .product-content-container
+                .pitot-container.content-container
+                    -if(pitotData && pitotData[0])
+                        ul#pitot
+                            -for(var i = 0; i < pitotData.length; i++)
+                                li
+                                    a(href="../product/detail?page=1&id=#{pitotData[i]._id}&type=pumps&series=pitot")
+                                        -var pitotUrl = pitotData[i].imgUrl.replace('public', '..');
+                                        img(src='#{pitotUrl}', alt='#{pitotData[i].name}', style='height:160px;')
+                                    span #{pitotData[i].name}
                 .magnetic-container.content-container
                     -if(magneticData && magneticData[0])
                         ul#magnetic
@@ -131,15 +140,6 @@ block content
                                         -var chemicalUrl = chemicalData[i].imgUrl.replace('public', '..');
                                         img(src='#{chemicalUrl}', alt='#{chemicalData[i].name}', style='height:160px;')
                                     span #{chemicalData[i].name}
-                .pitot-container.content-container
-                    -if(pitotData && pitotData[0])
-                        ul#pitot
-                            -for(var i = 0; i < pitotData.length; i++)
-                                li
-                                    a(href="../product/detail?page=1&id=#{pitotData[i]._id}&type=pumps&series=pitot")
-                                        -var pitotUrl = pitotData[i].imgUrl.replace('public', '..');
-                                        img(src='#{pitotUrl}', alt='#{pitotData[i].name}', style='height:160px;')
-                                    span #{pitotData[i].name}
                 .seal-container.content-container
                     -if(sealData && sealData[0])
                         ul#seal
